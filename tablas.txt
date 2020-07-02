@@ -1,0 +1,7 @@
+solar = 1
+hidroelectrica = 2
+termica = 3
+nuclear = 4
+
+estacion primaria = 1
+estacion secundaria = 2
