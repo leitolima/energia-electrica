@@ -1,0 +1,2 @@
+Installar como dev dependencies: morgan nodemon
+npm i morgan nodemon -D
