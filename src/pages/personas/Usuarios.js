@@ -1,20 +1,20 @@
 import React from 'react';
 
-const Lineas = () => {
+const Usuarios = () => {
     return (
         <div className="container-fluid mt-4">
             <div className="d-flex flex-row justify-content-between">
-                <h2>Lineas</h2>
-                <button className="btn btn-success">Agregar nueva</button>
+                <h2>Administrar permisos</h2>
+                <button className="btn btn-success">Guardar cambios</button>
             </div>
             <div className="fixed-head w-100 mt-4">
-                <table className="table table-hover">
+                <table className="table table-striped">
                     <thead className="thead-dark thead-border-top">
                         <tr>
-                            <th className="options text-center">Actions</th>
-                            <th>Id.Linea</th>
-                            <th>Id. Red</th>
-                            <th>Longitud</th>
+                            <th className="options">Opciones</th>
+                            <th>Nombre</th>
+                            <th>Usuario</th>
+                            <th>Nivel</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -22,61 +22,67 @@ const Lineas = () => {
                             <td>
                                 <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
                                 <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
+                                <button className="btn btn-success btn-icon" title="Accesos"><i className="fab fa-windows"></i></button>
                             </td>
-                            <td>56215424</td>
-                            <td>2</td>
-                            <td>90 M</td>
+                            <td>Leonel Lima</td>
+                            <td>leytholima</td>
+                            <td>Administrador</td>
                         </tr>
                         <tr>
                             <td>
                                 <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
                                 <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
+                                <button className="btn btn-success btn-icon" title="Accesos"><i className="fab fa-windows"></i></button>
                             </td>
-                            <td>12154312</td>
-                            <td>1</td>
-                            <td>50 M</td>
+                            <td>Susana Horia</td>
+                            <td>susanahoria</td>
+                            <td>Empleado</td>
                         </tr>
                         <tr>
                             <td>
                                 <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
                                 <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
+                                <button className="btn btn-success btn-icon" title="Accesos"><i className="fab fa-windows"></i></button>
                             </td>
-                            <td>32134124</td>
-                            <td>4</td>
-                            <td>85 M</td>
+                            <td>Enzo Diaz</td>
+                            <td>enzoxao</td>
+                            <td>Administrador</td>
                         </tr>
                         <tr>
                             <td>
                                 <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
                                 <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
+                                <button className="btn btn-success btn-icon" title="Accesos"><i className="fab fa-windows"></i></button>
                             </td>
-                            <td>42141672</td>
-                            <td>2</td>
-                            <td>60 M</td>
+                            <td>Homero Simpson</td>
+                            <td>homerosimpson</td>
+                            <td>Supervisor</td>
                         </tr>
                         <tr>
                             <td>
                                 <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
                                 <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
+                                <button className="btn btn-success btn-icon" title="Accesos"><i className="fab fa-windows"></i></button>
                             </td>
-                            <td>13456312</td>
-                            <td>3</td>
-                            <td>30 M</td>
-                        </tr> 
+                            <td>Cosme Fulanito</td>
+                            <td>cosmefulanito</td>
+                            <td>Empleado</td>
+                        </tr>
                         <tr>
                             <td>
                                 <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
                                 <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
+                                <button className="btn btn-success btn-icon" title="Accesos"><i className="fab fa-windows"></i></button>
                             </td>
-                            <td>32790012</td>
-                            <td>2</td>
-                            <td>60 M</td>
-                        </tr>     
+                            <td>Martin Garrix</td>
+                            <td>martingarrix</td>
+                            <td>Empleado</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-    );
+    )
 }
 
-export default Lineas
+export default Usuarios

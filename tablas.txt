@@ -1,7 +1,14 @@
-solar = 1
-hidroelectrica = 2
-termica = 3
-nuclear = 4
+CENTRALES:
+    solar = 1
+    hidroelectrica = 2
+    termica = 3
+    nuclear = 4
+ESTACIONES:
+    estacion primaria = 5
+    estacion secundaria = 6
 
-estacion primaria = 1
-estacion secundaria = 2
+
+NIVELES DE USUARIO:
+    Administrador = 1
+    Supervisor = 2
+    Empleado = 3
