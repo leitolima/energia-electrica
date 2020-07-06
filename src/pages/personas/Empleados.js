@@ -1,11 +1,31 @@
 import React from 'react';
+import Swal from 'sweetalert2';
 
 const Empleados = () => {
+    const lanzarAlerta = () =>{
+        Swal.fire({
+            title: '¿Estas seguro de eliminar el usuario?',
+            text: "Esta accion no puede ser revertida",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, eliminar!'
+        }).then((result) => {
+            if (result.value) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Accion exitosa',
+                    text: 'Usuario agregado correctamente'
+                })
+            }
+        })
+    }
     return (
         <div className="container-fluid mt-4">
             <div className="d-flex flex-row justify-content-between">
                 <h2>Administrar empleados</h2>
-                <button className="btn btn-success">Agregar nuevo</button>
+                <button className="btn btn-success" onClick={lanzarAlerta}>Agregar nuevo</button>
             </div>
             <div className="fixed-head w-100 mt-4">
                 <table className="table table-striped">
