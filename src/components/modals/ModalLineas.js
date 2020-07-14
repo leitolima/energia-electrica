@@ -18,7 +18,7 @@ const ModalLineas = ({show, linea, handleClose, handleChange, handleSubmit}) => 
                                     className="form-control" 
                                     id="idlinea"
                                     onChange={handleChange}
-                                    value={linea.nombre}
+                                    value={linea.idLinea}
                                 />
                             </div>
                         </div>
@@ -30,7 +30,7 @@ const ModalLineas = ({show, linea, handleClose, handleChange, handleSubmit}) => 
                                     className="form-control" 
                                     id="idred"
                                     onChange={handleChange}
-                                    value={linea.autor}
+                                    value={linea.idRed}
                                 />
                             </div>
                         </div>
@@ -42,7 +42,7 @@ const ModalLineas = ({show, linea, handleClose, handleChange, handleSubmit}) => 
                                     className="form-control" 
                                     id="longitud"
                                     onChange={handleChange}
-                                    value={linea.autor}
+                                    value={linea.longitud}
                                 />
                             </div>
                         </div>

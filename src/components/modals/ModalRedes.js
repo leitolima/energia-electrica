@@ -18,7 +18,7 @@ const ModalLineas = ({show, red, handleClose, handleChange, handleSubmit}) => {
                                     className="form-control" 
                                     id="idred"
                                     onChange={handleChange}
-                                    value={red.nombre}
+                                    value={red.idRed}
                                 />
                             </div>
                         </div>
@@ -42,7 +42,7 @@ const ModalLineas = ({show, red, handleClose, handleChange, handleSubmit}) => {
                                     className="form-control" 
                                     id="nomCom"
                                     onChange={handleChange}
-                                    value={red.estacion}
+                                    value={red.companias}
                                 />
                             </div>
                         </div>

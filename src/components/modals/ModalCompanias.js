@@ -18,7 +18,7 @@ const ModalCompanias = ({show, compania, handleClose, handleChange, handleSubmit
                                     className="form-control" 
                                     id="nomComp"
                                     onChange={handleChange}
-                                    value={compania.nombre}
+                                    value={compania.nombreCom}
                                 />
                             </div>
                         </div>
@@ -30,7 +30,7 @@ const ModalCompanias = ({show, compania, handleClose, handleChange, handleSubmit
                                     className="form-control" 
                                     id="clave"
                                     onChange={handleChange}
-                                    value={compania.autor}
+                                    value={compania.red}
                                 />
                             </div>
                         </div>

@@ -30,7 +30,7 @@ const ModalUsuario = ({show, usuario, handleClose, handleChange, handleSubmit}) 
                                     className="form-control" 
                                     id="clave"
                                     onChange={handleChange}
-                                    value={usuario.autor}
+                                    value={usuario.clave}
                                 />
                             </div>
                         </div>
