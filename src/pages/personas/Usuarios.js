@@ -1,20 +1,26 @@
-import React,{useState,useEffect}  from 'react';
+import React,{useState, useEffect}  from 'react';
+import Swal from 'sweetalert2';
 
 import ModalUsuario from '../../components/modals/ModalUsuario';
-
-
+import clientAxios from '../../config/clientAxios';
 
 const Usuarios = () => {
 
+    const[loading, setLoading] = useState(true);
     const[show, setShow] = useState(false);
-
     const[usuario, setUsuario] = useState({
         usuario: '',
-        id: '',
-        genero: '',
-        empleado: '',
-        activo: ''
+        clave: '',
+        empleado: 0,
+        activo: 1
     });
+
+    useEffect(() => {
+        if(loading){
+            //Peticion para traer los usuarios
+            console.log('Cargando...');
+        }
+    }, [loading])
 
     const handleClose = () => setShow(false);
     const handleOpen = () => setShow(true);
@@ -22,9 +28,45 @@ const Usuarios = () => {
     const handleChange = e => {
         setUsuario({
             ...usuario,
-            [e.target.name]: e.target.value
+            [e.target.id]: e.target.value
         });
     }
+
+    const handleSubmit = () => {
+        const token = localStorage.getItem('token');
+        clientAxios.post('/usuario/nuevo', usuario, {headers: {access:token}})
+        .then(res => {
+            if(res.data.type === 'notok'){
+                throw new Error(res.data.text);
+            } else {
+                const result = res.data;
+                Swal.fire({
+                    icon: result.type,
+                    title: result.title,
+                    text: result.text
+                });
+                if(result.type === 'success'){
+                    setLoading(true);
+                    handleClose();
+                }
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            Swal.fire({
+                icon: 'error',
+                title: 'Hubo un error',
+                text: err,
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Recargar'
+            })
+            .then((result) => {
+                window.location.reload(false);
+            });
+        })
+    }
+
     return (
         <div className="container-fluid mt-4">
             <div className="d-flex flex-row justify-content-between">
@@ -114,7 +156,7 @@ const Usuarios = () => {
                 usuario={usuario}
                 handleClose={handleClose}
                 handleChange={handleChange}
-                //handleSubmit={handleEditarCompleto}
+                handleSubmit={handleSubmit}
             />
         </div>
         

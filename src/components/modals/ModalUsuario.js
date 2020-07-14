@@ -38,17 +38,15 @@ const ModalUsuario = ({show, usuario, handleClose, handleChange, handleSubmit}) 
                             <div className="form-group">
                             <label htmlFor="empleado">Empleado</label>
                                 <select id="empleado" className="form-control">
-                                    <option>
-
-                                    </option>
+                                    <option></option>
                                 </select>
                             </div>
                         </div>
                         <div className="col-md-12 col-lg-12 col-xl-12">
                             <div className="form-group">
                                 <label htmlFor="activo">Estado</label>
-                                <select id="activo" className="form-control">
-                                    <option selected value="1">Activo</option>
+                                <select id="activo" disabled className="form-control">
+                                    <option defaultValue value="1">Activo</option>
                                     <option value="0">No activo</option>
                                 </select>
                             </div>
