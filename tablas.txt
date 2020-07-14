@@ -12,3 +12,43 @@ NIVELES DE USUARIO:
     Administrador = 1
     Supervisor = 2
     Empleado = 3
+
+CREATE DATABASE energia_electrica;
+
+CREATE TABLE usuarios (
+    id int(11) AUTO_INCREMENT PRIMARY KEY,
+    usuario varchar(25) NOT NULL,
+    clave varchar(255) NOT NULL,
+    id_empleado_fk int(11) DEFAULT NULL,
+    activo tinyint NOT NULL DEFAULT 1
+);
+
+CREATE TABLE empleados (
+    id int(11) AUTO_INCREMENT PRIMARY KEY,
+    nombre varchar(75) NOT NULL,
+    fecha_nac date,
+    dni varchar(8) NOT NULL,
+    email varchar(150) NOT NULL,
+    telefono varchar(25),
+    id_nivel_fk int(2) NOT NULL
+);
+
+CREATE TABLE nivel (
+    id int(11) AUTO_INCREMENT PRIMARY KEY,
+    titulo varchar(25) NOT NULL
+);
+
+CREATE TABLE ayuda (
+    id int(11) AUTO_INCREMENT PRIMARY KEY,
+    menu int(11) NOT NULL,
+    titulo varchar(25) NOT NULL
+);
+
+CREATE TABLE accesos (
+    id_usuario_fk int(11) PRIMARY KEY,
+    menu_ayuda_fk int(11) NOT NULL,
+    a tinyint NOT NULL,
+    b tinyint NOT NULL,
+    m tinyint NOT NULL,
+    c tinyint NOT NULL
+);
