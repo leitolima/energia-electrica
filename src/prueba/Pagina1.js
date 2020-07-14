@@ -10,8 +10,7 @@ const Pagina1 = () => {
 
     const dibujarGrafica = () => {
         /*
-        'container' es el id del div en el cual 
-        se va a pintar la grafica
+        'container' es el id del div en el cual se va a pintar la grafica
         */
         Highcharts.chart('container', {
             chart: {
