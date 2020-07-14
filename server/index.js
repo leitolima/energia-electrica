@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 //Routes
-app.use(requiere('./routes'));
+app.use(require('./routes'));
 
 //Server
 app.listen(app.get('port'), () => {

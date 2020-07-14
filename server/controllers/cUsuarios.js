@@ -1,10 +1,22 @@
 const mUsuarios = require('../models/mUsuarios');
 
+const returnError = res => {
+    return res.send({
+        type: "error",
+        title: "Error",
+        text: "Hubo un error al procesar la solicitud"
+    })
+}
+
 exports.agregarNuevoUsuario = async (req, res) => {
     const result = await mUsuarios.agregarNuevo(req.body);
     if(result.affectedRows){
-
-    }
+        return res.send({
+            type: "success",
+            title: "Éxito",
+            text: "Usuario registrado correctamente"
+        })
+    } return returnError(res);
 }
 
 exports.editarUsuario = async (req, res) => {
