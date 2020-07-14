@@ -10,6 +10,8 @@ import Empleados from './pages/personas/Empleados';
 import Usuarios from './pages/personas/Usuarios';
 import Accesos from './pages/personas/Accesos';
 
+import Login from './pages/Login';
+
 import Subestaciones from './pages/estaciones/Subestaciones';
 
 import Redes from './pages/Redes';
@@ -22,6 +24,7 @@ const App = () => {
             <Navbar/>
             <Sidebar/>
             <Switch>
+                <Route exact path="/login" component={Login}/>
                 <Route exact path="/" component={Root}/>
                 <Route exact path="/personas/empleados" component={Empleados}/> 
                 <Route exact path="/personas/usuarios" component={Usuarios}/>
