@@ -1,11 +1,39 @@
-import React from 'react';
+import React,{useState,useEffect}  from 'react';
+
+import ModalUsuario from '../../components/modals/ModalUsuario';
+
+
 
 const Usuarios = () => {
+
+    const[show, setShow] = useState(false);
+
+    const[usuario, setUsuario] = useState({
+        usuario: '',
+        id: '',
+        genero: '',
+        empleado: '',
+        activo: ''
+    });
+
+    const handleClose = () => setShow(false);
+    const handleOpen = () => setShow(true);
+
+    const handleChange = e => {
+        setUsuario({
+            ...usuario,
+            [e.target.name]: e.target.value
+        });
+    }
     return (
         <div className="container-fluid mt-4">
             <div className="d-flex flex-row justify-content-between">
                 <h2>Administrar permisos</h2>
-                <button className="btn btn-success">Guardar cambios</button>
+                <button 
+                    type="button"
+                    className="btn btn-success"
+                    onClick={handleOpen}
+                >Agregar nuevo</button>
             </div>
             <div className="fixed-head w-100 mt-4">
                 <table className="table table-striped">
@@ -81,7 +109,15 @@ const Usuarios = () => {
                     </tbody>
                 </table>
             </div>
+            <ModalUsuario
+                show={show}
+                usuario={usuario}
+                handleClose={handleClose}
+                handleChange={handleChange}
+                //handleSubmit={handleEditarCompleto}
+            />
         </div>
+        
     )
 }
 

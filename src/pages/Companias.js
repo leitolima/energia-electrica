@@ -4,7 +4,7 @@ const Companias = () => {
     return (
         <div className="container-fluid mt-4">
             <div className="d-flex flex-row justify-content-between">
-                <h2>Redes</h2>
+                <h2>Compañias</h2>
                 <button className="btn btn-success">Agregar nueva</button>
             </div>
             <div className="fixed-head w-100 mt-4">

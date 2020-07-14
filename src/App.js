@@ -22,6 +22,7 @@ const App = () => {
             <Navbar/>
             <Sidebar/>
             <Switch>
+                <Route exact path="/" component={Root}/>
                 <Route exact path="/personas/empleados" component={Empleados}/> 
                 <Route exact path="/personas/usuarios" component={Usuarios}/>
                 <Route exact path="/permisos/usuario/:id" component={Accesos}/>
@@ -41,4 +42,13 @@ const App = () => {
         </Router>
     )
 }
+
+const Root = () => {
+    return (
+        <div>
+            <h1>Sistema de energia electrica</h1>
+        </div>
+    )
+}
+
 export default App
