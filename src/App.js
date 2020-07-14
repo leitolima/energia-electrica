@@ -21,27 +21,31 @@ import Companias from './pages/Companias';
 
 const App = () => {
     return (
-        <Router>
-            <Navbar/>
-            <Sidebar/>
+        <Router>            
             <Switch>
                 <Route exact path="/login" component={Login}/>
-                <Route exact path="/" component={Root}/>
-                <Route exact path="/personas/empleados" component={Empleados}/> 
-                <Route exact path="/personas/usuarios" component={Usuarios}/>
-                <Route exact path="/permisos/usuario/:id" component={Accesos}/>
 
-                <Route exact path="/centrales/solares"/>
-                <Route exact path="/centrales/hidroelectrica"/>
-                <Route exact path="/centrales/termica"/>
-                <Route exact path="/centrales/nuclear"/>
+                <Route path='/'>
+                    <Navbar/>
+                    <Sidebar/>
+                
+                    <Route exact path="/" component={Root}/>
+                    <Route exact path="/personas/empleados" component={Empleados}/> 
+                    <Route exact path="/personas/usuarios" component={Usuarios}/>
+                    <Route exact path="/permisos/usuario/:id" component={Accesos}/>
 
-                <Route exact path="/estaciones/primarias"/>
-                <Route exact path="/estaciones/secundarias" component={Subestaciones}/>
+                    <Route exact path="/centrales/solares"/>
+                    <Route exact path="/centrales/hidroelectrica"/>
+                    <Route exact path="/centrales/termica"/>
+                    <Route exact path="/centrales/nuclear"/>
 
-                <Route exact path="/redes" component={Redes}/> 
-                <Route exact path="/lineas" component={Lineas}/>
-                <Route exact path="/companias" component={Companias}/>
+                    <Route exact path="/estaciones/primarias"/>
+                    <Route exact path="/estaciones/secundarias" component={Subestaciones}/>
+
+                    <Route exact path="/redes" component={Redes}/> 
+                    <Route exact path="/lineas" component={Lineas}/>
+                    <Route exact path="/companias" component={Companias}/>
+                </Route>
             </Switch>
         </Router>
     )
