@@ -16,6 +16,10 @@ import Redes from './pages/Redes';
 import Lineas from './pages/Lineas';
 import Companias from './pages/Companias';
 
+//paginas de prueba
+import Pagina1 from './prueba/Pagina1';
+import Pagina2 from './prueba/Pagina2';
+
 const App = () => {
     return (
         <Router>
@@ -37,6 +41,10 @@ const App = () => {
                 <Route exact path="/redes" component={Redes}/> 
                 <Route exact path="/lineas" component={Lineas}/>
                 <Route exact path="/companias" component={Companias}/>
+
+                {/*Ruta de prueba*/}
+                <Route exact path="/pruebas/pagina1" component={Pagina1}/>
+                <Route exact path="/pruebas/pagina2" component={Pagina2}/>
             </Switch>
         </Router>
     )
