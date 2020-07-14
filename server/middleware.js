@@ -7,17 +7,17 @@ exports.auth = (req, res, next) => {
 
     if(!token){
         res.send({
-            type: "error",
+            type: "notok",
             title: "Error",
-            text: "Not token provided"
+            text: "Token no provisto. Por favor inicie sesión,"
         })
     } else {
         jtw.verify(token, secret, (err, decoded) => {
             if(err){
                 res.send({
-                    type: "error",
+                    type: "notok",
                     title: "Error",
-                    text: "Token invalid or expired"
+                    text: "Token invalido o expirado. Por favor inicie sesión."
                 })
             } else {
                 req.email = decoded.email;

@@ -12,12 +12,17 @@ export default function withAuth(Component){
             async function fetchData(){
                 const token = localStorage.getItem('token');
                 await clientAxios.get('/api/checktoken', {
-                    header: {
+                    headers: {
                         access: token
                     }
                 })
                 .then(res => {
-                    console.log(res);
+                    if(res.status === 200){
+                        setLoading(false);
+                    } else {
+                        const error = new Error(res.error);
+                        throw error;
+                    }
                 })
                 .catch(err => {
                     setLoading(false);

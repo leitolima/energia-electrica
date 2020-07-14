@@ -2,9 +2,9 @@ const db = require('../db').db().query;
 
 exports.agregarNuevo = (obj) => {
     return db(`
-        INSERT INTO usuarios (usuario, clave)
-        VALUES (?, ?);
-    `, [obj.usuario, obj.clave]);
+        INSERT INTO usuarios (usuario, clave, id_empleado_fk)
+        VALUES (?, ?, ?);
+    `, [obj.usuario, obj.clave, obj.empleado]);
 }
 
 exports.editarUsuario = (obj) => {
