@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const cUsuarios = require('./controllers/cUsuarios');
+const cEmpleados = require('./controllers/cEmpleados');
 
 const auth = require('./middleware').auth;
 
@@ -14,5 +15,9 @@ router.post('/usuario/editar', cUsuarios.editarUsuario);
 router.get('/usuario/eliminar/:id', cUsuarios.eliminarUsuario);
 
 //Empleados
+router.get('/empleado/get/all', cEmpleados.getAll);
+router.post('/empleado/nuevo', cEmpleados.agregarNuevoEmpleado);
+router.post('/empleado/editar', cEmpleados.editarEmpleado);
+router.get('/empleado/eliminar/:id', cEmpleados.eliminarEmpleado);
 
 module.exports = router;

@@ -7,7 +7,6 @@ import clientAxios from '../../config/clientAxios';
 
 const Usuarios = () => {
 
-    const[loading, setLoading] = useState(true);
     const[show, setShow] = useState(false);
     const[usuario, setUsuario] = useState({
         usuario: '',
@@ -56,7 +55,7 @@ const Usuarios = () => {
                 title: res.data.title,
                 text: res.data.text
             });
-            if(res.data.type === 'success'){setLoading(true);handleClose();}
+            if(res.data.type === 'success') handleClose();
         })
         .catch(err => {
             lanzarError(err);
