@@ -8,6 +8,7 @@ import clientAxios from '../../config/clientAxios';
 const Empleados = () => {
 
     const[show, setShow] = useState(false);
+    const[load, setLoad] = useState(true);
     const[empleado, setEmpleado] = useState({
         nombre: '',
         fecha: '',
@@ -16,7 +17,7 @@ const Empleados = () => {
         telefono: ''
     });
 
-    const {rows, error} = useData('/empleado/get/all');
+    const {rows, error} = useData('/empleado/get/all', load);
 
     useEffect(() => {
         if(error){
@@ -52,7 +53,7 @@ const Empleados = () => {
                 title: res.data.title,
                 text: res.data.text
             });
-            if(res.data.type === 'success') setShow(false);
+            if(res.data.type === 'success') {setShow(false);setLoad(true);}
         })
         .catch(err => {
             lanzarError(err);

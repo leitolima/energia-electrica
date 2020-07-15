@@ -5,18 +5,18 @@ const ModalEmpleado = ({show, empleado, handleClose, handleChange, handleSubmit}
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Agregar usuario</Modal.Title>
+                <Modal.Title>Agregar empleado</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <form>
                     <div className="row">
                         <div className="col-md-12 col-lg-12 col-xl-12">
                             <div className="form-group">
-                                <label htmlFor="usuario">Nombre de usuario: </label>
+                                <label htmlFor="nombre">Nombre del empleado: </label>
                                 <input
                                     type="text" 
                                     className="form-control" 
-                                    id="usuario"
+                                    id="nombre"
                                     onChange={handleChange}
                                     value={empleado.nombre}
                                 />

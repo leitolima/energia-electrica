@@ -8,6 +8,7 @@ import clientAxios from '../../config/clientAxios';
 const Usuarios = () => {
 
     const[show, setShow] = useState(false);
+    const[load, setLoad] = useState(true);
     const[usuario, setUsuario] = useState({
         usuario: '',
         clave: '',
@@ -16,7 +17,7 @@ const Usuarios = () => {
         activo: 1
     });
 
-    const {rows, error} = useData('/usuario/get/all');
+    const {rows, error} = useData('/usuario/get/all', load);
 
     useEffect(() => {
         if(error){
@@ -35,9 +36,6 @@ const Usuarios = () => {
         }).then((result) => window.location.reload(false));
     }
 
-    const handleClose = () => setShow(false);
-    const handleOpen = () => setShow(true);
-
     const handleChange = e => {
         setUsuario({
             ...usuario,
@@ -55,7 +53,7 @@ const Usuarios = () => {
                 title: res.data.title,
                 text: res.data.text
             });
-            if(res.data.type === 'success') handleClose();
+            if(res.data.type === 'success'){setShow(false);setLoad(true);}
         })
         .catch(err => {
             lanzarError(err);
@@ -69,7 +67,7 @@ const Usuarios = () => {
                 <button 
                     type="button"
                     className="btn btn-success"
-                    onClick={handleOpen}
+                    onClick={() => setShow(true)}
                 >Agregar nuevo</button>
             </div>
             <div className="fixed-head w-100 mt-4">
@@ -89,7 +87,11 @@ const Usuarios = () => {
                                 rows.map((r, key) => {
                                     return(
                                         <tr key={key}>
-                                            <td>Opciones</td>
+                                            <td>
+                                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
+                                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
+                                                <button className="btn btn-success btn-icon" title="Accesos"><i className="fab fa-windows"></i></button>
+                                            </td>
                                             <td>{r.nombre}</td>
                                             <td>{r.usuario}</td>
                                             <td>{r.nivel}</td>
@@ -103,24 +105,13 @@ const Usuarios = () => {
                                 </tr>
                             )
                         }
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                                <button className="btn btn-success btn-icon" title="Accesos"><i className="fab fa-windows"></i></button>
-                            </td>
-                            <td>Susana Horia</td>
-                            <td>susanahoria</td>
-                            <td>Empleado</td>
-                            <td>Activo</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
             <ModalUsuario
                 show={show}
                 usuario={usuario}
-                handleClose={handleClose}
+                handleClose={() => setShow(false)}
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
             />

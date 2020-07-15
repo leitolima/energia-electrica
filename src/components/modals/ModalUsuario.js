@@ -1,7 +1,35 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Modal} from 'react-bootstrap';
+import Swal from 'sweetalert2';
+
+import clientAxios from '../../config/clientAxios';
 
 const ModalUsuario = ({show, usuario, handleClose, handleChange, handleSubmit}) => {
+
+    const[loading, setLoading] = useState(true);
+    const[empleados, setEmpleados] = useState([]);
+
+    useEffect(() => {
+        if(loading && show){
+            const token = localStorage.getItem('token');
+            clientAxios.get('/empleados/get/sinusuario', {headers: {access:token}})
+            .then(res => {
+                if(res.data.type === 'notfound'){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Hubo un error',
+                        text: 'No hay empleados disponibles para asignarles un usuario',
+                        showCancelButton: false,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Cerrar'
+                    }).then((result) => handleClose());
+                } else {
+                    setEmpleados(res.data);
+                }
+            })
+        }
+    }, [loading, show])
+
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -18,7 +46,7 @@ const ModalUsuario = ({show, usuario, handleClose, handleChange, handleSubmit}) 
                                     className="form-control" 
                                     id="usuario"
                                     onChange={handleChange}
-                                    value={usuario.nombre}
+                                    value={usuario.usuario}
                                 />
                             </div>
                         </div>
@@ -39,6 +67,13 @@ const ModalUsuario = ({show, usuario, handleClose, handleChange, handleSubmit}) 
                             <label htmlFor="empleado">Empleado</label>
                                 <select id="empleado" onChange={handleChange} className="form-control">
                                     <option defaultValue value="0">Seleccionar</option>
+                                    {
+                                        empleados.map((e, key) => {
+                                            return(
+                                                <option value={e.id}>{e.nombre}</option>
+                                            )
+                                        })
+                                    }
                                 </select>
                             </div>
                         </div>

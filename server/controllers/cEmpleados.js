@@ -13,6 +13,14 @@ exports.getAll = async (req, res) => {
     res.send(result);
 }
 
+exports.getAllSinUsuario = async (req, res) => {
+    const result = await mEmpleados.getAllSinUsuario();
+    if(result.length === 0){
+        return res.send({type: 'notfound'});
+    }
+    res.send(result);
+}
+
 exports.agregarNuevoEmpleado = async (req, res) => {
     const result = await mEmpleados.agregarNuevo(req.body);
     if(result.affectedRows){
