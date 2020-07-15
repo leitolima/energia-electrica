@@ -8,6 +8,11 @@ const returnError = res => {
     })
 }
 
+exports.getAll = async (req, res) => {
+    const result = await mUsuarios.getAll();
+    res.send(result);
+}
+
 exports.agregarNuevoUsuario = async (req, res) => {
     const result = await mUsuarios.agregarNuevo(req.body);
     if(result.affectedRows){

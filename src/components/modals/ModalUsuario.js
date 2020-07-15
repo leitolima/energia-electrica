@@ -22,7 +22,7 @@ const ModalUsuario = ({show, usuario, handleClose, handleChange, handleSubmit}) 
                                 />
                             </div>
                         </div>
-                        <div className="col-md-6 col-lg-6 col-xl-6">
+                        <div className="col-md-12 col-lg-12 col-xl-12">
                             <div className="form-group">
                                 <label htmlFor="clave">Clave: </label>
                                 <input 
@@ -37,8 +37,19 @@ const ModalUsuario = ({show, usuario, handleClose, handleChange, handleSubmit}) 
                         <div className="col-md-6 col-lg-6 col-xl-6">
                             <div className="form-group">
                             <label htmlFor="empleado">Empleado</label>
-                                <select id="empleado" className="form-control">
-                                    <option></option>
+                                <select id="empleado" onChange={handleChange} className="form-control">
+                                    <option defaultValue value="0">Seleccionar</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="col-md-6 col-lg-6 col-xl-6">
+                            <div className="form-group">
+                            <label htmlFor="nivel">Nivel</label>
+                                <select id="nivel" onChange={handleChange} className="form-control">
+                                    <option defaultValue value="0">Seleccionar</option>
+                                    <option value="1">Administrador</option>
+                                    <option value="2">Supervisor</option>
+                                    <option value="3">Empleado</option>
                                 </select>
                             </div>
                         </div>

@@ -8,7 +8,8 @@ router.get('/api/checkout', auth, (req, res) => {
 })
 
 //Usuarios
-router.post('/usuario/nuevo', auth, cUsuarios.agregarNuevoUsuario);
+router.get('/usuario/get/all', cUsuarios.getAll);
+router.post('/usuario/nuevo', cUsuarios.agregarNuevoUsuario);
 router.post('/usuario/editar', cUsuarios.editarUsuario);
 router.get('/usuario/eliminar/:id', cUsuarios.eliminarUsuario);
 
