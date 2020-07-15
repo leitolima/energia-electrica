@@ -1,23 +1,28 @@
 import React,{useState, useEffect}  from 'react';
 import Swal from 'sweetalert2';
-import useData from '../../hooks/useData';
 
 import ModalUsuario from '../../components/modals/ModalUsuario';
 import clientAxios from '../../config/clientAxios';
 
+import useData from '../../hooks/useData';
+//Validar
+import useValidar from '../../hooks/useValidar';
+import validarUsuario from '../../validations/validarUsuario';
+
+const INITIAL_STATE  = {
+    usuario: '',
+    clave: '',
+    empleado: 0,
+    nivel: 0,
+    activo: 1
+}
+
 const Usuarios = () => {
 
     const[show, setShow] = useState(false);
-    const[load, setLoad] = useState(true);
-    const[usuario, setUsuario] = useState({
-        usuario: '',
-        clave: '',
-        empleado: 0,
-        nivel: 0,
-        activo: 1
-    });
 
-    const {rows, error} = useData('/usuario/get/all', load);
+    const {valores, errores, handleChange, handleSubmit} = useValidar(INITIAL_STATE, validarUsuario, registrarUsuario);
+    const {rows, error, handleLoading} = useData('/usuarios/get/all');
 
     useEffect(() => {
         if(error){
@@ -36,24 +41,21 @@ const Usuarios = () => {
         }).then((result) => window.location.reload(false));
     }
 
-    const handleChange = e => {
-        setUsuario({
-            ...usuario,
-            [e.target.id]: e.target.value
-        });
-    }
-
-    const handleSubmit = () => {
+    function registrarUsuario(){
         const token = localStorage.getItem('token');
-        clientAxios.post('/usuario/nuevo', usuario, {headers: {access:token}})
+        clientAxios.post('/usuario/nuevo', valores, {headers: {access:token}})
         .then(res => {
             if(res.data.type === 'notok') throw new Error(res.data.text);
             Swal.fire({
                 icon: res.data.type,
                 title: res.data.title,
-                text: res.data.text
+                text: res.data.text,
+                timer: 1500
             });
-            if(res.data.type === 'success'){setShow(false);setLoad(true);}
+            if(res.data.type === 'success'){
+                setShow(false);
+                handleLoading();
+            }
         })
         .catch(err => {
             lanzarError(err);
@@ -110,7 +112,7 @@ const Usuarios = () => {
             </div>
             <ModalUsuario
                 show={show}
-                usuario={usuario}
+                usuario={valores}
                 handleClose={() => setShow(false)}
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}

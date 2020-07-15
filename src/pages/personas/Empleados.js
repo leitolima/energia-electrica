@@ -1,23 +1,28 @@
 import React, {useState, useEffect} from 'react';
 import Swal from 'sweetalert2';
-import useData from '../../hooks/useData';
 
 import ModalEmpleado from '../../components/modals/ModalEmpleado';
 import clientAxios from '../../config/clientAxios';
 
+import useData from '../../hooks/useData';
+//Validar
+import useValidar from '../../hooks/useValidar';
+import validarEmpleado from '../../validations/validarEmpleado';
+
+const INITIAL_STATE  = {
+    nombre: '',
+    fecha: '',
+    dni: '',
+    email: '',
+    telefono: ''
+}
+
 const Empleados = () => {
 
     const[show, setShow] = useState(false);
-    const[load, setLoad] = useState(true);
-    const[empleado, setEmpleado] = useState({
-        nombre: '',
-        fecha: '',
-        dni: '',
-        email: '',
-        telefono: ''
-    });
-
-    const {rows, error} = useData('/empleado/get/all', load);
+    
+    const {valores, errores, handleChange, handleSubmit} = useValidar(INITIAL_STATE, validarEmpleado, registrarEmpleado);
+    const {rows, error, handleLoading} = useData('/empleados/get/all');
 
     useEffect(() => {
         if(error){
@@ -36,24 +41,21 @@ const Empleados = () => {
         }).then((result) => window.location.reload(false));
     }
 
-    const handleChange = e => {
-        setEmpleado({
-            ...empleado,
-            [e.target.id]: e.target.value
-        });
-    }
-
-    const handleSubmit = () => {
+    function registrarEmpleado(){
         const token = localStorage.getItem('token');
-        clientAxios.post('/empleado/nuevo', empleado, {headers: {access:token}})
+        clientAxios.post('/empleado/nuevo', valores, {headers: {access:token}})
         .then(res => {
             if(res.data.type === 'notok') throw new Error(res.data.text);
             Swal.fire({
                 icon: res.data.type,
                 title: res.data.title,
-                text: res.data.text
+                text: res.data.text,
+                timer: 1500
             });
-            if(res.data.type === 'success') {setShow(false);setLoad(true);}
+            if(res.data.type === 'success') {
+                setShow(false);
+                handleLoading();
+            }
         })
         .catch(err => {
             lanzarError(err);
@@ -111,7 +113,7 @@ const Empleados = () => {
             </div>
             <ModalEmpleado
                 show={show}
-                empleado={empleado}
+                empleado={valores}
                 handleClose={() => setShow(false)}
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}

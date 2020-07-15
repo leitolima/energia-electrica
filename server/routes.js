@@ -9,13 +9,13 @@ router.get('/api/checkout', auth, (req, res) => {
 })
 
 //Usuarios
-router.get('/usuario/get/all', cUsuarios.getAll);
+router.get('/usuarios/get/all', cUsuarios.getAll);
 router.post('/usuario/nuevo', cUsuarios.agregarNuevoUsuario);
 router.post('/usuario/editar', cUsuarios.editarUsuario);
 router.get('/usuario/eliminar/:id', cUsuarios.eliminarUsuario);
 
 //Empleados
-router.get('/empleado/get/all', cEmpleados.getAll);
+router.get('/empleados/get/all', cEmpleados.getAll);
 router.get('/empleados/get/sinusuario', cEmpleados.getAllSinUsuario);
 router.post('/empleado/nuevo', cEmpleados.agregarNuevoEmpleado);
 router.post('/empleado/editar', cEmpleados.editarEmpleado);
