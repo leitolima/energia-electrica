@@ -15,6 +15,10 @@ const useValidar = (initialState, validar, fn) => {
         }
     }, [errores]);
 
+    const handleEditar = valor => {
+        setValores(valor);
+    }
+
     const handleSubmit = () => {
         const erroresValidacion = validar(valores);
         setSubmitForm(true);
@@ -24,7 +28,10 @@ const useValidar = (initialState, validar, fn) => {
     const handleChange = e => {
         setValores({
             ...valores,
-            [e.target.id]: e.target.value
+            [e.target.id]: e.target.type === 'select-one' ? (
+                parseInt(e.target.value)) : (
+                    e.target.value
+                )
         });
     }
 
@@ -33,6 +40,7 @@ const useValidar = (initialState, validar, fn) => {
         handleSubmit,
         errores, 
         valores,
+        handleEditar
     }
 }
 export default useValidar;

@@ -7,8 +7,14 @@ import clientAxios from '../../config/clientAxios';
 const ModalUsuario = ({show, usuario, handleClose, handleChange, handleSubmit}) => {
 
     const[empleados, setEmpleados] = useState([]);
+    const[activo, setActivo] = useState(true);
 
     useEffect(() => {
+        if(usuario.usuario === ''){
+            setActivo(true);
+        } else {
+            setActivo(false);
+        }
         if(show){
             const token = localStorage.getItem('token');
             clientAxios.get('/empleados/get/sinusuario', {headers: {access:token}})
@@ -36,6 +42,11 @@ const ModalUsuario = ({show, usuario, handleClose, handleChange, handleSubmit}) 
             </Modal.Header>
             <Modal.Body>
                 <form>
+                    <input 
+                        type="text" 
+                        className="d-none"
+                        defaultValue={usuario.id}
+                    />
                     <div className="row">
                         <div className="col-md-12 col-lg-12 col-xl-12">
                             <div className="form-group">
@@ -49,27 +60,47 @@ const ModalUsuario = ({show, usuario, handleClose, handleChange, handleSubmit}) 
                                 />
                             </div>
                         </div>
-                        <div className="col-md-12 col-lg-12 col-xl-12">
-                            <div className="form-group">
-                                <label htmlFor="clave">Clave: </label>
-                                <input 
-                                    type="password" 
-                                    className="form-control" 
-                                    id="clave"
-                                    onChange={handleChange}
-                                    value={usuario.clave}
-                                />
-                            </div>
-                        </div>
+                        {
+                            activo ? (
+                                <div className="col-md-12 col-lg-12 col-xl-12">
+                                    <div className="form-group">
+                                        <label htmlFor="clave">Clave: </label>
+                                        <input 
+                                            type="password" 
+                                            className="form-control" 
+                                            id="clave"
+                                            onChange={handleChange}
+                                            value={usuario.clave}
+                                        />
+                                    </div>
+                                </div>
+                            ) : (
+                                null
+                            )
+                        }
                         <div className="col-md-6 col-lg-6 col-xl-6">
                             <div className="form-group">
                             <label htmlFor="empleado">Empleado</label>
-                                <select id="empleado" onChange={handleChange} className="form-control">
-                                    <option defaultValue value="0">Seleccionar</option>
+                                <select 
+                                    id="empleado" 
+                                    onChange={handleChange} 
+                                    defaultValue={usuario.empleado} 
+                                    className="form-control"
+                                >
+                                    <option value="0">Seleccionar</option>
+                                    {
+                                        usuario.empleado !== 0 ? (
+                                            <option 
+                                                value={usuario.empleado}
+                                            >{usuario.nombre}</option>
+                                        ) : (
+                                            null
+                                        )
+                                    }
                                     {
                                         empleados.map((e, key) => {
                                             return(
-                                                <option value={e.id}>{e.nombre}</option>
+                                                <option key={key} value={e.id}>{e.nombre}</option>
                                             )
                                         })
                                     }
@@ -79,8 +110,13 @@ const ModalUsuario = ({show, usuario, handleClose, handleChange, handleSubmit}) 
                         <div className="col-md-6 col-lg-6 col-xl-6">
                             <div className="form-group">
                             <label htmlFor="nivel">Nivel</label>
-                                <select id="nivel" onChange={handleChange} className="form-control">
-                                    <option defaultValue value="0">Seleccionar</option>
+                                <select 
+                                    id="nivel" 
+                                    onChange={handleChange} 
+                                    defaultValue={usuario.nivel} 
+                                    className="form-control"
+                                >
+                                    <option value="0">Seleccionar</option>
                                     <option value="1">Administrador</option>
                                     <option value="2">Supervisor</option>
                                     <option value="3">Empleado</option>
@@ -90,8 +126,14 @@ const ModalUsuario = ({show, usuario, handleClose, handleChange, handleSubmit}) 
                         <div className="col-md-12 col-lg-12 col-xl-12">
                             <div className="form-group">
                                 <label htmlFor="activo">Estado</label>
-                                <select id="activo" disabled className="form-control">
-                                    <option defaultValue value="1">Activo</option>
+                                <select 
+                                    id="activo" 
+                                    disabled={activo} 
+                                    onChange={handleChange} 
+                                    defaultValue={usuario.activo} 
+                                    className="form-control"
+                                >
+                                    <option value="1">Activo</option>
                                     <option value="0">No activo</option>
                                 </select>
                             </div>

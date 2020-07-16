@@ -2,10 +2,16 @@ import React,{useState, useEffect}  from 'react';
 import Swal from 'sweetalert2';
 
 import ModalUsuario from '../../components/modals/ModalUsuario';
-import clientAxios from '../../config/clientAxios';
 
-import eliminarRegistro from '../../functions/eliminarRegistro';
+//Functions
+import {
+    eliminarRegistro, 
+    buscarRegistroById,
+    agregarNuevoEditar,
+    lanzarError
+} from '../../functions';
 import useData from '../../hooks/useData';
+
 //Validar
 import useValidar from '../../hooks/useValidar';
 import validarUsuario from '../../validations/validarUsuario';
@@ -21,8 +27,9 @@ const INITIAL_STATE  = {
 const Usuarios = () => {
 
     const[show, setShow] = useState(false);
+    const[editar, setEditar] = useState(false);
 
-    const {valores, errores, handleChange, handleSubmit} = useValidar(INITIAL_STATE, validarUsuario, registrarUsuario);
+    const {valores, errores, handleChange, handleSubmit, handleEditar} = useValidar(INITIAL_STATE, validarUsuario, registrarUsuario);
     const {rows, error, handleLoading} = useData('/usuarios/get/all');
 
     useEffect(() => {
@@ -31,36 +38,28 @@ const Usuarios = () => {
         }
     }, [error]);
 
-    const lanzarError = err => {
-        Swal.fire({
-            icon: 'error',
-            title: 'Hubo un error',
-            text: err,
-            showCancelButton: false,
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'Recargar'
-        }).then((result) => window.location.reload(false));
+    async function registrarUsuario(){
+        let result = {};
+        if(editar){
+            //Edita un usuario existente
+            result = await agregarNuevoEditar('/usuario/editar', valores);
+        } else {
+            //Agrega un nuevo usuario
+            result = await agregarNuevoEditar('/usuario/nuevo', valores);
+        }
+        if(result.type === 'success'){
+            setShow(false);
+            handleLoading();
+        } else {
+            lanzarError(result.text);
+        }
     }
 
-    function registrarUsuario(){
-        const token = localStorage.getItem('token');
-        clientAxios.post('/usuario/nuevo', valores, {headers: {access:token}})
-        .then(res => {
-            if(res.data.type === 'notok') throw new Error(res.data.text);
-            Swal.fire({
-                icon: res.data.type,
-                title: res.data.title,
-                text: res.data.text,
-                timer: 1500
-            });
-            if(res.data.type === 'success'){
-                setShow(false);
-                handleLoading();
-            }
-        })
-        .catch(err => {
-            lanzarError(err);
-        })
+    const editarUsuario = async id => {
+        const result = await buscarRegistroById('/usuario/get', id);
+        setEditar(true);
+        handleEditar(result);
+        setShow(true);
     }
 
     const eliminarUsuario = id => {
@@ -76,12 +75,6 @@ const Usuarios = () => {
             if(res.value) {
                 const result = await eliminarRegistro('/usuario/eliminar', id);
                 if(result.type === 'success'){
-                    Swal.fire({
-                        icon: result.type,
-                        title: result.title,
-                        text: result.text,
-                        timer: 1500
-                    });
                     handleLoading();
                 } else {
                     lanzarError(result.text);
@@ -97,7 +90,11 @@ const Usuarios = () => {
                 <button 
                     type="button"
                     className="btn btn-success"
-                    onClick={() => setShow(true)}
+                    onClick={() => {
+                        handleEditar(INITIAL_STATE);
+                        setEditar(false);
+                        setShow(true);
+                    }}
                 >Agregar nuevo</button>
             </div>
             <div className="fixed-head w-100 mt-4">
@@ -121,6 +118,7 @@ const Usuarios = () => {
                                                 <button 
                                                     className="btn btn-warning btn-icon" 
                                                     title="Editar"
+                                                    onClick={() => editarUsuario(r.id)}
                                                 ><i className="fas fa-pen"></i></button>
                                                 <button 
                                                     className="btn btn-danger btn-icon" 

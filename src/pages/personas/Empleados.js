@@ -4,7 +4,13 @@ import Swal from 'sweetalert2';
 import ModalEmpleado from '../../components/modals/ModalEmpleado';
 import clientAxios from '../../config/clientAxios';
 
-import eliminarRegistro from '../../functions/eliminarRegistro';
+//Functions
+import {
+    eliminarRegistro, 
+    buscarRegistroById,
+    agregarNuevoEditar,
+    lanzarError
+} from '../../functions';
 import useData from '../../hooks/useData';
 //Validar
 import useValidar from '../../hooks/useValidar';
@@ -21,8 +27,9 @@ const INITIAL_STATE  = {
 const Empleados = () => {
 
     const[show, setShow] = useState(false);
+    const[editar, setEditar] = useState(false);
     
-    const {valores, errores, handleChange, handleSubmit} = useValidar(INITIAL_STATE, validarEmpleado, registrarEmpleado);
+    const {valores, errores, handleChange, handleSubmit, handleEditar} = useValidar(INITIAL_STATE, validarEmpleado, registrarEmpleado);
     const {rows, error, handleLoading} = useData('/empleados/get/all');
 
     useEffect(() => {
@@ -31,39 +38,31 @@ const Empleados = () => {
         }
     }, [error]);
 
-    const lanzarError = err => {
-        Swal.fire({
-            icon: 'error',
-            title: 'Hubo un error',
-            text: err,
-            showCancelButton: false,
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'Recargar'
-        }).then((result) => window.location.reload(false));
+    async function registrarEmpleado(){
+        let result = {};
+        if(editar){
+            //Edita un empleado existente
+            result = await agregarNuevoEditar('/empleado/editar', valores);
+        } else {
+            //Agrega un nuevo empleado
+            result = await agregarNuevoEditar('/empleado/nuevo', valores);
+        }
+        if(result.type === 'success'){
+            setShow(false);
+            handleLoading();
+        } else {
+            lanzarError(result.text);
+        }
     }
 
-    function registrarEmpleado(){
-        const token = localStorage.getItem('token');
-        clientAxios.post('/empleado/nuevo', valores, {headers: {access:token}})
-        .then(res => {
-            if(res.data.type === 'notok') throw new Error(res.data.text);
-            Swal.fire({
-                icon: res.data.type,
-                title: res.data.title,
-                text: res.data.text,
-                timer: 1500
-            });
-            if(res.data.type === 'success') {
-                setShow(false);
-                handleLoading();
-            }
-        })
-        .catch(err => {
-            lanzarError(err);
-        })
+    const editarEmpleado = async id => {
+        const result = await buscarRegistroById('/empleado/get', id);
+        setEditar(true);
+        handleEditar(result);
+        setShow(true);
     }
 
-    const eliminarEmpleado = id => {
+    const eliminarEmpleado = async id => {
         Swal.fire({
             title: '¿Estás seguro/a?',
             text: "Esta acción puede ser irreversible",
@@ -76,12 +75,6 @@ const Empleados = () => {
             if(res.value) {
                 const result = await eliminarRegistro('/empleado/eliminar', id);
                 if(result.type === 'success'){
-                    Swal.fire({
-                        icon: result.type,
-                        title: result.title,
-                        text: result.text,
-                        timer: 1500
-                    });
                     handleLoading();
                 } else {
                     lanzarError(result.text);
@@ -97,7 +90,11 @@ const Empleados = () => {
                 <button 
                     type="button"
                     className="btn btn-success"
-                    onClick={() => setShow(true)}
+                    onClick={() => {
+                        handleEditar(INITIAL_STATE);
+                        setEditar(false);
+                        setShow(true);
+                    }}
                 >Agregar nuevo</button>
             </div>
             <div className="fixed-head w-100 mt-4">
@@ -122,6 +119,7 @@ const Empleados = () => {
                                                 <button 
                                                     className="btn btn-warning btn-icon" 
                                                     title="Editar"
+                                                    onClick={() => editarEmpleado(r.id)}
                                                 ><i className="fas fa-pen"></i></button>
                                                 <button 
                                                     className="btn btn-danger btn-icon" 
@@ -131,7 +129,7 @@ const Empleados = () => {
                                             </td>
                                             <td>{r.nombre}</td>
                                             <td>{r.dni}</td>
-                                            <td>{r.fecha_nac}</td>
+                                            <td>{r.fecha}</td>
                                             <td>{r.email}</td>
                                             <td>{r.telefono}</td>
                                         </tr>
