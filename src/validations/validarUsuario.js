@@ -9,7 +9,7 @@ export default function validarUsuario(valores){
     }
     //clave
     if(!valores.clave){
-        errores.dni = 'La clave es obligatoria.';
+        errores.clave = 'La clave es obligatoria.';
     }
     //empleado
     if(valores.empleado === 0){

@@ -11,3 +11,4 @@ funcion 'then' de las peticiones axios con res.data.type)
 'notok': Error de token
 'notfound': Dato no encontrado
 'error': Error al procesar solicitud insert o update
+'success': Todo correcto

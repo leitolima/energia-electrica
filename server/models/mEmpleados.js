@@ -2,7 +2,9 @@ const db = require('../db').db().query;
 
 exports.getAll = () => {
     return db(`
-        SELECT * FROM empleados
+        SELECT id, nombre, DATE_FORMAT(fecha_nac, '%m/%d/%Y') AS fecha,
+        dni, email, telefono 
+        FROM empleados
     `, []);
 }
 
@@ -20,16 +22,22 @@ exports.agregarNuevo = obj => {
     `, [obj.nombre, obj.fecha, obj.dni, obj.email, obj.telefono]);
 }
 
+exports.getById = id => {
+    return db(`
+        SELECT *, fecha_nac AS fecha FROM empleados WHERE id = ?
+    `, [id]);
+}
+
 exports.editarEmpleado = obj => {
     return db(`
         UPDATE empleados SET
         nombre = ?,
         fecha_nac = ?,
         dni = ?,
-        email = ?
+        email = ?,
         telefono = ?
         WHERE id = ?
-    `, [obj.nombre, obj.fecha_nac, obj.dni, obj.email, obj.telefono, obj.id]);
+    `, [obj.nombre, obj.fecha, obj.dni, obj.email, obj.telefono, obj.id]);
 }
 
 exports.eliminarEmpleado = id => {

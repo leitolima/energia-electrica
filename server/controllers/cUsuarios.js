@@ -13,6 +13,11 @@ exports.getAll = async (req, res) => {
     res.send(result);
 }
 
+exports.getById = async (req, res) => {
+    const result = await mUsuarios.getById(req.params.id);
+    res.send(result);
+}
+
 exports.agregarNuevoUsuario = async (req, res) => {
     const result = await mUsuarios.agregarNuevo(req.body);
     if(result.affectedRows){
@@ -25,10 +30,14 @@ exports.agregarNuevoUsuario = async (req, res) => {
 }
 
 exports.editarUsuario = async (req, res) => {
-    const result = await mUsuarios.agregarNuevo(req.body);
+    const result = await mUsuarios.editarUsuario(req.body);
     if(result.affectedRows){
-
-    }
+        return res.send({
+            type: "success",
+            title: "Éxito",
+            text: "Usuario actualizado correctamente"
+        })
+    } return returnError(res);
 }
 
 exports.eliminarUsuario = async (req, res) => {

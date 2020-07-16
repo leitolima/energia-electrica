@@ -10,23 +10,33 @@ exports.getAll = () => {
     `, []);
 }
 
-exports.agregarNuevo = (obj) => {
+exports.agregarNuevo = obj => {
     return db(`
         INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk)
         VALUES (?, ?, ?, ?);
     `, [obj.usuario, obj.clave, obj.empleado, obj.nivel]);
 }
 
-exports.editarUsuario = (obj) => {
+exports.getById = id => {
+    return db(`
+        SELECT u.id, u.usuario, u.clave, u.activo,
+        e.nombre, n.id AS nivel, e.id AS empleado
+        FROM usuarios u
+        LEFT JOIN empleados e ON e.id = u.id_empleado_fk
+        LEFT JOIN niveles n ON n.id = u.id_nivel_fk
+        WHERE u.id = ?
+    `, [id]);
+}
+
+exports.editarUsuario = obj => {
     return db(`
         UPDATE usuarios SET
         usuario = ?,
-        clave = ?,
         id_empleado_fk = ?,
-        id_nivel_fk = ?
+        id_nivel_fk = ?,
         activo = ?
         WHERE id = ?
-    `, [obj.usuario, obj.clave, obj.empleado, obj.nivel, obj.activo, obj.id]);
+    `, [obj.usuario, obj.empleado, obj.nivel, obj.activo, obj.id]);
 }
 
 exports.eliminarUsuario = (id) => {
