@@ -34,5 +34,11 @@ exports.editarUsuario = async (req, res) => {
 exports.eliminarUsuario = async (req, res) => {
     const {id} = req.params;
     const result = await mUsuarios.eliminarUsuario(id);
-    if(result.affectedRows);
+    if(result.affectedRows){
+        return res.send({
+            type: "success",
+            title: "Éxito",
+            text: "Usuario eliminado correctamente"
+        })
+    } return returnError(res);
 }

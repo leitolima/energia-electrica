@@ -42,5 +42,11 @@ exports.editarEmpleado = async (req, res) => {
 exports.eliminarEmpleado = async (req, res) => {
     const {id} = req.params;
     const result = await mEmpleados.eliminarEmpleado(id);
-    if(result.affectedRows);
+    if(result.affectedRows){
+        return res.send({
+            type: "success",
+            title: "Éxito",
+            text: "Empleado eliminado correctamente"
+        })
+    } return returnError(res);
 }

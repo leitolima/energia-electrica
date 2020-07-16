@@ -12,11 +12,11 @@ export default function validarUsuario(valores){
         errores.dni = 'La clave es obligatoria.';
     }
     //empleado
-    if(valores.empleado == 0){
+    if(valores.empleado === 0){
         errores.empleado = 'Seleccione un empleado.';
     }
     //nivel
-    if(valores.nivel == 0){
+    if(valores.nivel === 0){
         errores.nivel = 'Selecione un nivel.';
     }
 

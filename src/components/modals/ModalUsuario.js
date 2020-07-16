@@ -6,11 +6,10 @@ import clientAxios from '../../config/clientAxios';
 
 const ModalUsuario = ({show, usuario, handleClose, handleChange, handleSubmit}) => {
 
-    const[loading, setLoading] = useState(true);
     const[empleados, setEmpleados] = useState([]);
 
     useEffect(() => {
-        if(loading && show){
+        if(show){
             const token = localStorage.getItem('token');
             clientAxios.get('/empleados/get/sinusuario', {headers: {access:token}})
             .then(res => {
@@ -28,7 +27,7 @@ const ModalUsuario = ({show, usuario, handleClose, handleChange, handleSubmit}) 
                 }
             })
         }
-    }, [loading, show])
+    }, [show])
 
     return (
         <Modal show={show} onHide={handleClose}>

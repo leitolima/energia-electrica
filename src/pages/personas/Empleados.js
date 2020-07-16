@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import ModalEmpleado from '../../components/modals/ModalEmpleado';
 import clientAxios from '../../config/clientAxios';
 
+import eliminarRegistro from '../../functions/eliminarRegistro';
 import useData from '../../hooks/useData';
 //Validar
 import useValidar from '../../hooks/useValidar';
@@ -62,6 +63,33 @@ const Empleados = () => {
         })
     }
 
+    const eliminarEmpleado = id => {
+        Swal.fire({
+            title: '¿Estás seguro/a?',
+            text: "Esta acción puede ser irreversible",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '¡Si, eliminar!'
+        }).then(async res => {
+            if(res.value) {
+                const result = await eliminarRegistro('/empleado/eliminar', id);
+                if(result.type === 'success'){
+                    Swal.fire({
+                        icon: result.type,
+                        title: result.title,
+                        text: result.text,
+                        timer: 1500
+                    });
+                    handleLoading();
+                } else {
+                    lanzarError(result.text);
+                }
+            }
+        })
+    }
+
     return (
         <div className="container-fluid mt-4">
             <div className="d-flex flex-row justify-content-between">
@@ -91,8 +119,15 @@ const Empleados = () => {
                                     return(
                                         <tr key={key}>
                                             <td>
-                                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
+                                                <button 
+                                                    className="btn btn-warning btn-icon" 
+                                                    title="Editar"
+                                                ><i className="fas fa-pen"></i></button>
+                                                <button 
+                                                    className="btn btn-danger btn-icon" 
+                                                    title="Eliminar"
+                                                    onClick={() => eliminarEmpleado(r.id)}
+                                                ><i className="fas fa-trash-alt"></i></button>
                                             </td>
                                             <td>{r.nombre}</td>
                                             <td>{r.dni}</td>

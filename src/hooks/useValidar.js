@@ -7,8 +7,9 @@ const useValidar = (initialState, validar, fn) => {
 
     useEffect(() => {
         if(submitForm){
-            if(Object.keys(errores).length == 0){
+            if(Object.keys(errores).length === 0){
                 fn();
+                setValores(initialState);
             }
             setSubmitForm(false);
         }
