@@ -8,6 +8,11 @@ const returnError = res => {
     })
 }
 
+exports.getAll = async (req, res) => {
+    const result = await mUsuarios.getAll();
+    res.send(result);
+}
+
 exports.agregarNuevoUsuario = async (req, res) => {
     const result = await mUsuarios.agregarNuevo(req.body);
     if(result.affectedRows){
@@ -29,5 +34,11 @@ exports.editarUsuario = async (req, res) => {
 exports.eliminarUsuario = async (req, res) => {
     const {id} = req.params;
     const result = await mUsuarios.eliminarUsuario(id);
-    if(result.affectedRows);
+    if(result.affectedRows){
+        return res.send({
+            type: "success",
+            title: "Éxito",
+            text: "Usuario eliminado correctamente"
+        })
+    } return returnError(res);
 }

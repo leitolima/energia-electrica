@@ -4,66 +4,89 @@ import Swal from 'sweetalert2';
 import ModalUsuario from '../../components/modals/ModalUsuario';
 import clientAxios from '../../config/clientAxios';
 
+import eliminarRegistro from '../../functions/eliminarRegistro';
+import useData from '../../hooks/useData';
+//Validar
+import useValidar from '../../hooks/useValidar';
+import validarUsuario from '../../validations/validarUsuario';
+
+const INITIAL_STATE  = {
+    usuario: '',
+    clave: '',
+    empleado: 0,
+    nivel: 0,
+    activo: 1
+}
+
 const Usuarios = () => {
 
-    const[loading, setLoading] = useState(true);
     const[show, setShow] = useState(false);
-    const[usuario, setUsuario] = useState({
-        usuario: '',
-        clave: '',
-        empleado: 0,
-        activo: 1
-    });
+
+    const {valores, errores, handleChange, handleSubmit} = useValidar(INITIAL_STATE, validarUsuario, registrarUsuario);
+    const {rows, error, handleLoading} = useData('/usuarios/get/all');
 
     useEffect(() => {
-        if(loading){
-            //Peticion para traer los usuarios
-            console.log('Cargando...');
+        if(error){
+            lanzarError(error);
         }
-    }, [loading])
+    }, [error]);
 
-    const handleClose = () => setShow(false);
-    const handleOpen = () => setShow(true);
-
-    const handleChange = e => {
-        setUsuario({
-            ...usuario,
-            [e.target.id]: e.target.value
-        });
+    const lanzarError = err => {
+        Swal.fire({
+            icon: 'error',
+            title: 'Hubo un error',
+            text: err,
+            showCancelButton: false,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Recargar'
+        }).then((result) => window.location.reload(false));
     }
 
-    const handleSubmit = () => {
+    function registrarUsuario(){
         const token = localStorage.getItem('token');
-        clientAxios.post('/usuario/nuevo', usuario, {headers: {access:token}})
+        clientAxios.post('/usuario/nuevo', valores, {headers: {access:token}})
         .then(res => {
-            if(res.data.type === 'notok'){
-                throw new Error(res.data.text);
-            } else {
-                const result = res.data;
-                Swal.fire({
-                    icon: result.type,
-                    title: result.title,
-                    text: result.text
-                });
-                if(result.type === 'success'){
-                    setLoading(true);
-                    handleClose();
-                }
+            if(res.data.type === 'notok') throw new Error(res.data.text);
+            Swal.fire({
+                icon: res.data.type,
+                title: res.data.title,
+                text: res.data.text,
+                timer: 1500
+            });
+            if(res.data.type === 'success'){
+                setShow(false);
+                handleLoading();
             }
         })
         .catch(err => {
-            console.log(err);
-            Swal.fire({
-                icon: 'error',
-                title: 'Hubo un error',
-                text: err,
-                showCancelButton: false,
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'Recargar'
-            })
-            .then((result) => {
-                window.location.reload(false);
-            });
+            lanzarError(err);
+        })
+    }
+
+    const eliminarUsuario = id => {
+        Swal.fire({
+            title: '¿Estás seguro/a?',
+            text: "Esta acción puede ser irreversible",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '¡Si, eliminar!'
+        }).then(async res => {
+            if(res.value) {
+                const result = await eliminarRegistro('/usuario/eliminar', id);
+                if(result.type === 'success'){
+                    Swal.fire({
+                        icon: result.type,
+                        title: result.title,
+                        text: result.text,
+                        timer: 1500
+                    });
+                    handleLoading();
+                } else {
+                    lanzarError(result.text);
+                }
+            }
         })
     }
 
@@ -74,7 +97,7 @@ const Usuarios = () => {
                 <button 
                     type="button"
                     className="btn btn-success"
-                    onClick={handleOpen}
+                    onClick={() => setShow(true)}
                 >Agregar nuevo</button>
             </div>
             <div className="fixed-head w-100 mt-4">
@@ -85,76 +108,50 @@ const Usuarios = () => {
                             <th>Nombre</th>
                             <th>Usuario</th>
                             <th>Nivel</th>
+                            <th>Activo</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                                <button className="btn btn-success btn-icon" title="Accesos"><i className="fab fa-windows"></i></button>
-                            </td>
-                            <td>Leonel Lima</td>
-                            <td>leytholima</td>
-                            <td>Administrador</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                                <button className="btn btn-success btn-icon" title="Accesos"><i className="fab fa-windows"></i></button>
-                            </td>
-                            <td>Susana Horia</td>
-                            <td>susanahoria</td>
-                            <td>Empleado</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                                <button className="btn btn-success btn-icon" title="Accesos"><i className="fab fa-windows"></i></button>
-                            </td>
-                            <td>Enzo Diaz</td>
-                            <td>enzoxao</td>
-                            <td>Administrador</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                                <button className="btn btn-success btn-icon" title="Accesos"><i className="fab fa-windows"></i></button>
-                            </td>
-                            <td>Homero Simpson</td>
-                            <td>homerosimpson</td>
-                            <td>Supervisor</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                                <button className="btn btn-success btn-icon" title="Accesos"><i className="fab fa-windows"></i></button>
-                            </td>
-                            <td>Cosme Fulanito</td>
-                            <td>cosmefulanito</td>
-                            <td>Empleado</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                                <button className="btn btn-success btn-icon" title="Accesos"><i className="fab fa-windows"></i></button>
-                            </td>
-                            <td>Martin Garrix</td>
-                            <td>martingarrix</td>
-                            <td>Empleado</td>
-                        </tr>
+                        {
+                            rows.length > 0 ? (
+                                rows.map((r, key) => {
+                                    return(
+                                        <tr key={key}>
+                                            <td>
+                                                <button 
+                                                    className="btn btn-warning btn-icon" 
+                                                    title="Editar"
+                                                ><i className="fas fa-pen"></i></button>
+                                                <button 
+                                                    className="btn btn-danger btn-icon" 
+                                                    title="Eliminar"
+                                                    onClick={() => eliminarUsuario(r.id)}
+                                                ><i className="fas fa-trash-alt"></i></button>
+                                                <button 
+                                                    className="btn btn-success btn-icon" 
+                                                    title="Accesos"
+                                                ><i className="fab fa-windows"></i></button>
+                                            </td>
+                                            <td>{r.nombre}</td>
+                                            <td>{r.usuario}</td>
+                                            <td>{r.nivel}</td>
+                                            <td>{r.activo ? 'Activo' : 'No activo'}</td>
+                                        </tr>
+                                    )
+                                })
+                            ) : (
+                                <tr>
+                                    <td colSpan="5">No se encontraron usuarios registrados</td>
+                                </tr>
+                            )
+                        }
                     </tbody>
                 </table>
             </div>
             <ModalUsuario
                 show={show}
-                usuario={usuario}
-                handleClose={handleClose}
+                usuario={valores}
+                handleClose={() => setShow(false)}
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
             />

@@ -1,0 +1,13 @@
+Installar como dev dependencies: morgan nodemon
+npm i morgan nodemon -D
+
+https://github.com/leitolima/energia-electrica.git
+
+-----------------------------------------------------------------------
+Mensajes de error del servidor 
+(tener en cuenta revisar estos errores en la 
+funcion 'then' de las peticiones axios con res.data.type)
+
+'notok': Error de token
+'notfound': Dato no encontrado
+'error': Error al procesar solicitud insert o update

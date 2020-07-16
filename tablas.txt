@@ -6,12 +6,12 @@ CENTRALES:
 ESTACIONES:
     estacion primaria = 5
     estacion secundaria = 6
-
-
 NIVELES DE USUARIO:
     Administrador = 1
     Supervisor = 2
     Empleado = 3
+
+
 
 CREATE DATABASE energia_electrica;
 
@@ -19,7 +19,8 @@ CREATE TABLE usuarios (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     usuario varchar(25) NOT NULL,
     clave varchar(255) NOT NULL,
-    id_empleado_fk int(11) DEFAULT NULL,
+    id_empleado_fk int(11) NOT NULL,
+    id_nivel_fk int(2) NOT NULL,
     activo tinyint NOT NULL DEFAULT 1
 );
 
@@ -29,11 +30,10 @@ CREATE TABLE empleados (
     fecha_nac date,
     dni varchar(8) NOT NULL,
     email varchar(150) NOT NULL,
-    telefono varchar(25),
-    id_nivel_fk int(2) NOT NULL
+    telefono varchar(25)
 );
 
-CREATE TABLE nivel (
+CREATE TABLE niveles (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     titulo varchar(25) NOT NULL
 );
@@ -52,3 +52,7 @@ CREATE TABLE accesos (
     m tinyint NOT NULL,
     c tinyint NOT NULL
 );
+
+INSERT INTO niveles (titulo) VALUES ('Administrador');
+INSERT INTO niveles (titulo) VALUES ('Supervisor');
+INSERT INTO niveles (titulo) VALUES ('Empleado');
