@@ -67,7 +67,7 @@ CREATE TABLE centrales (
     nombre varchar(100) NOT NULL,
     prod_media float NOT NULL,
     prod_maxima float NOT NULL,
-    fecha_funci date,
+    fecha_func date,
     id_central int(11) NOT NULL,
     tipo_central_fk int(11) NOT NULL
 );

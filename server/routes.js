@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const cUsuarios = require('./controllers/cUsuarios');
 const cEmpleados = require('./controllers/cEmpleados');
+const cSolares = require('./controllers/cSolares');
 
 const auth = require('./middleware').auth;
 
@@ -22,5 +23,14 @@ router.get('/empleado/get/:id', cEmpleados.getById);
 router.post('/empleado/nuevo', cEmpleados.agregarNuevoEmpleado);
 router.post('/empleado/editar', cEmpleados.editarEmpleado);
 router.get('/empleado/eliminar/:id', cEmpleados.eliminarEmpleado);
+
+//------------------Centrales------------------//
+//Solares
+router.get('/solares/get/all', cSolares.getAll);
+router.get('/solares/get/:id', cSolares.getById);
+router.post('/solares/nuevo', cSolares.agregarNueva);
+router.post('/solares/editar', cSolares.editarCentral);
+router.get('/solares/eliminar/:id', cSolares.eliminarCentral);
+
 
 module.exports = router;
