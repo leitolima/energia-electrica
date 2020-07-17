@@ -1,6 +1,8 @@
 import React from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import withAuth from './withAuth';
+//Alertas
+import {ToastContainer} from 'react-toastify';
 
 //Components
 import Navbar from './components/Navbar';
@@ -27,6 +29,7 @@ const App = () => {
 
                 <Route path='/'>
                     <Navbar/>
+                    <ToastContainer />
                     <Sidebar/>
                 
                     <Route exact path="/" component={Root}/>

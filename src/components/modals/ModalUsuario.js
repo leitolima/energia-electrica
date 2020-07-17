@@ -16,20 +16,26 @@ const ModalUsuario = ({show, usuario, handleClose, handleChange, handleSubmit}) 
             setActivo(false);
         }
         if(show){
+            setEmpleados([]); //Precaucion
             const token = localStorage.getItem('token');
             clientAxios.get('/empleados/get/sinusuario', {headers: {access:token}})
             .then(res => {
-                if(res.data.type === 'notfound'){
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Hubo un error',
-                        text: 'No hay empleados disponibles para asignarles un usuario',
-                        showCancelButton: false,
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Cerrar'
-                    }).then((result) => handleClose());
-                } else {
+                if(usuario.usuario !== ''){
+                    res.data.push({id: usuario.empleado, nombre: usuario.nombre});
                     setEmpleados(res.data);
+                } else {
+                    if(res.data.type === 'notfound'){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Hubo un error',
+                            text: 'No hay empleados disponibles para asignarles un usuario',
+                            showCancelButton: false,
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Cerrar'
+                        }).then((result) => handleClose());
+                    } else {
+                        setEmpleados(res.data);
+                    }
                 }
             })
         }
@@ -83,20 +89,10 @@ const ModalUsuario = ({show, usuario, handleClose, handleChange, handleSubmit}) 
                             <label htmlFor="empleado">Empleado</label>
                                 <select 
                                     id="empleado" 
-                                    onChange={handleChange} 
-                                    defaultValue={usuario.empleado} 
+                                    onChange={handleChange}  
                                     className="form-control"
                                 >
                                     <option value="0">Seleccionar</option>
-                                    {
-                                        usuario.empleado !== 0 ? (
-                                            <option 
-                                                value={usuario.empleado}
-                                            >{usuario.nombre}</option>
-                                        ) : (
-                                            null
-                                        )
-                                    }
                                     {
                                         empleados.map((e, key) => {
                                             return(

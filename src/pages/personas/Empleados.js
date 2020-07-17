@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Swal from 'sweetalert2';
+import {toast} from 'react-toastify';
 
 import ModalEmpleado from '../../components/modals/ModalEmpleado';
 import clientAxios from '../../config/clientAxios';
@@ -37,6 +38,14 @@ const Empleados = () => {
             lanzarError(error);
         }
     }, [error]);
+
+    useEffect(() => {
+        if(Object.keys(errores).length !== 0){
+            errores.map(e => {
+                toast.error(e);
+            })
+        }
+    }, [errores]);
 
     async function registrarEmpleado(){
         let result = {};
