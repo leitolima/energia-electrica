@@ -2,6 +2,7 @@ const router = require('express').Router();
 const cUsuarios = require('./controllers/cUsuarios');
 const cEmpleados = require('./controllers/cEmpleados');
 const cSolares = require('./controllers/cSolares');
+const cTermicas = require('./controllers/cTermicas');
 
 const auth = require('./middleware').auth;
 
@@ -31,6 +32,12 @@ router.get('/solares/get/:id', cSolares.getById);
 router.post('/solares/nuevo', cSolares.agregarNueva);
 router.post('/solares/editar', cSolares.editarCentral);
 router.get('/solares/eliminar/:id', cSolares.eliminarCentral);
+//Termicas
+router.get('/termicas/get/all', cTermicas.getAll);
+router.get('/termicas/get/:id', cTermicas.getById);
+router.post('/termicas/nuevo', cTermicas.agregarNueva);
+router.post('/termicas/editar', cTermicas.editarCentral);
+router.get('/termicas/eliminar/:id', cTermicas.eliminarCentral);
 
 
 module.exports = router;

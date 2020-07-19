@@ -5,6 +5,7 @@ exports.getAll = () => {
         SELECT s.*, c.nombre, c.prod_media, c.prod_maxima,
         DATE_FORMAT(c.fecha_func, '%m/%d/%Y') AS fecha_func
         FROM solar s LEFT JOIN centrales c ON c.id_central = s.id
+        WHERE c.tipo_central_fk = 1;
     `, []);
 }
 
@@ -13,7 +14,7 @@ exports.getById = id => {
         SELECT s.*, c.nombre, c.prod_media, c.prod_maxima, 
         c.fecha_func AS fecha
         FROM solar s LEFT JOIN centrales c ON c.id_central = s.id
-        WHERE s.id = ?
+        WHERE s.id = ? AND c.tipo_central_fk = 1;
     `, [id]);
 }
 

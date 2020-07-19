@@ -1,11 +1,11 @@
 import React from 'react';
 import {Modal} from 'react-bootstrap';
 
-const ModalSolar = ({show, central, handleClose, handleChange, handleSubmit}) => {
+const ModalTermica = ({show, central, handleClose, handleChange, handleSubmit}) => {
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Agregar central solar</Modal.Title>
+                <Modal.Title>Agregar central térmica</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <form>
@@ -58,43 +58,40 @@ const ModalSolar = ({show, central, handleClose, handleChange, handleSubmit}) =>
                                 />
                             </div>
                         </div>
-                        <div className="col-md-6 col-lg-6 col-xl-6">
-                            <div className="form-group">
-                                <label htmlFor="sup_paneles">Superficie de paneles (m^2): </label>
-                                <input 
-                                    type="text" 
-                                    className="form-control" 
-                                    id="sup_paneles"
-                                    onChange={handleChange}
-                                    value={central.sup_paneles}
-                                />
-                            </div>
-                        </div>
-                        <div className="col-md-6 col-lg-6 col-xl-6">
-                            <div className="form-group">
-                                <label htmlFor="media_hs_sol">Media HS de sol: </label>
-                                <input 
-                                    type="text" 
-                                    className="form-control" 
-                                    id="media_hs_sol"
-                                    onChange={handleChange}
-                                    value={central.media_hs_sol}
-                                />
-                            </div>
-                        </div>
                         <div className="col-md-12 col-lg-12 col-xl-12">
                             <div className="form-group">
-                                <label htmlFor="tipo_panel">Tipo: </label>
-                                <select 
+                                <label htmlFor="num_hornos">Numero de hornos</label>
+                                <input 
+                                    type="text" 
                                     className="form-control" 
-                                    id="tipo_panel"
+                                    id="num_hornos"
                                     onChange={handleChange}
-                                    defaultValue={central.tipo_panel}
-                                >
-                                    <option value="0">Seleccionar</option>
-                                    <option value="1">Fotovoltaica</option>
-                                    <option value="2">Termodinámica</option>
-                                </select>
+                                    value={central.num_hornos}
+                                />
+                            </div>
+                        </div>
+                        <div className="col-md-6 col-lg-6 col-xl-6">
+                            <div className="form-group">
+                                <label htmlFor="vol_carbon_consum">Vol. Carbon Consumido</label>
+                                <input 
+                                    type="text" 
+                                    className="form-control" 
+                                    id="vol_carbon_consum"
+                                    onChange={handleChange}
+                                    value={central.vol_carbon_consum}
+                                />
+                            </div>
+                        </div>
+                        <div className="col-md-6 col-lg-6 col-xl-6">
+                            <div className="form-group">
+                                <label htmlFor="vol_emision_gases">Vol. Emision de Gases</label>
+                                <input 
+                                    type="text"
+                                    className="form-control" 
+                                    id="vol_emision_gases"
+                                    onChange={handleChange}
+                                    defaultValue={central.vol_emision_gases}
+                                />
                             </div>
                         </div>
                     </div>
@@ -116,4 +113,4 @@ const ModalSolar = ({show, central, handleClose, handleChange, handleSubmit}) =>
     )
 }
 
-export default ModalSolar;
+export default ModalTermica

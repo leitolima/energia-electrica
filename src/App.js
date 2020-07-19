@@ -16,6 +16,7 @@ import Accesos from './pages/personas/Accesos';
 import Login from './pages/Login';
 
 import Solar from './pages/centrales/Solar';
+import Termica from './pages/centrales/Termica';
 
 import Subestaciones from './pages/estaciones/Subestaciones';
 
@@ -41,7 +42,7 @@ const App = () => {
 
                     <Route exact path="/centrales/solares" component={Solar}/>
                     <Route exact path="/centrales/hidroelectrica"/>
-                    <Route exact path="/centrales/termica"/>
+                    <Route exact path="/centrales/termica" component={Termica}/>
                     <Route exact path="/centrales/nuclear"/>
 
                     <Route exact path="/estaciones/primarias"/>

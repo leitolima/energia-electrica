@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Swal from 'sweetalert2';
 import {toast} from 'react-toastify';
 
-import ModalSolar from '../../components/modals/ModalSolar';
+import ModalTermica from '../../components/modals/ModalTermica';
 
 //Functions
 import {
@@ -15,25 +15,25 @@ import useData from '../../hooks/useData';
 
 //Validar
 import useValidar from '../../hooks/useValidar';
-import validarSolar from '../../validations/validarSolar';
+import validarTermica from '../../validations/validarTermica';
 
 const INITIAL_STATE  = {
     nombre: '',
     fecha: '',
     prod_media: '',
     prod_maxima: '',
-    sup_paneles: '',
-    media_hs_sol: '',
-    tipo_panel: 0
+    num_hornos: 0,
+    vol_carbon_consum: 0,
+    vol_emision_gases: 0
 }
 
-const Solar = () => {
+const Termica = () => {
 
     const[show, setShow] = useState(false);
     const[editar, setEditar] = useState(false);
 
-    const {valores, errores, handleChange, handleSubmit, handleEditar} = useValidar(INITIAL_STATE, validarSolar, registrarNueva);
-    const {rows, error, handleLoading} = useData('/solares/get/all');
+    const {valores, errores, handleChange, handleSubmit, handleEditar} = useValidar(INITIAL_STATE, validarTermica, registrarNueva);
+    const {rows, error, handleLoading} = useData('/termicas/get/all');
 
     useEffect(() => {
         if(error){
@@ -52,9 +52,9 @@ const Solar = () => {
     async function registrarNueva(){
         let result = {};
         if(editar){
-            result = await agregarNuevoEditar('/solares/editar', valores);
+            result = await agregarNuevoEditar('/termicas/editar', valores);
         } else {
-            result = await agregarNuevoEditar('/solares/nuevo', valores);
+            result = await agregarNuevoEditar('/termicas/nuevo', valores);
         }
         if(result.type === 'success'){
             setShow(false);
@@ -65,7 +65,7 @@ const Solar = () => {
     }
 
     const editarCentral = async id => {
-        const result = await buscarRegistroById('/solares/get', id);
+        const result = await buscarRegistroById('/termicas/get', id);
         setEditar(true);
         handleEditar(result);
         setShow(true);
@@ -82,7 +82,7 @@ const Solar = () => {
             confirmButtonText: '¡Si, eliminar!'
         }).then(async res => {
             if(res.value) {
-                const result = await eliminarRegistro('/solares/eliminar', id);
+                const result = await eliminarRegistro('/termicas/eliminar', id);
                 if(result.type === 'success'){
                     handleLoading();
                 } else {
@@ -95,7 +95,7 @@ const Solar = () => {
     return (
         <div className="container-fluid mt-4">
             <div className="d-flex flex-row justify-content-between">
-                <h2>Centrales solares</h2>
+                <h2>Centrales térmicas</h2>
                 <button
                     type="button"
                     className="btn btn-success"
@@ -115,9 +115,9 @@ const Solar = () => {
                             <th>Fundación</th>
                             <th>Prod. Media</th>
                             <th>Prod. Max.</th>
-                            <th>Sup. paneles</th>
-                            <th>Media Hs. Sol</th>
-                            <th>Tipo</th>
+                            <th>Num. Hornos</th>
+                            <th>Vol. Carbon Consum.</th>
+                            <th>Vol. Emisión Gases</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -142,13 +142,9 @@ const Solar = () => {
                                             <td>{r.fecha_func}</td>
                                             <td>{r.prod_media} Mw</td>
                                             <td>{r.prod_maxima} Mw</td>
-                                            <td>{r.sup_paneles} m^2</td>
-                                            <td>{r.media_hs_sol} hs</td>
-                                            <td>{
-                                                r.tipo_panel === 1 
-                                                ? 'Fotovoltaica'
-                                                : 'Termodinámica'
-                                            }</td>
+                                            <td>{r.num_hornos}</td>
+                                            <td>{r.vol_carbon_consum} m^3</td>
+                                            <td>{r.vol_emision_gases} m^3</td>
                                         </tr>
                                     )
                                 })
@@ -161,7 +157,7 @@ const Solar = () => {
                     </tbody>
                 </table>
             </div>
-            <ModalSolar
+            <ModalTermica
                 show={show}
                 central={valores}
                 handleClose={() => setShow(false)}
@@ -172,4 +168,4 @@ const Solar = () => {
     )
 }
 
-export default Solar;
+export default Termica;
