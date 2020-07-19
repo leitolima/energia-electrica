@@ -3,7 +3,6 @@ import Swal from 'sweetalert2';
 import {toast} from 'react-toastify';
 
 import ModalEmpleado from '../../components/modals/ModalEmpleado';
-import clientAxios from '../../config/clientAxios';
 
 //Functions
 import {
@@ -42,7 +41,7 @@ const Empleados = () => {
     useEffect(() => {
         if(Object.keys(errores).length !== 0){
             errores.map(e => {
-                toast.error(e);
+                return toast.error(e);
             })
         }
     }, [errores]);

@@ -54,7 +54,7 @@ const ModalSolar = ({show, central, handleClose, handleChange, handleSubmit}) =>
                                     className="form-control" 
                                     id="prod_max"
                                     onChange={handleChange}
-                                    value={central.prod_max}
+                                    value={central.prod_maxima}
                                 />
                             </div>
                         </div>
@@ -72,13 +72,13 @@ const ModalSolar = ({show, central, handleClose, handleChange, handleSubmit}) =>
                         </div>
                         <div className="col-md-6 col-lg-6 col-xl-6">
                             <div className="form-group">
-                                <label htmlFor="hs_sol">Media HS de sol: </label>
+                                <label htmlFor="media_hs_sol">Media HS de sol: </label>
                                 <input 
                                     type="text" 
                                     className="form-control" 
-                                    id="hs_sol"
+                                    id="media_hs_sol"
                                     onChange={handleChange}
-                                    value={central.hs_sol}
+                                    value={central.media_hs_sol}
                                 />
                             </div>
                         </div>
@@ -86,11 +86,10 @@ const ModalSolar = ({show, central, handleClose, handleChange, handleSubmit}) =>
                             <div className="form-group">
                                 <label htmlFor="tipo_panel">Tipo: </label>
                                 <select 
-                                    type="text" 
                                     className="form-control" 
                                     id="tipo_panel"
                                     onChange={handleChange}
-                                    value={central.tipo_panel}
+                                    defaultValue={central.tipo_panel}
                                 >
                                     <option value="0">Seleccionar</option>
                                     <option value="1">Fotovoltaica</option>

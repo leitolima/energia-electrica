@@ -20,9 +20,15 @@ const ModalUsuario = ({show, usuario, handleClose, handleChange, handleSubmit}) 
             const token = localStorage.getItem('token');
             clientAxios.get('/empleados/get/sinusuario', {headers: {access:token}})
             .then(res => {
+                /* 
+                    Verifica si el res.data.type es 'notfound'
+                        true: crea un arreglo vacio []
+                        false: obtiene el arreglo de empleados de res.data
+                */
+                let array = res.data.type === 'notfound' ? [] : res.data;
                 if(usuario.usuario !== ''){
-                    res.data.push({id: usuario.empleado, nombre: usuario.nombre});
-                    setEmpleados(res.data);
+                    array.push({id: usuario.empleado, nombre: usuario.nombre});
+                    setEmpleados(array);
                 } else {
                     if(res.data.type === 'notfound'){
                         Swal.fire({
@@ -39,6 +45,7 @@ const ModalUsuario = ({show, usuario, handleClose, handleChange, handleSubmit}) 
                 }
             })
         }
+        // eslint-disable-next-line
     }, [show])
 
     return (

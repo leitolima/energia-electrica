@@ -20,6 +20,7 @@ const useData = (url) => {
                 setError(err);
             });
         }
+        // eslint-disable-next-line
     }, [loading])
 
     const handleLoading = () => {

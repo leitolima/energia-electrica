@@ -13,6 +13,7 @@ const useValidar = (initialState, validar, fn) => {
             }
             setSubmitForm(false);
         }
+        // eslint-disable-next-line
     }, [errores]);
 
     const handleEditar = valor => {

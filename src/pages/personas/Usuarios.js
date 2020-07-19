@@ -42,7 +42,7 @@ const Usuarios = () => {
     useEffect(() => {
         if(Object.keys(errores).length !== 0){
             errores.map(e => {
-                toast.error(e);
+                return toast.error(e);
             })
         }
     }, [errores]);

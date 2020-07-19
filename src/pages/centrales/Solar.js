@@ -21,9 +21,9 @@ const INITIAL_STATE  = {
     nombre: '',
     fecha: '',
     prod_media: '',
-    prod_max: '',
+    prod_maxima: '',
     sup_paneles: '',
-    hs_sol: '',
+    media_hs_sol: '',
     tipo_panel: 0
 }
 
@@ -34,7 +34,6 @@ const Solar = () => {
 
     const {valores, errores, handleChange, handleSubmit, handleEditar} = useValidar(INITIAL_STATE, validarSolar, registrarNueva);
     const {rows, error, handleLoading} = useData('/solares/get/all');
-    console.log(rows);
 
     useEffect(() => {
         if(error){
@@ -45,7 +44,7 @@ const Solar = () => {
     useEffect(() => {
         if(Object.keys(errores).length !== 0){
             errores.map(e => {
-                toast.error(e);
+                return toast.error(e);
             })
         }
     }, [errores]);
@@ -63,6 +62,34 @@ const Solar = () => {
         } else {
             lanzarError(result.text);
         }
+    }
+
+    const editarCentral = async id => {
+        const result = await buscarRegistroById('/solares/get', id);
+        setEditar(true);
+        handleEditar(result);
+        setShow(true);
+    }
+
+    const eliminarCentral = id => {
+        Swal.fire({
+            title: '¿Estás seguro/a?',
+            text: "Esta acción puede ser irreversible",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '¡Si, eliminar!'
+        }).then(async res => {
+            if(res.value) {
+                const result = await eliminarRegistro('/solares/eliminar', id);
+                if(result.type === 'success'){
+                    handleLoading();
+                } else {
+                    lanzarError(result.text);
+                }
+            }
+        })
     }
 
     return (
@@ -103,10 +130,12 @@ const Solar = () => {
                                                 <button 
                                                     className="btn btn-warning btn-icon" 
                                                     title="Editar"
+                                                    onClick={() => editarCentral(r.id)}
                                                 ><i className="fas fa-pen"></i></button>
                                                 <button 
                                                     className="btn btn-danger btn-icon" 
                                                     title="Eliminar"
+                                                    onClick={() => eliminarCentral(r.id)}
                                                 ><i className="fas fa-trash-alt"></i></button>
                                             </td>
                                             <td>{r.nombre}</td>
@@ -116,7 +145,7 @@ const Solar = () => {
                                             <td>{r.sup_paneles} m^2</td>
                                             <td>{r.media_hs_sol} hs</td>
                                             <td>{
-                                                r.tipo === 1 
+                                                r.tipo_panel === 1 
                                                 ? 'Fotovoltaica'
                                                 : 'Termodinámica'
                                             }</td>
