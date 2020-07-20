@@ -1,11 +1,11 @@
 import React from 'react';
 import {Modal} from 'react-bootstrap';
 
-const ModalNuclear = ({show, central, handleClose, handleChange, handleSubmit}) => {
+const ModalHidroelectrica = ({show, central, handleClose, handleChange, handleSubmit}) => {
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Agregar central nuclear</Modal.Title>
+                <Modal.Title>Agregar central hidroeléctrica</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <form>
@@ -60,37 +60,37 @@ const ModalNuclear = ({show, central, handleClose, handleChange, handleSubmit}) 
                         </div>
                         <div className="col-md-12 col-lg-12 col-xl-12">
                             <div className="form-group">
-                                <label htmlFor="num_reactores">Numero de reactores</label>
-                                <input 
-                                    type="text" 
-                                    className="form-control" 
-                                    id="num_reactores"
-                                    onChange={handleChange}
-                                    value={central.num_reactores}
-                                />
-                            </div>
-                        </div>
-                        <div className="col-md-6 col-lg-6 col-xl-6">
-                            <div className="form-group">
-                                <label htmlFor="vol_plut_consum">Vol. Plutonio Consumido</label>
-                                <input 
-                                    type="text" 
-                                    className="form-control" 
-                                    id="vol_plut_consum"
-                                    onChange={handleChange}
-                                    value={central.vol_plut_consum}
-                                />
-                            </div>
-                        </div>
-                        <div className="col-md-6 col-lg-6 col-xl-6">
-                            <div className="form-group">
-                                <label htmlFor="vol_residuo">Vol. Residuos Nucleares</label>
+                                <label htmlFor="num_turbinas">Número de Turbinas</label>
                                 <input 
                                     type="text"
                                     className="form-control" 
-                                    id="vol_residuo"
+                                    id="num_turbinas"
                                     onChange={handleChange}
-                                    defaultValue={central.vol_residuo}
+                                    defaultValue={central.num_turbinas}
+                                />
+                            </div>
+                        </div>
+                        <div className="col-md-6 col-lg-6 col-xl-6">
+                            <div className="form-group">
+                                <label htmlFor="ocupacion">Ocupación Máxima</label>
+                                <input 
+                                    type="text" 
+                                    className="form-control" 
+                                    id="ocupacion"
+                                    onChange={handleChange}
+                                    value={central.ocupacion}
+                                />
+                            </div>
+                        </div>
+                        <div className="col-md-6 col-lg-6 col-xl-6">
+                            <div className="form-group">
+                                <label htmlFor="capacidad">Capacidad Máxima</label>
+                                <input 
+                                    type="text" 
+                                    className="form-control" 
+                                    id="capacidad"
+                                    onChange={handleChange}
+                                    value={central.capacidad}
                                 />
                             </div>
                         </div>
@@ -113,4 +113,4 @@ const ModalNuclear = ({show, central, handleClose, handleChange, handleSubmit}) 
     )
 }
 
-export default ModalNuclear
+export default ModalHidroelectrica

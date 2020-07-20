@@ -4,6 +4,7 @@ const cEmpleados = require('./controllers/cEmpleados');
 const cSolares = require('./controllers/cSolares');
 const cTermicas = require('./controllers/cTermicas');
 const cNucleares = require('./controllers/cNucleares');
+const cHidroelectricas = require('./controllers/cHidroelectricas');
 
 const auth = require('./middleware').auth;
 
@@ -45,6 +46,12 @@ router.get('/nucleares/get/:id', cNucleares.getById);
 router.post('/nucleares/nuevo', cNucleares.agregarNueva);
 router.post('/nucleares/editar', cNucleares.editarCentral);
 router.get('/nucleares/eliminar/:id', cNucleares.eliminarCentral);
+//Hidroelectricas
+router.get('/hidroelectricas/get/all', cHidroelectricas.getAll);
+router.get('/hidroelectricas/get/:id', cHidroelectricas.getById);
+router.post('/hidroelectricas/nuevo', cHidroelectricas.agregarNueva);
+router.post('/hidroelectricas/editar', cHidroelectricas.editarCentral);
+router.get('/hidroelectricas/eliminar/:id', cHidroelectricas.eliminarCentral);
 
 
 module.exports = router;
