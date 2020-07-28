@@ -20,7 +20,10 @@ exports.auth = (req, res, next) => {
                     text: "Token invalido o expirado. Por favor inicie sesión."
                 })
             } else {
-                req.email = decoded.email;
+                req.userId = decoded.userId;
+                console.log('-----------------');
+                console.log('Id: ' + req.userId);
+                console.log('-----------------');
                 next();
             }
         })

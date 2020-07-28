@@ -86,7 +86,7 @@ CREATE TABLE solar (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     sup_paneles float NOT NULL,
     media_hs_sol float NOT NULL,
-    tipo_central tinyint(4) NOT NULL
+    tipo_panel tinyint(4) NOT NULL
 );
 
 CREATE TABLE termica (

@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const cLogin = require('./controllers/cLogin');
 const cUsuarios = require('./controllers/cUsuarios');
 const cEmpleados = require('./controllers/cEmpleados');
 const cSolares = require('./controllers/cSolares');
@@ -8,9 +9,12 @@ const cHidroelectricas = require('./controllers/cHidroelectricas');
 
 const auth = require('./middleware').auth;
 
-router.get('/api/checkout', auth, (req, res) => {
+router.get('/api/checktoken', auth, (req, res) => {
     res.sendStatus(200);
 })
+
+//Login
+router.post('/login', cLogin.verificarUsuario);
 
 //Usuarios
 router.get('/usuarios/get/all', cUsuarios.getAll);

@@ -28,24 +28,24 @@ import Companias from './pages/Companias';
 
 const App = () => {
     return (
-        <Router>            
+        <Router>  
+            <ToastContainer />          
             <Switch>
                 <Route exact path="/login" component={Login}/>
 
                 <Route path='/'>
                     <Navbar/>
-                    <ToastContainer />
                     <Sidebar/>
                 
                     <Route exact path="/" component={Root}/>
-                    <Route exact path="/personas/empleados" component={Empleados}/> 
-                    <Route exact path="/personas/usuarios" component={Usuarios}/>
-                    <Route exact path="/permisos/usuario/:id" component={Accesos}/>
+                    <Route exact path="/personas/empleados" component={withAuth(Empleados)}/> 
+                    <Route exact path="/personas/usuarios" component={withAuth(Usuarios)}/>
+                    <Route exact path="/permisos/usuario/:id" component={withAuth(Accesos)}/>
 
-                    <Route exact path="/centrales/solares" component={Solar}/>
-                    <Route exact path="/centrales/hidroelectrica" component={Hidroelectrica}/>
-                    <Route exact path="/centrales/termica" component={Termica}/>
-                    <Route exact path="/centrales/nuclear" component={Nuclear}/>
+                    <Route exact path="/centrales/solares" component={withAuth(Solar)}/>
+                    <Route exact path="/centrales/hidroelectrica" component={withAuth(Hidroelectrica)}/>
+                    <Route exact path="/centrales/termica" component={withAuth(Termica)}/>
+                    <Route exact path="/centrales/nuclear" component={withAuth(Nuclear)}/>
 
                     <Route exact path="/estaciones/primarias"/>
                     <Route exact path="/estaciones/secundarias" component={Subestaciones}/>
