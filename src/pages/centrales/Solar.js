@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Swal from 'sweetalert2';
 import {toast} from 'react-toastify';
 
-import ModalEmpleado from '../../components/modals/ModalEmpleado';
+import ModalSolar from '../../components/modals/ModalSolar';
 
 //Functions
 import {
@@ -12,25 +12,28 @@ import {
     lanzarError
 } from '../../functions';
 import useData from '../../hooks/useData';
+
 //Validar
 import useValidar from '../../hooks/useValidar';
-import validarEmpleado from '../../validations/validarEmpleado';
+import validarSolar from '../../validations/validarSolar';
 
 const INITIAL_STATE  = {
     nombre: '',
     fecha: '',
-    dni: '',
-    email: '',
-    telefono: ''
+    prod_media: '',
+    prod_maxima: '',
+    sup_paneles: '',
+    media_hs_sol: '',
+    tipo_panel: 0
 }
 
-const Empleados = () => {
+const Solar = () => {
 
     const[show, setShow] = useState(false);
     const[editar, setEditar] = useState(false);
-    
-    const {valores, errores, handleChange, handleSubmit, handleEditar} = useValidar(INITIAL_STATE, validarEmpleado, registrarEmpleado);
-    const {rows, error, handleLoading} = useData('/empleados/get/all');
+
+    const {valores, errores, handleChange, handleSubmit, handleEditar} = useValidar(INITIAL_STATE, validarSolar, registrarNueva);
+    const {rows, error, handleLoading} = useData('/solares/get/all');
 
     useEffect(() => {
         if(error){
@@ -46,14 +49,12 @@ const Empleados = () => {
         }
     }, [errores]);
 
-    async function registrarEmpleado(){
+    async function registrarNueva(){
         let result = {};
         if(editar){
-            //Edita un empleado existente
-            result = await agregarNuevoEditar('/empleado/editar', valores);
+            result = await agregarNuevoEditar('/solares/editar', valores);
         } else {
-            //Agrega un nuevo empleado
-            result = await agregarNuevoEditar('/empleado/nuevo', valores);
+            result = await agregarNuevoEditar('/solares/nuevo', valores);
         }
         if(result.type === 'success'){
             setShow(false);
@@ -63,14 +64,14 @@ const Empleados = () => {
         }
     }
 
-    const editarEmpleado = async id => {
-        const result = await buscarRegistroById('/empleado/get', id);
+    const editarCentral = async id => {
+        const result = await buscarRegistroById('/solares/get', id);
         setEditar(true);
         handleEditar(result);
         setShow(true);
     }
 
-    const eliminarEmpleado = async id => {
+    const eliminarCentral = id => {
         Swal.fire({
             title: '¿Estás seguro/a?',
             text: "Esta acción puede ser irreversible",
@@ -81,7 +82,7 @@ const Empleados = () => {
             confirmButtonText: '¡Si, eliminar!'
         }).then(async res => {
             if(res.value) {
-                const result = await eliminarRegistro('/empleado/eliminar', id);
+                const result = await eliminarRegistro('/solares/eliminar', id);
                 if(result.type === 'success'){
                     handleLoading();
                 } else {
@@ -94,8 +95,8 @@ const Empleados = () => {
     return (
         <div className="container-fluid mt-4">
             <div className="d-flex flex-row justify-content-between">
-                <h2>Administrar empleados</h2>
-                <button 
+                <h2>Centrales solares</h2>
+                <button
                     type="button"
                     className="btn btn-success"
                     onClick={() => {
@@ -103,7 +104,7 @@ const Empleados = () => {
                         setEditar(false);
                         setShow(true);
                     }}
-                >Agregar nuevo</button>
+                >Agregar nueva</button>
             </div>
             <div className="fixed-head w-100 mt-4">
                 <table className="table table-striped">
@@ -111,10 +112,12 @@ const Empleados = () => {
                         <tr>
                             <th className="options">Opciones</th>
                             <th>Nombre</th>
-                            <th>DNI</th>
-                            <th>Fecha nacimiento</th>
-                            <th>Correo electrónico</th>
-                            <th>Telefono</th>
+                            <th>Fundación</th>
+                            <th>Prod. Media</th>
+                            <th>Prod. Max.</th>
+                            <th>Sup. paneles</th>
+                            <th>Media Hs. Sol</th>
+                            <th>Tipo</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -127,34 +130,40 @@ const Empleados = () => {
                                                 <button 
                                                     className="btn btn-warning btn-icon" 
                                                     title="Editar"
-                                                    onClick={() => editarEmpleado(r.id)}
+                                                    onClick={() => editarCentral(r.id)}
                                                 ><i className="fas fa-pen"></i></button>
                                                 <button 
                                                     className="btn btn-danger btn-icon" 
                                                     title="Eliminar"
-                                                    onClick={() => eliminarEmpleado(r.id)}
+                                                    onClick={() => eliminarCentral(r.id)}
                                                 ><i className="fas fa-trash-alt"></i></button>
                                             </td>
                                             <td>{r.nombre}</td>
-                                            <td>{r.dni}</td>
-                                            <td>{r.fecha}</td>
-                                            <td>{r.email}</td>
-                                            <td>{r.telefono}</td>
+                                            <td>{r.fecha_func}</td>
+                                            <td>{r.prod_media} Mw</td>
+                                            <td>{r.prod_maxima} Mw</td>
+                                            <td>{r.sup_paneles} m^2</td>
+                                            <td>{r.media_hs_sol} hs</td>
+                                            <td>{
+                                                r.tipo_panel === 1 
+                                                ? 'Fotovoltaica'
+                                                : 'Termodinámica'
+                                            }</td>
                                         </tr>
                                     )
                                 })
                             ) : (
                                 <tr>
-                                    <td colSpan="6">No se encontraron empleados registrados</td>
+                                    <td colSpan="8">No hay centrales registradas</td>
                                 </tr>
                             )
                         }
                     </tbody>
                 </table>
             </div>
-            <ModalEmpleado
+            <ModalSolar
                 show={show}
-                empleado={valores}
+                central={valores}
                 handleClose={() => setShow(false)}
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
@@ -163,4 +172,4 @@ const Empleados = () => {
     )
 }
 
-export default Empleados
+export default Solar;

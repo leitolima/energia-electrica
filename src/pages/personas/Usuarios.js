@@ -1,5 +1,6 @@
 import React,{useState, useEffect}  from 'react';
 import Swal from 'sweetalert2';
+import {toast} from 'react-toastify';
 
 import ModalUsuario from '../../components/modals/ModalUsuario';
 
@@ -37,6 +38,14 @@ const Usuarios = () => {
             lanzarError(error);
         }
     }, [error]);
+
+    useEffect(() => {
+        if(Object.keys(errores).length !== 0){
+            errores.map(e => {
+                return toast.error(e);
+            })
+        }
+    }, [errores]);
 
     async function registrarUsuario(){
         let result = {};

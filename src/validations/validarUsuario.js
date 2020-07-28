@@ -1,23 +1,23 @@
 export default function validarUsuario(valores){
-    let errores = {};
+    let errores = [];
 
     //nombre
     if(!valores.usuario){
-        errores.usuario = 'El nombre es obligatorio.';
+        errores.push('El nombre es obligatorio.');
     } else if(valores.usuario.length > 25){
-        errores.usuario = 'El nombre es demasiado largo.';
+        errores.push('El nombre es demasiado largo.');
     }
     //clave
     if(!valores.clave){
-        errores.clave = 'La clave es obligatoria.';
+        errores.push('La clave es obligatoria.');
     }
     //empleado
     if(valores.empleado === 0){
-        errores.empleado = 'Seleccione un empleado.';
+        errores.push('Seleccione un empleado.');
     }
     //nivel
     if(valores.nivel === 0){
-        errores.nivel = 'Selecione un nivel.';
+        errores.push('Selecione un nivel.');
     }
 
     return errores;

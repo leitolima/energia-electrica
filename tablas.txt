@@ -1,8 +1,10 @@
 CENTRALES:
-    solar = 1
-    hidroelectrica = 2
-    termica = 3
-    nuclear = 4
+    solar = 1 
+        1: fotovoltaica
+        2: termodinámica
+    termica = 2
+    nuclear = 3
+    hidroelectrica = 4
 ESTACIONES:
     estacion primaria = 5
     estacion secundaria = 6
@@ -56,3 +58,134 @@ CREATE TABLE accesos (
 INSERT INTO niveles (titulo) VALUES ('Administrador');
 INSERT INTO niveles (titulo) VALUES ('Supervisor');
 INSERT INTO niveles (titulo) VALUES ('Empleado');
+
+
+------------------------------------------------------------CENTRALES------------------------------------------------------------
+
+CREATE TABLE centrales (
+    id int(11) AUTO_INCREMENT PRIMARY KEY,
+    nombre varchar(100) NOT NULL,
+    prod_media float NOT NULL,
+    prod_maxima float NOT NULL,
+    fecha_func date,
+    id_central int(11) NOT NULL,
+    tipo_central_fk int(11) NOT NULL
+);
+
+CREATE TABLE tipo_central (
+    id int(1) PRIMARY KEY,
+    tipo varchar(14) NOT NULL
+);
+
+INSERT INTO tipo_central (id, tipo) VALUES (1, 'solar');
+INSERT INTO tipo_central (id, tipo) VALUES (2, 'termica');
+INSERT INTO tipo_central (id, tipo) VALUES (3, 'nuclear');
+INSERT INTO tipo_central (id, tipo) VALUES (4, 'hidroelectrica');
+
+CREATE TABLE solar (
+    id int(11) AUTO_INCREMENT PRIMARY KEY,
+    sup_paneles float NOT NULL,
+    media_hs_sol float NOT NULL,
+    tipo_central tinyint(4) NOT NULL
+);
+
+CREATE TABLE termica (
+    id int(11) AUTO_INCREMENT PRIMARY KEY,
+    num_hornos int(4) NOT NULL,
+    vol_carbon_consum float NOT NULL,
+    vol_emision_gases float NOT NULL
+);
+
+CREATE TABLE hidroelectrica (
+    id int(11) AUTO_INCREMENT PRIMARY KEY,
+    ocupacion int(10) NOT NULL,
+    capacidad int(10) NOT NULL,
+    num_turbinas int(10) NOT NULL
+);
+
+CREATE TABLE nuclear (
+    id int(11) AUTO_INCREMENT PRIMARY KEY,
+    num_reactores int(10) NOT NULL,
+    vol_plut_consum float NOT NULL,
+    vol_residuo float NOT NULL
+);
+
+CREATE TABLE transportista (
+    id int(11) AUTO_INCREMENT PRIMARY KEY,
+    nombre varchar(100) NOT NULL,
+    matricula int(15) NOT NULL
+);
+
+CREATE TABLE suministro (
+    id int(11) AUTO_INCREMENT PRIMARY KEY,
+    nombre varchar(100) NOT NULL,
+    pais varchar(75) NOT NULL,
+    id_nuclear_fk int(11) NOT NULL,
+    cant_plutonio float NOT NULL,
+    id_transportista_fk int(11) NOT NULL,
+    fecha date
+);
+
+---------------------------------------------------------------------------------------------------------------------------
+Estaciones, transformadores, redes, lineas, compañias, subestaciones, provincias, zonas de servicio
+---------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE central_estacion (
+    id_estaciones_fk int(11) NOT NULL,
+    id_centrales_fk int(11) NOT NULL
+);
+
+CREATE TABLE estaciones (
+    id int(11) AUTO_INCREMENT PRIMARY KEY,
+    nombre varchar(100) NOT NULL
+);
+
+CREATE TABLE transformadores (
+    id int(11) AUTO_INCREMENT PRIMARY KEY,
+    id_estaciones_fk int(11) NOT NULL
+);
+
+CREATE TABLE redes (
+    id int(11) AUTO_INCREMENT PRIMARY KEY,
+    numero int(11) NOT NULL,
+    id_estaciones_fk int(11) NOT NULL
+);
+
+CREATE TABLE companias (
+    id int(11) AUTO_INCREMENT PRIMARY KEY,
+    nombre varchar(100) NOT NULL
+);
+
+CREATE TABLE propiedad_red (
+    numero_red_fk int(11) NOT NULL,
+    id_compania_fk int(11) NOT NULL
+);
+
+CREATE TABLE lineas (
+    id int(11) AUTO_INCREMENT PRIMARY KEY,
+    numero_red_sec int(11) NOT NULL,
+    longitud float NOT NULL,
+    num_subestaciones int(11) NOT NULL DEFAULT 0
+);
+
+CREATE TABLE subestaciones (
+    id int(11) AUTO_INCREMENT PRIMARY KEY,
+    id_linea_fk int(11) NOT NULL
+);
+
+CREATE TABLE provincias (
+    id int(11) AUTO_INCREMENT PRIMARY KEY,
+    codigo int(11) NOT NULL,
+    nombre varchar(100) NOT NULL
+);
+
+CREATE TABLE zonas_servicio (
+    id int(11) AUTO_INCREMENT PRIMARY KEY,
+    nombre varchar(100) NOT NULL,
+    id_provincia_fk int(11) NOT NULL
+);
+
+CREATE TABLE zona_abastecida (
+    id_zona_fk int(11) NOT NULL,
+    id_subestacion_fk int(11) NOT NULL
+);

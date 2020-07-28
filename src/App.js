@@ -1,6 +1,8 @@
 import React from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import withAuth from './withAuth';
+//Alertas
+import {ToastContainer} from 'react-toastify';
 
 //Components
 import Navbar from './components/Navbar';
@@ -12,6 +14,11 @@ import Usuarios from './pages/personas/Usuarios';
 import Accesos from './pages/personas/Accesos';
 
 import Login from './pages/Login';
+
+import Solar from './pages/centrales/Solar';
+import Termica from './pages/centrales/Termica';
+import Nuclear from './pages/centrales/Nuclear';
+import Hidroelectrica from './pages/centrales/Hidroelectrica';
 
 import Subestaciones from './pages/estaciones/Subestaciones';
 
@@ -27,6 +34,7 @@ const App = () => {
 
                 <Route path='/'>
                     <Navbar/>
+                    <ToastContainer />
                     <Sidebar/>
                 
                     <Route exact path="/" component={Root}/>
@@ -34,10 +42,10 @@ const App = () => {
                     <Route exact path="/personas/usuarios" component={Usuarios}/>
                     <Route exact path="/permisos/usuario/:id" component={Accesos}/>
 
-                    <Route exact path="/centrales/solares"/>
-                    <Route exact path="/centrales/hidroelectrica"/>
-                    <Route exact path="/centrales/termica"/>
-                    <Route exact path="/centrales/nuclear"/>
+                    <Route exact path="/centrales/solares" component={Solar}/>
+                    <Route exact path="/centrales/hidroelectrica" component={Hidroelectrica}/>
+                    <Route exact path="/centrales/termica" component={Termica}/>
+                    <Route exact path="/centrales/nuclear" component={Nuclear}/>
 
                     <Route exact path="/estaciones/primarias"/>
                     <Route exact path="/estaciones/secundarias" component={Subestaciones}/>

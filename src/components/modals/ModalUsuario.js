@@ -16,23 +16,36 @@ const ModalUsuario = ({show, usuario, handleClose, handleChange, handleSubmit}) 
             setActivo(false);
         }
         if(show){
+            setEmpleados([]); //Precaucion
             const token = localStorage.getItem('token');
             clientAxios.get('/empleados/get/sinusuario', {headers: {access:token}})
             .then(res => {
-                if(res.data.type === 'notfound'){
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Hubo un error',
-                        text: 'No hay empleados disponibles para asignarles un usuario',
-                        showCancelButton: false,
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Cerrar'
-                    }).then((result) => handleClose());
+                /* 
+                    Verifica si el res.data.type es 'notfound'
+                        true: crea un arreglo vacio []
+                        false: obtiene el arreglo de empleados de res.data
+                */
+                let array = res.data.type === 'notfound' ? [] : res.data;
+                if(usuario.usuario !== ''){
+                    array.push({id: usuario.empleado, nombre: usuario.nombre});
+                    setEmpleados(array);
                 } else {
-                    setEmpleados(res.data);
+                    if(res.data.type === 'notfound'){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Hubo un error',
+                            text: 'No hay empleados disponibles para asignarles un usuario',
+                            showCancelButton: false,
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Cerrar'
+                        }).then((result) => handleClose());
+                    } else {
+                        setEmpleados(res.data);
+                    }
                 }
             })
         }
+        // eslint-disable-next-line
     }, [show])
 
     return (
@@ -83,20 +96,10 @@ const ModalUsuario = ({show, usuario, handleClose, handleChange, handleSubmit}) 
                             <label htmlFor="empleado">Empleado</label>
                                 <select 
                                     id="empleado" 
-                                    onChange={handleChange} 
-                                    defaultValue={usuario.empleado} 
+                                    onChange={handleChange}  
                                     className="form-control"
                                 >
                                     <option value="0">Seleccionar</option>
-                                    {
-                                        usuario.empleado !== 0 ? (
-                                            <option 
-                                                value={usuario.empleado}
-                                            >{usuario.nombre}</option>
-                                        ) : (
-                                            null
-                                        )
-                                    }
                                     {
                                         empleados.map((e, key) => {
                                             return(
