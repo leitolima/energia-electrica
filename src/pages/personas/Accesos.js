@@ -1,10 +1,32 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import clientAxios from '../../config/clientAxios';
 
 const Accesos = () => {
+
+    const[load, setLoad] = useState(true);
+    const[user, setUser] = useState({});
+    const[accesos, setAccesos] = useState([]);
+
+    useEffect(() => {
+        if(load){
+            const path = window.location.pathname.split('/');
+            const id = path[3];
+            const token = localStorage.getItem('token');
+            clientAxios.get(`/accesos/get/${id}`, {headers: {access:token}})
+                .then(res => {
+                    setUser(res.data.usuario[0]);
+                    setAccesos(res.data.accesos);
+                })
+                .catch(err => {
+
+                });
+        }
+    }, []);
+
     return (
         <div className="container-fluid mt-4">
             <div className="d-flex flex-row justify-content-between">
-                <h2>Administrar permisos de: Christopher Robbin</h2>
+                <h2>Administrar permisos de: {user.nombre} ({user.usuario})</h2>
                 <button className="btn btn-success">Guardar permisos</button>
             </div>
             <div className="fixed-head w-100 mt-4">

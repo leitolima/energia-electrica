@@ -47,7 +47,7 @@ CREATE TABLE ayuda (
 );
 
 CREATE TABLE accesos (
-    id_usuario_fk int(11) PRIMARY KEY,
+    id_usuario_fk int(11) NOT NULL,
     menu_ayuda_fk int(11) NOT NULL,
     a tinyint NOT NULL,
     b tinyint NOT NULL,
@@ -194,3 +194,25 @@ CREATE TABLE zona_abastecida (
 
 INSERT INTO empleados (nombre, dni, email) VALUES ('admin', '12345678', 'admin@hotmail.com');
 INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES  ('admin', '123456', 10, 1, 1);
+
+
+----------------------------------------------------------INSERTS-PRUEBA----------------------------------------------------------
+INSERT INTO ayuda (menu, titulo) VALUE (1, 'Empleados');
+INSERT INTO ayuda (menu, titulo) VALUE (2, 'Usuario');
+INSERT INTO ayuda (menu, titulo) VALUE (3, 'Solar');
+INSERT INTO ayuda (menu, titulo) VALUE (4, 'Hidroelectrica');
+INSERT INTO ayuda (menu, titulo) VALUE (5, 'Termica');
+INSERT INTO ayuda (menu, titulo) VALUE (6, 'Nuclear');
+
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (1, 1, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (1, 2, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (1, 3, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (1, 4, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (1, 5, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (1, 6, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (28, 1, 0, 1, 0, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (28, 2, 0, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (28, 3, 0, 1, 0, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (28, 4, 0, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (28, 5, 0, 1, 0, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (28, 6, 0, 1, 1, 1);

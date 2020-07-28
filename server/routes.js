@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const cLogin = require('./controllers/cLogin');
+const cAccesos = require('./controllers/cAccesos');
 const cUsuarios = require('./controllers/cUsuarios');
 const cEmpleados = require('./controllers/cEmpleados');
 const cSolares = require('./controllers/cSolares');
@@ -15,6 +16,9 @@ router.get('/api/checktoken', auth, (req, res) => {
 
 //Login
 router.post('/login', cLogin.verificarUsuario);
+
+//Accesos
+router.get('/accesos/get/:id', cAccesos.getAccesosById);
 
 //Usuarios
 router.get('/usuarios/get/all', cUsuarios.getAll);
