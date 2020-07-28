@@ -8,8 +8,8 @@ export function lanzarError(err){
         text: err,
         showCancelButton: false,
         confirmButtonColor: '#3085d6',
-        confirmButtonText: 'Recargar'
-    }).then((result) => window.location.reload(false));
+        confirmButtonText: 'Aceptar'
+    });
 }
 
 //Se utiliza la funcion para editar registro y agregar nuevo

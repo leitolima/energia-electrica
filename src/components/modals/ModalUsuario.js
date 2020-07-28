@@ -98,6 +98,7 @@ const ModalUsuario = ({show, usuario, handleClose, handleChange, handleSubmit}) 
                                     id="empleado" 
                                     onChange={handleChange}  
                                     className="form-control"
+                                    value={usuario.empleado}
                                 >
                                     <option value="0">Seleccionar</option>
                                     {

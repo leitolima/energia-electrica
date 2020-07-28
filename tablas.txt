@@ -189,3 +189,8 @@ CREATE TABLE zona_abastecida (
     id_zona_fk int(11) NOT NULL,
     id_subestacion_fk int(11) NOT NULL
 );
+
+----------------------------------------------------------INSERTS-PRUEBA----------------------------------------------------------
+
+INSERT INTO empleados (nombre, dni, email) VALUES ('admin', '12345678', 'admin@hotmail.com');
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES  ('admin', '123456', 10, 1, 1);

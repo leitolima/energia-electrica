@@ -14,9 +14,11 @@ export default function validarEmpleado(valores){
         errores.push('El DNI es demasiado largo.');
     }
     //fecha
-    if(!valores.fecha){
+    /*
+    if(!valores.fecha_nac){
         errores.push('La fecha de nacimiento es obligatoria.');
     }
+    */
     //email
     if(!valores.email){
         errores.push('El email es obligatorio.');

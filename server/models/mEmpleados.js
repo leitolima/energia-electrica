@@ -24,7 +24,8 @@ exports.agregarNuevo = obj => {
 
 exports.getById = id => {
     return db(`
-        SELECT *, fecha_nac AS fecha FROM empleados WHERE id = ?
+        SELECT *, ifnull(telefono, '') AS telefono 
+        FROM empleados WHERE id = ?
     `, [id]);
 }
 
@@ -40,6 +41,11 @@ exports.editarEmpleado = obj => {
     `, [obj.nombre, obj.fecha, obj.dni, obj.email, obj.telefono, obj.id]);
 }
 
+exports.revisarUsuario = (id) => {
+    return db(`
+        SELECT id FROM usuarios WHERE id_empleado_fk = ?;
+    `, [id]);
+}
 exports.eliminarEmpleado = id => {
     return db(`
         DELETE FROM empleados WHERE id = ?
