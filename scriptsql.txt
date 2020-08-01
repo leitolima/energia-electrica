@@ -18,6 +18,9 @@ CREATE TABLE niveles (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     titulo varchar(25) NOT NULL
 );
+INSERT INTO niveles (titulo) VALUES ('Administrador');
+INSERT INTO niveles (titulo) VALUES ('Supervisor');
+INSERT INTO niveles (titulo) VALUES ('Empleado');
 CREATE TABLE ayuda (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     menu int(11) NOT NULL,

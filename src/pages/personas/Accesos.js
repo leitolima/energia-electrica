@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import clientAxios from '../../config/clientAxios';
+import {Link} from 'react-router-dom';
 
 const Accesos = () => {
 
@@ -27,7 +28,10 @@ const Accesos = () => {
         <div className="container-fluid mt-4">
             <div className="d-flex flex-row justify-content-between">
                 <h2>Administrar permisos de: {user.nombre} ({user.usuario})</h2>
-                <button className="btn btn-success">Guardar permisos</button>
+                <div>
+                    <Link to="/personas/usuarios" className="btn btn-info mr-3">Volver</Link>
+                    <button className="btn btn-success">Guardar permisos</button>
+                </div>
             </div>
             <div className="fixed-head w-100 mt-4">
                 <table className="table table-striped">
