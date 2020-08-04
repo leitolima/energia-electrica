@@ -50,12 +50,21 @@ exports.editarEmpleado = async (req, res) => {
 
 exports.eliminarEmpleado = async (req, res) => {
     const {id} = req.params;
-    const result = await mEmpleados.eliminarEmpleado(id);
-    if(result.affectedRows){
+    const usuario = await mEmpleados.revisarUsuario(id);
+    if(usuario.length == 0){
+        const result = await mEmpleados.eliminarEmpleado(id);
+        if(result.affectedRows){
+            return res.send({
+                type: "success",
+                title: "Éxito",
+                text: "Empleado eliminado correctamente"
+            })
+        } return returnError(res);
+    } else {
         return res.send({
-            type: "success",
-            title: "Éxito",
-            text: "Empleado eliminado correctamente"
+            type: "error",
+            title: "Error",
+            text: "Este empleado esta asociado a un usuario, por lo que no puede ser eliminado"
         })
-    } return returnError(res);
+    }
 }

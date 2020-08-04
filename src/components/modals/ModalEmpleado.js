@@ -42,7 +42,7 @@ const ModalEmpleado = ({show, empleado, handleClose, handleChange, handleSubmit}
                                     className="form-control" 
                                     id="fecha"
                                     onChange={handleChange}
-                                    value={empleado.fecha}
+                                    value={empleado.fecha_nac}
                                 />
                             </div>
                         </div>

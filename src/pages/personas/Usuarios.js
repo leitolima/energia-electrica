@@ -1,6 +1,7 @@
 import React,{useState, useEffect}  from 'react';
 import Swal from 'sweetalert2';
 import {toast} from 'react-toastify';
+import {useHistory} from 'react-router';
 
 import ModalUsuario from '../../components/modals/ModalUsuario';
 
@@ -32,6 +33,8 @@ const Usuarios = () => {
 
     const {valores, errores, handleChange, handleSubmit, handleEditar} = useValidar(INITIAL_STATE, validarUsuario, registrarUsuario);
     const {rows, error, handleLoading} = useData('/usuarios/get/all');
+
+    const history = useHistory();
 
     useEffect(() => {
         if(error){
@@ -137,6 +140,7 @@ const Usuarios = () => {
                                                 <button 
                                                     className="btn btn-success btn-icon" 
                                                     title="Accesos"
+                                                    onClick={() => history.push(`/permisos/usuario/${r.id}`)}
                                                 ><i className="fab fa-windows"></i></button>
                                             </td>
                                             <td>{r.nombre}</td>
