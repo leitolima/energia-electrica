@@ -17,7 +17,11 @@ const returnExisto = (res, text) => {
 
 exports.getAll = async (req, res) => {
     const result = await mProvincias.getAll();
-    res.send(result);
+    if(result.length > 0 ){
+        return res.send(result)
+    }
+    return res.send({type: 'notfound'})
+    
 }
 
 exports.getById = async (req, res) => {

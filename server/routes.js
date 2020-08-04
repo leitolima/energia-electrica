@@ -8,6 +8,7 @@ const cTermicas = require('./controllers/cTermicas');
 const cNucleares = require('./controllers/cNucleares');
 const cHidroelectricas = require('./controllers/cHidroelectricas');
 const cProvincias = require('./controllers/cProvincias');
+const cZona = require('./controllers/cZona');
 
 const auth = require('./middleware').auth;
 
@@ -68,5 +69,12 @@ router.get('/provincia/get/:id', cProvincias.getById);
 router.post('/provincia/nueva', cProvincias.agregarNueva);
 router.post('/provincia/editar', cProvincias.editarProvincia);
 router.get('/provincia/eliminar/:id', cProvincias.eliminarProvincia);
+
+//Zonas de servicio
+router.get('/zona/get/all', cZona.getAll);
+router.get('/zona/get/:id', cZona.getById);
+router.post('/zona/nueva', cZona.agregarNueva)
+router.post('/zona/editar', cZona.editarZona);
+router.get('/zona/eliminar/:id', cZona.eliminarZona);
 
 module.exports = router;

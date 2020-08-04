@@ -27,6 +27,7 @@ import Lineas from './pages/Lineas';
 import Companias from './pages/Companias';
 
 import Provincias from './pages/provincias/Provincias';
+import Zonas from './pages/provincias/Zonas';
 
 const App = () => {
     return (
@@ -57,7 +58,7 @@ const App = () => {
                     <Route exact path="/companias" component={Companias}/>
 
                     <Route exact path="/provincias" component={Provincias}/>
-                    <Route exact path="/zonaservicio" component={Companias}/>
+                    <Route exact path="/zonaservicio" component={Zonas}/>
                 </Route>
             </Switch>
         </Router>
