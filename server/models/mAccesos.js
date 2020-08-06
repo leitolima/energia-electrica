@@ -2,7 +2,7 @@ const db = require('../db').db().query;
 
 exports.getNombreUsuario = id => {
     return db(`
-        SELECT u.usuario, e.nombre FROM usuarios u
+        SELECT u.id, u.usuario, e.nombre FROM usuarios u
         LEFT JOIN empleados e ON u.id_empleado_fk = e.id
         WHERE u.id = ?
     `, [id]);

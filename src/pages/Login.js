@@ -22,7 +22,6 @@ const Login = () => {
             .then(res => {
                 if(res.data.auth){
                     localStorage.setItem('token', res.data.token);
-                    //history.push('/');
                     window.location.replace('/');
                 } else {
                     return toast.error('Usuario o contraseña invalidos.');
