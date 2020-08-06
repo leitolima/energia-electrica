@@ -21,7 +21,7 @@ router.post('/login', cLogin.verificarUsuario);
 
 //Accesos
 router.get('/accesos/get/:id', cAccesos.getAccesosById);
-
+router.post('/accesos/update', cAccesos.actualizacionAccesos);
 //Usuarios
 router.get('/usuarios/get/all', cUsuarios.getAll);
 router.get('/usuario/get/:id', cUsuarios.getById);

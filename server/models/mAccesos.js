@@ -15,3 +15,12 @@ exports.getPermisosDeUsuario = id => {
         WHERE ac.id_usuario_fk = ?
     `, [id]);
 }
+exports.updateAcceso = (obj,id) => {
+    return db(`
+        UPDATE accesos SET a = ?,
+        b = ?, 
+        m = ?,
+        c = ?
+        WHERE menu_ayuda_fk = ? AND id_usuario_fk = ?
+    `,[obj.a,obj.b,obj.m,obj.c,obj.menu,id]);
+};

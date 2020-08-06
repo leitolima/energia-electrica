@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import Swal from 'sweetalert2';
 import clientAxios from '../../config/clientAxios';
 import {Link} from 'react-router-dom';
 import {agregarNuevoEditar} from '../../functions';
@@ -28,10 +29,24 @@ const Accesos = () => {
         }
     }, [load]);
 
-    const handleGuardarPermisos = () => {
-        agregarNuevoEditar('')
+    const handleGuardarPermisos = async () => {
+        const data = {
+            user,
+            accesos
+        }
+        const result = await agregarNuevoEditar('/accesos/update', data);
+        console.log(result);
+        Swal.fire({
+            icon: result.type,
+            title: result.title,
+            text: result.text,
+            timer: 1500
+        });
+        if(result.type === 'success'){
+            console.log('success');
+        }
     }
-
+    
     const handleOnChange = (id, value, key) => {
         if(value){value = 1;} else {value = 0;}
         let array = accesos;
