@@ -6,7 +6,7 @@ exports.auth = (req, res, next) => {
     const token = req.headers['access'];
 
     if(!token){
-        res.send({
+        res.status(403).send({
             type: "notok",
             title: "Error",
             text: "Token no provisto. Por favor inicie sesión,"
@@ -14,7 +14,7 @@ exports.auth = (req, res, next) => {
     } else {
         jtw.verify(token, secret, (err, decoded) => {
             if(err){
-                res.send({
+                res.status(403).send({
                     type: "notok",
                     title: "Error",
                     text: "Token invalido o expirado. Por favor inicie sesión."
