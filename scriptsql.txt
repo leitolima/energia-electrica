@@ -4,7 +4,8 @@ CREATE TABLE usuarios (
     clave varchar(255) NOT NULL,
     id_empleado_fk int(11) NOT NULL,
     id_nivel_fk int(2) NOT NULL,
-    activo tinyint NOT NULL DEFAULT 1
+    activo tinyint NOT NULL DEFAULT 1,
+    borrado tinyint NOT NULL DEFAULT 0
 );
 CREATE TABLE empleados (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
@@ -12,15 +13,14 @@ CREATE TABLE empleados (
     fecha_nac date,
     dni varchar(8) NOT NULL,
     email varchar(150) NOT NULL,
-    telefono varchar(25)
+    telefono varchar(25),
+    borrado tinyint NOT NULL DEFAULT 0
 );
 CREATE TABLE niveles (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     titulo varchar(25) NOT NULL
 );
-INSERT INTO niveles (titulo) VALUES ('Administrador');
-INSERT INTO niveles (titulo) VALUES ('Supervisor');
-INSERT INTO niveles (titulo) VALUES ('Empleado');
+
 CREATE TABLE ayuda (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     menu int(11) NOT NULL,
@@ -34,8 +34,6 @@ CREATE TABLE accesos (
     m tinyint NOT NULL,
     c tinyint NOT NULL
 );
-INSERT INTO empleados (nombre, dni, email) VALUES ('admin', '12345678', 'admin@hotmail.com');
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES  ('admin', '123456', 10, 1, 1);
 
 CREATE TABLE centrales (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
@@ -44,7 +42,8 @@ CREATE TABLE centrales (
     prod_maxima float NOT NULL,
     fecha_func date,
     id_central int(11) NOT NULL,
-    tipo_central_fk int(11) NOT NULL
+    tipo_central_fk int(11) NOT NULL,
+    borrado tinyint NOT NULL DEFAULT 0
 );
 CREATE TABLE tipo_central (
     id int(1) PRIMARY KEY,
@@ -88,27 +87,27 @@ CREATE TABLE suministro (
     id_transportista_fk int(11) NOT NULL,
     fecha date
 );
-INSERT INTO tipo_central (id, tipo) VALUES (1, 'solar');
-INSERT INTO tipo_central (id, tipo) VALUES (2, 'termica');
-INSERT INTO tipo_central (id, tipo) VALUES (3, 'nuclear');
-INSERT INTO tipo_central (id, tipo) VALUES (4, 'hidroelectrica');
 
 CREATE TABLE estaciones (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
-    nombre varchar(100) NOT NULL
+    nombre varchar(100) NOT NULL,
+    borrado tinyint NOT NULL DEFAULT 0
 );
 CREATE TABLE transformadores (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
-    id_estacion_fk int(11) NOT NULL
+    id_estacion_fk int(11) NOT NULL,
+    borrado tinyint NOT NULL DEFAULT 0
 );
 CREATE TABLE redes (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     numero int(11) NOT NULL,
-    id_estacion_fk int(11) NOT NULL
+    id_estacion_fk int(11) NOT NULL,
+    borrado tinyint NOT NULL DEFAULT 0
 );
 CREATE TABLE companias (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
-    nombre varchar(100) NOT NULL
+    nombre varchar(100) NOT NULL,
+    borrado tinyint NOT NULL DEFAULT 0
 );
 CREATE TABLE propiedad_red (
     numero_red_fk int(11) NOT NULL,
@@ -118,26 +117,67 @@ CREATE TABLE lineas (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     numero_red_sec int(11) NOT NULL,
     longitud float NOT NULL,
-    subestaciones int(11) NOT NULL DEFAULT 0
+    subestaciones int(11) NOT NULL DEFAULT 0,
+    borrado tinyint NOT NULL DEFAULT 0
 );
 CREATE TABLE subestaciones (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
-    id_linea_fk int(11) NOT NULL
+    id_linea_fk int(11) NOT NULL,
+    borrado tinyint NOT NULL DEFAULT 0
 );
 CREATE TABLE provincias (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     codigo varchar(10) NOT NULL,
-    nombre varchar(100) NOT NULL
+    nombre varchar(100) NOT NULL,
+    borrado tinyint NOT NULL DEFAULT 0
 );
 CREATE TABLE zonas_servicio (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     nombre varchar(100) NOT NULL,
-    id_provincia_fk int(11) NOT NULL
+    id_provincia_fk int(11) NOT NULL,
+    borrado tinyint NOT NULL DEFAULT 0
 );
 CREATE TABLE zona_abastecida (
     id_zona_fk int(11) NOT NULL,
     id_subestacion_fk int(11) NOT NULL
 );
+
+CREATE TABLE borro (
+    id int(11) AUTO_INCREMENT PRIMARY KEY,
+    usuario varchar(25) NOT NULL,
+    titulo varchar(100) NOT NULL,
+    fecha date,
+    tabla varchar(50) NOT NULL,
+    id_tabla int(11) NOT NULL
+);
+
+INSERT INTO niveles (titulo) VALUES ('Administrador');
+INSERT INTO niveles (titulo) VALUES ('Supervisor');
+INSERT INTO niveles (titulo) VALUES ('Empleado');
+
+INSERT INTO empleados (nombre, dni, email) VALUES ('admin', '12345678', 'admin@hotmail.com');
+INSERT INTO empleados (nombre, dni, email, borrado) VALUES ('Juan Velazques', '12345679', 'juancho@hotmail.com', 1);
+INSERT INTO empleados (nombre, dni, email) VALUES ('Rodrigo Paz', '12345688', 'pazrodri10@hotmail.com');
+INSERT INTO empleados (nombre, dni, email) VALUES ('Enzo Diaz', '12345689', 'enzito@hotmail.com');
+INSERT INTO empleados (nombre, dni, email) VALUES ('Alejandro Moreno', '12345778', 'alemore@hotmail.com');
+INSERT INTO empleados (nombre, dni, email) VALUES ('Leonel Lima', '12345878', 'leonel_lima@hotmail.com');
+INSERT INTO empleados (nombre, dni, email) VALUES ('Martin Garrix', '12345978', 'mgarrix@hotmail.com');
+INSERT INTO empleados (nombre, dni, email) VALUES ('David Guetta', '12346678', 'david@hotmail.com');
+INSERT INTO empleados (nombre, dni, email) VALUES ('Joaquin Peralta', '12347678', 'david@hotmail.com');
+INSERT INTO empleados (nombre, dni, email) VALUES ('Armin Van Buuren', '12348678', 'david@hotmail.com');
+
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('admin', '123456', 1, 1, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('enzito', '123456', 4, 1, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('leytho', '123456', 6, 1, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('mgarrix', '123456', 7, 2, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('david', '123456', 8, 3, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('joako', '123456', 9, 3, 0);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo, borrado) VALUES ('arminvan', '123456', 10, 3, 0, 1);
+
+INSERT INTO tipo_central (id, tipo) VALUES (1, 'solar');
+INSERT INTO tipo_central (id, tipo) VALUES (2, 'termica');
+INSERT INTO tipo_central (id, tipo) VALUES (3, 'nuclear');
+INSERT INTO tipo_central (id, tipo) VALUES (4, 'hidroelectrica');
 
 INSERT INTO ayuda (menu, titulo) VALUE (1, 'Empleados');
 INSERT INTO ayuda (menu, titulo) VALUE (2, 'Usuario');
@@ -152,3 +192,66 @@ INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (1, 3, 1, 
 INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (1, 4, 1, 1, 1, 1);
 INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (1, 5, 1, 1, 1, 1);
 INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (1, 6, 1, 1, 1, 1);
+
+INSERT INTO solar (sup_paneles, media_hs_sol, tipo_panel) VALUES (112, 98, 1);
+INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk) VALUES ('RenovAR', 325, 325, '2022-03-01', 1, 1);
+
+INSERT INTO termica (num_hornos, vol_carbon_consum, vol_emision_gases) VALUES (9, 485, 129);
+INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk) VALUES ('Central térmica Costanera', 1650, 2303.6, '1963-03-02', 1, 2);
+
+INSERT INTO nuclear (num_reactores, vol_plut_consum, vol_residuo) VALUES (2, 430, 126);
+INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk) VALUES ('Atucha I', 335, 362, '1974-06-24', 1, 3);
+INSERT INTO nuclear (num_reactores, vol_plut_consum, vol_residuo) VALUES (4, 543, 189);
+INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk) VALUES ('Atucha II', 692, 745, '2011-05-07', 2, 3);
+INSERT INTO nuclear (num_reactores, vol_plut_consum, vol_residuo) VALUES (1, 543, 189);
+INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk, borrado) VALUES ('Embalse', 680, 683, '1984-05-07', 3, 3, 1);
+
+INSERT INTO hidroelectrica (ocupacion, capacidad, num_turbinas) VALUES (590, 650, 20);
+INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk) VALUES ('Represa de Yacyretá', 1600, 3200, '1994-07-07', 1, 4);
+INSERT INTO hidroelectrica (ocupacion, capacidad, num_turbinas) VALUES (335, 520, 14);
+INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk) VALUES ('Represa de Salto Grande', 1700, 1890, '1974-04-01', 2, 4);
+
+
+INSERT INTO provincias (nombre, codigo) VALUES ('Salta', 'AR-A');
+-- Buenos Aires es id = 2
+INSERT INTO provincias (nombre, codigo) VALUES ('Buenos Aires', 'AR-B');
+INSERT INTO provincias (nombre, codigo) VALUES ('San Luis', 'AR-D');
+INSERT INTO provincias (nombre, codigo) VALUES ('Entre Rios', 'AR-E');
+INSERT INTO provincias (nombre, codigo) VALUES ('La Rioja', 'AR-F');
+INSERT INTO provincias (nombre, codigo) VALUES ('Santiago del Estero', 'AR-G');
+INSERT INTO provincias (nombre, codigo) VALUES ('Chaco', 'AR-H');
+INSERT INTO provincias (nombre, codigo) VALUES ('San Juan', 'AR-J');
+INSERT INTO provincias (nombre, codigo) VALUES ('Catamarca', 'AR-K');
+INSERT INTO provincias (nombre, codigo) VALUES ('La Pampa', 'AR-L');
+INSERT INTO provincias (nombre, codigo) VALUES ('Mendoza', 'AR-M');
+INSERT INTO provincias (nombre, codigo) VALUES ('Misiones', 'AR-N');
+INSERT INTO provincias (nombre, codigo) VALUES ('Formosa', 'AR-P');
+INSERT INTO provincias (nombre, codigo) VALUES ('Neuquen', 'AR-Q');
+INSERT INTO provincias (nombre, codigo) VALUES ('Rio Negro', 'AR-R');
+-- Santa fe es id = 16
+INSERT INTO provincias (nombre, codigo) VALUES ('Santa Fe', 'AR-S');
+INSERT INTO provincias (nombre, codigo) VALUES ('Tucuman', 'AR-T');
+INSERT INTO provincias (nombre, codigo) VALUES ('Chubut', 'AR-U');
+INSERT INTO provincias (nombre, codigo) VALUES ('Tierra del Fuego', 'AR-V');
+INSERT INTO provincias (nombre, codigo) VALUES ('Corrientes', 'AR-W');
+INSERT INTO provincias (nombre, codigo) VALUES ('Cordoba', 'AR-X');
+INSERT INTO provincias (nombre, codigo) VALUES ('Jujuy', 'AR-Y');
+INSERT INTO provincias (nombre, codigo, borrado) VALUES ('Santa Cruz', 'AR-Z', 1);
+
+INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('San Nicolas de los Arroyos', 2);
+INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('San Bernardo', 2);
+INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('Mar de Ajó', 2);
+INSERT INTO zonas_servicio (nombre, id_provincia_fk, borrado) VALUES ('Mar del Plata', 2, 1);
+INSERT INTO zonas_servicio (nombre, id_provincia_fk, borrado) VALUES ('Ramallo', 2, 1);
+INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('Rosario', 16);
+INSERT INTO zonas_servicio (nombre, id_provincia_fk, borrado) VALUES ('Villa Constitución', 16, 1);
+INSERT INTO zonas_servicio (nombre, id_provincia_fk, borrado) VALUES ('Santo Tomé', 16, 1);
+
+INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('admin', 'Borro un empleado', '2020-10-08', 'empleados', 2);
+INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('admin', 'Borro un usuario', '2020-10-08', 'usuarios', 7);
+INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('admin', 'Borro una central nuclear', '2020-10-08', 'centrales', 3);
+INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('admin', 'Borro una provincia', '2020-10-08', 'provincias', 23);
+INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('admin', 'Borro una zona de servicio', '2020-10-08', 'zonas_servicio', 4);
+INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('admin', 'Borro una zona de servicio', '2020-10-08', 'zonas_servicio', 5);
+INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('admin', 'Borro una zona de servicio', '2020-10-08', 'zonas_servicio', 7);
+INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('admin', 'Borro una zona de servicio', '2020-10-08', 'zonas_servicio', 8);

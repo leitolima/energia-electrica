@@ -13,6 +13,10 @@ NIVELES DE USUARIO:
     Supervisor = 2
     Empleado = 3
 
+Columna 'borrado':
+    0 = estado normal
+    1 = fue borrado y no debe mostrarse en los abm (debe mostrarse en pagina de borrado a un administrador);
+
 
 
 CREATE DATABASE energia_electrica;
@@ -23,7 +27,8 @@ CREATE TABLE usuarios (
     clave varchar(255) NOT NULL,
     id_empleado_fk int(11) NOT NULL,
     id_nivel_fk int(2) NOT NULL,
-    activo tinyint NOT NULL DEFAULT 1
+    activo tinyint NOT NULL DEFAULT 1,
+    borrado tinyint NOT NULL DEFAULT 0
 );
 
 CREATE TABLE empleados (
@@ -32,7 +37,8 @@ CREATE TABLE empleados (
     fecha_nac date,
     dni varchar(8) NOT NULL,
     email varchar(150) NOT NULL,
-    telefono varchar(25)
+    telefono varchar(25),
+    borrado tinyint NOT NULL DEFAULT 0
 );
 
 CREATE TABLE niveles (
@@ -69,7 +75,8 @@ CREATE TABLE centrales (
     prod_maxima float NOT NULL,
     fecha_func date,
     id_central int(11) NOT NULL,
-    tipo_central_fk int(11) NOT NULL
+    tipo_central_fk int(11) NOT NULL,
+    borrado tinyint NOT NULL DEFAULT 0
 );
 
 CREATE TABLE tipo_central (
@@ -132,23 +139,27 @@ Estaciones, transformadores, redes, lineas, compañias, subestaciones, provincia
 
 CREATE TABLE estaciones (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
-    nombre varchar(100) NOT NULL
+    nombre varchar(100) NOT NULL,
+    borrado tinyint NOT NULL DEFAULT 0
 );
 
 CREATE TABLE transformadores (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
-    id_estacion_fk int(11) NOT NULL
+    id_estacion_fk int(11) NOT NULL,
+    borrado tinyint NOT NULL DEFAULT 0
 );
 
 CREATE TABLE redes (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     numero int(11) NOT NULL,
-    id_estacion_fk int(11) NOT NULL
+    id_estacion_fk int(11) NOT NULL,
+    borrado tinyint NOT NULL DEFAULT 0
 );
 
 CREATE TABLE companias (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
-    nombre varchar(100) NOT NULL
+    nombre varchar(100) NOT NULL,
+    borrado tinyint NOT NULL DEFAULT 0
 );
 
 CREATE TABLE propiedad_red (
@@ -160,24 +171,28 @@ CREATE TABLE lineas (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     numero_red_sec int(11) NOT NULL,
     longitud float NOT NULL,
-    subestaciones int(11) NOT NULL DEFAULT 0
+    subestaciones int(11) NOT NULL DEFAULT 0,
+    borrado tinyint NOT NULL DEFAULT 0
 );
 
 CREATE TABLE subestaciones (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
-    id_linea_fk int(11) NOT NULL
+    id_linea_fk int(11) NOT NULL,
+    borrado tinyint NOT NULL DEFAULT 0
 );
 
 CREATE TABLE provincias (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     codigo varchar(10) NOT NULL,
-    nombre varchar(100) NOT NULL
+    nombre varchar(100) NOT NULL,
+    borrado tinyint NOT NULL DEFAULT 0
 );
 
 CREATE TABLE zonas_servicio (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     nombre varchar(100) NOT NULL,
-    id_provincia_fk int(11) NOT NULL
+    id_provincia_fk int(11) NOT NULL,
+    borrado tinyint NOT NULL DEFAULT 0
 );
 
 CREATE TABLE zona_abastecida (
