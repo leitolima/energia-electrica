@@ -1,4 +1,5 @@
 const mProvincias = require('../models/mProvincias');
+const mBorro = require('../models/mBorro');
 
 const returnError = res => {
     return res.send({
@@ -44,8 +45,13 @@ exports.editarProvincia = async (req, res) => {
 }
 
 exports.eliminarProvincia = async (req, res) => {
-    const result = await mProvincias.eliminarProvincia(req.params.id);
+    const {id} = req.params;
+    const result = await mProvincias.eliminarProvincia(id);
+    const nombre = await mProvincias.getById(id);
     if(result.affectedRows){
+        await mBorro.nuevoBorrado(req.usuario, 
+            `Borro una provincia: ${nombre[0].nombre} (${nombre[0].codigo})`, 'provincias', id
+        );
         return returnExisto(res, 'Provincia eliminada correctamente');
     } return returnError(res);
 }

@@ -3,15 +3,15 @@ const db = require('../db').db().query;
 exports.getAll = () => {
     return db(`
         SELECT id, nombre, DATE_FORMAT(fecha_nac, '%m/%d/%Y') AS fecha,
-        dni, email, telefono 
-        FROM empleados
+        dni, email, telefono FROM empleados
+        WHERE borrado = 0;
     `, []);
 }
 
 exports.getAllSinUsuario = () => {
     return db(`
         SELECT * FROM empleados WHERE id NOT IN
-        (SELECT id_empleado_fk FROM usuarios);
+        (SELECT id_empleado_fk FROM usuarios WHERE borrado = 0);
     `, []);
 }
 
@@ -20,6 +20,12 @@ exports.agregarNuevo = obj => {
         INSERT INTO empleados (nombre, fecha_nac, dni, email, telefono)
         VALUES (?, ?, ?, ?, ?);
     `, [obj.nombre, obj.fecha, obj.dni, obj.email, obj.telefono]);
+}
+
+exports.getNombre = id => {
+    return db(`
+        SELECT nombre FROM empleados WHERE id = ?
+    `, [id]);
 }
 
 exports.getById = id => {
@@ -43,11 +49,11 @@ exports.editarEmpleado = obj => {
 
 exports.revisarUsuario = (id) => {
     return db(`
-        SELECT id FROM usuarios WHERE id_empleado_fk = ?;
+        SELECT id FROM usuarios WHERE id_empleado_fk = ? AND borrado = 0;
     `, [id]);
 }
 exports.eliminarEmpleado = id => {
     return db(`
-        DELETE FROM empleados WHERE id = ?
+        UPDATE empleados SET borrado = 1 WHERE id = ?
     `, [id])
 }

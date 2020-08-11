@@ -29,6 +29,8 @@ import Companias from './pages/Companias';
 import Provincias from './pages/provincias/Provincias';
 import Zonas from './pages/provincias/Zonas';
 
+import Borro from './pages/Borro';
+
 const App = () => {
     return (
         <Router>  
@@ -59,6 +61,7 @@ const App = () => {
 
                     <Route exact path="/provincias" component={Provincias}/>
                     <Route exact path="/zonaservicio" component={Zonas}/>
+                    <Route exact path="/historial/borrado" component={Borro}/>
                 </Route>
             </Switch>
         </Router>

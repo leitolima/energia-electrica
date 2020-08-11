@@ -1,4 +1,5 @@
 const mUsuarios = require('../models/mUsuarios');
+const mBorro = require('../models/mBorro');
 
 const returnError = res => {
     return res.send({
@@ -43,7 +44,9 @@ exports.editarUsuario = async (req, res) => {
 exports.eliminarUsuario = async (req, res) => {
     const {id} = req.params;
     const result = await mUsuarios.eliminarUsuario(id);
+    const nombre = await mUsuarios.getNombre(id);
     if(result.affectedRows){
+        await mBorro.nuevoBorrado(req.usuario, `Borro un usuario: ${nombre[0].usuario}`, 'usuarios', id);
         return res.send({
             type: "success",
             title: "Éxito",

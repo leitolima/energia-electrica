@@ -13,7 +13,7 @@ exports.verificarUsuario = async (req, res) => {
         if(result[0].clave === clave){
             const userId = result[0].id;
             //Token de una hora con el id del usuario
-            const token = jwt.sign({userId}, secret, {
+            const token = jwt.sign({userId, usuario}, secret, {
                 expiresIn: 60 * 60
             });
             return res.send({auth: true, token});

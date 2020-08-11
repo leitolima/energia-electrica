@@ -7,6 +7,7 @@ exports.getAll = () => {
         FROM usuarios u
         LEFT JOIN empleados e ON e.id = u.id_empleado_fk
         LEFT JOIN niveles n ON n.id = u.id_nivel_fk
+        WHERE u.borrado = 0;
     `, []);
 }
 
@@ -15,6 +16,12 @@ exports.agregarNuevo = obj => {
         INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk)
         VALUES (?, ?, ?, ?);
     `, [obj.usuario, obj.clave, obj.empleado, obj.nivel]);
+}
+
+exports.getNombre = id => {
+    return db(`
+        SELECT usuario FROM usuarios WHERE id = ?
+    `, [id]);
 }
 
 exports.getById = id => {
@@ -41,6 +48,6 @@ exports.editarUsuario = obj => {
 
 exports.eliminarUsuario = (id) => {
     return db(`
-        DELETE FROM usuarios WHERE id = ?
+        UPDATE usuarios SET borrado = 1 WHERE id = ?
     `, [id])
 }

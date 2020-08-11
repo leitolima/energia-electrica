@@ -5,6 +5,7 @@ exports.getAll = () => {
         SELECT z.id, z.nombre, p.nombre AS provincia 
         FROM zonas_servicio z
         LEFT JOIN provincias p ON z.id_provincia_fk = p.id
+        WHERE z.borrado = 0;
     `, [])
 }
 
@@ -32,7 +33,6 @@ exports.editarZona = obj => {
 
 exports.eliminarZona = id => {
     return db(`
-        DELETE FROM zonas_servicio
-        WHERE id = ?
+        UPDATE zonas_servicio SET borrado = 1 WHERE id = ?;
     `, [id]);
 }

@@ -5,7 +5,7 @@ exports.getAll = () => {
         SELECT n.*, c.nombre, c.prod_media, c.prod_maxima,
         DATE_FORMAT(c.fecha_func, '%m/%d/%Y') AS fecha_func
         FROM nuclear n LEFT JOIN centrales c ON c.id_central = n.id
-        WHERE c.tipo_central_fk = 3;
+        WHERE c.tipo_central_fk = 3 AND c.borrado = 0;
     `, []);
 }
 

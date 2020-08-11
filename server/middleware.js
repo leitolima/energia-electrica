@@ -21,9 +21,10 @@ exports.auth = (req, res, next) => {
                 })
             } else {
                 req.userId = decoded.userId;
-                console.log('-----------------');
-                console.log('Id: ' + req.userId);
-                console.log('-----------------');
+                req.usuario = decoded.usuario;
+                console.log('------------------------');
+                console.log('Id: ' + req.userId + ' - Usuario: ' + req.usuario);
+                console.log('------------------------');
                 next();
             }
         })

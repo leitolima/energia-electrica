@@ -1,4 +1,5 @@
 const mZona = require('../models/mZona');
+const mBorro = require('../models/mBorro');
 
 const returnError = res => {
     return res.send({
@@ -40,7 +41,12 @@ exports.editarZona = async (req, res) => {
 }
 
 exports.eliminarZona = async (req, res) => {
-    const result = await mZona.eliminarZona(req.params.id);
+    const {id} = req.params;
+    const result = await mZona.eliminarZona(id);
+    const nombre = await mZona.getById(id);
+    await mBorro.nuevoBorrado(req.usuario, 
+        `Borro una zona de servicio: ${nombre[0].nombre}`, 'zonas_servicio', id
+    );
     if(result.affectedRows){
         return returnExisto(res, 'Zona de servicio eliminada correctamente');
     } return returnError(res);

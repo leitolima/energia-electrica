@@ -2,7 +2,8 @@ const db = require('../db').db().query;
 
 exports.getAll = () => {
     return db(`
-        SELECT * FROM provincias;
+        SELECT * FROM provincias
+        WHERE borrado = 0;
     `, [])
 }
 
@@ -16,7 +17,7 @@ exports.getById = id => {
 exports.registrarNuevaProvincia = obj => {
     return db(`
         INSERT INTO provincias (codigo, nombre)
-        VALUES (?, ?)
+        VALUES (?, ?);
     `, [obj.codigo, obj.nombre]);
 }
 
@@ -24,13 +25,12 @@ exports.editarProvincia = obj => {
     return db(`
         UPDATE provincias SET
         codigo = ?, nombre = ?
-        WHERE id = ?
+        WHERE id = ?;
     `, [obj.codigo, obj.nombre, obj.id]);
 }
 
 exports.eliminarProvincia = id => {
     return db(`
-        DELETE FROM provincias
-        WHERE id = ?
+        UPDATE provincias SET borrado = 1 WHERE id = ?
     `, [id]);
 }

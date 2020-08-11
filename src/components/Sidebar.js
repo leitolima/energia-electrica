@@ -129,6 +129,14 @@ const Sidebar = () => {
                 <div className="divisor rainbow my-2"></div>
                 <li className="nav-item d-flex flex-row">
                     <div className="icon-box">
+                        <i className="fas fa-folder-open"></i>
+                    </div>
+                    <h5>
+                        <Link to="/historial/borrado">Borrado</Link>
+                    </h5>
+                </li>
+                <li className="nav-item d-flex flex-row">
+                    <div className="icon-box">
                         <i className="fas fa-question-circle"></i>
                     </div>
                     <h5>

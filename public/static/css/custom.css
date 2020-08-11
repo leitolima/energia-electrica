@@ -36,7 +36,8 @@ th{background:#eee;}
 /* Icons */
 i{font-size: 13px;}
 .btn-icon{margin-right: 10px;}
-.options{max-width: 160px !important;}
+.fecha{width: 130px !important;}
+.options{min-width: 170px; max-width: 200px !important;}
 .btn-warning{color: white !important;} /* Reset bootstrap */
 
 /* tables */
