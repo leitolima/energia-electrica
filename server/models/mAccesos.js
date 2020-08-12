@@ -24,3 +24,16 @@ exports.updateAcceso = (obj,id) => {
         WHERE menu_ayuda_fk = ? AND id_usuario_fk = ?
     `,[obj.a,obj.b,obj.m,obj.c,obj.menu,id]);
 };
+
+exports.getMenu = () => {
+    return db(`
+        SELECT * FROM ayuda
+    `,[]);
+}
+
+exports.agregarAccesos = (id, menu, a, b, m, c) =>{
+    return db(`
+        INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) 
+        VALUES (?, ?, ?, ?, ?, ?)
+    `,[id, menu, a, b, m, c]);
+}

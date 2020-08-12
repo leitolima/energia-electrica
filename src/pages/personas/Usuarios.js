@@ -102,6 +102,7 @@ const Usuarios = () => {
                 <button 
                     type="button"
                     className="btn btn-success"
+                    disabled
                     onClick={() => {
                         handleEditar(INITIAL_STATE);
                         setEditar(false);

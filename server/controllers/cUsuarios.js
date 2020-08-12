@@ -1,3 +1,4 @@
+const mAccesos = require('../models/mAccesos');
 const mUsuarios = require('../models/mUsuarios');
 const mBorro = require('../models/mBorro');
 
@@ -21,6 +22,9 @@ exports.getById = async (req, res) => {
 
 exports.agregarNuevoUsuario = async (req, res) => {
     const result = await mUsuarios.agregarNuevo(req.body);
+    const idUsuario = result.insertId;
+    const nivel = req.body.nivel;
+    asignacionAccesos(idUsuario,nivel);
     if(result.affectedRows){
         return res.send({
             type: "success",
@@ -54,3 +58,22 @@ exports.eliminarUsuario = async (req, res) => {
         })
     } return returnError(res);
 }
+
+async function asignacionAccesos(id,nivel){
+    const result = await mAccesos.getMenu();
+    for(var i=0;i<result.length;i++){
+        //Admin 
+        if(nivel === 1){
+            await mAccesos.agregarAccesos(id, result[i].menu, 1, 1, 1, 1);
+        }
+        //Supervisor
+        if(nivel === 2){
+            await mAccesos.agregarAccesos(id, result[i].menu, 1, 0, 1, 1);
+        }
+        //Empleado
+        if(nivel === 3){
+            await mAccesos.agregarAccesos(id, result[i].menu, 0, 0, 0, 1);
+        }
+    }
+}
+
