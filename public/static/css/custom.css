@@ -3,6 +3,7 @@
 .h-100{height: 100%;}
 .container-fluid{width: 90% !important;}
 .width-160{width: 160px; max-width: 160px;}
+h1, h2, h3, h4, h5, h6{margin: 0px !important;}
 
 /* table fixed thead */
 .fixed-head{display: inline-block;overflow-y: scroll;height: 450px;}

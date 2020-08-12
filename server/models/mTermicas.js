@@ -3,7 +3,7 @@ const db = require('../db').db().query;
 exports.getAll = () => {
     return db(`
         SELECT c.id, c.nombre, c.prod_media, c.prod_maxima,
-        t.num_hornos, t.vol_carbon_consumido, t.vol_emision_gases,
+        t.num_hornos, t.vol_carbon_consum, t.vol_emision_gases,
         DATE_FORMAT(c.fecha_func, '%d/%m/%Y') AS fecha_func
         FROM centrales c LEFT JOIN termica t ON t.id = c.id_central
         WHERE c.tipo_central_fk = 2 AND c.borrado = 0;
@@ -13,7 +13,7 @@ exports.getAll = () => {
 exports.getById = id => {
     return db(`
         SELECT c.id, c.nombre, c.prod_media, c.prod_maxima, c.id_central, 
-        t.num_hornos, t.vol_carbon_consumido, t.vol_emision_gases,
+        t.num_hornos, t.vol_carbon_consum, t.vol_emision_gases,
         DATE_FORMAT(c.fecha_func, '%d/%m/%Y') AS fecha_func
         FROM centrales c LEFT JOIN termica t ON t.id = c.id_central
         WHERE t.id = ? AND c.tipo_central_fk = 2;

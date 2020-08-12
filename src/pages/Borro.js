@@ -1,21 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import Swal from 'sweetalert2';
 
 import clientAxios from '../config/clientAxios';
 
 //Functions
 import {
-    eliminarRegistro, 
-    buscarRegistroById,
-    agregarNuevoEditar,
+    eliminarRegistro,
     lanzarError
 } from '../functions';
 import useData from '../hooks/useData';
 
 const Borro = () => {
-
-    const[show, setShow] = useState(false);
-    const[view, setView] = useState({});
 
     const {rows, error, handleLoading} = useData('/borro/get/all');
 
