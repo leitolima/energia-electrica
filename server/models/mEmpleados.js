@@ -2,7 +2,7 @@ const db = require('../db').db().query;
 
 exports.getAll = () => {
     return db(`
-        SELECT id, nombre, DATE_FORMAT(fecha_nac, '%m/%d/%Y') AS fecha,
+        SELECT id, nombre, DATE_FORMAT(fecha_nac, '%d/%m/%Y') AS fecha,
         dni, email, telefono FROM empleados
         WHERE borrado = 0;
     `, []);

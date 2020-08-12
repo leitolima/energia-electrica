@@ -2,19 +2,21 @@ const db = require('../db').db().query;
 
 exports.getAll = () => {
     return db(`
-        SELECT n.*, c.nombre, c.prod_media, c.prod_maxima,
-        DATE_FORMAT(c.fecha_func, '%m/%d/%Y') AS fecha_func
-        FROM nuclear n LEFT JOIN centrales c ON c.id_central = n.id
+        SELECT c.id, c.nombre, c.prod_media, c.prod_maxima,
+        n.num_reactores, n.vol_plut_consum, n.vol_residuo,
+        DATE_FORMAT(c.fecha_func, '%d/%m/%Y') AS fecha_func
+        FROM centrales c LEFT JOIN nuclear n ON n.id = c.id_central
         WHERE c.tipo_central_fk = 3 AND c.borrado = 0;
     `, []);
 }
 
 exports.getById = id => {
     return db(`
-        SELECT n.*, c.nombre, c.prod_media, c.prod_maxima, 
-        c.fecha_func AS fecha
-        FROM nuclear n LEFT JOIN centrales c ON c.id_central = n.id
-        WHERE n.id = ? AND c.tipo_central_fk = 3;
+        SELECT c.id, c.nombre, c.prod_media, c.prod_maxima, c.id_central,
+        n.num_reactores, n.vol_plut_consum, n.vol_residuo,
+        DATE_FORMAT(c.fecha_func, '%m/%d/%Y') AS fecha_func
+        FROM centrales c LEFT JOIN nuclear n ON n.id = c.id_central
+        WHERE c.id = ? AND c.tipo_central_fk = 3;
     `, [id]);
 }
 
@@ -36,23 +38,23 @@ exports.editarEnNuclear = obj => {
     return db(`
         UPDATE nuclear SET num_reactores = ?, vol_plut_consum = ?,
         vol_residuo = ? WHERE id = ?;
-        
-    `, [obj.num_reactores, obj.vol_plut_consum, obj.vol_residuo, obj.id]);
+    `, [obj.num_reactores, obj.vol_plut_consum, obj.vol_residuo, obj.id_central]);
 }
 exports.editarEnCentrales = obj => {
     return db(`
         UPDATE centrales SET nombre = ?, prod_media = ?,
-        prod_maxima = ?, fecha_func = ? WHERE id_central = ?;
+        prod_maxima = ?, fecha_func = ? WHERE id = ?;
     `, [obj.nombre, obj.prod_media, obj.prod_maxima, obj.fecha, obj.id])
 }
 
-exports.eliminarEnNuclear = id => {
+exports.getNombre = id => {
     return db(`
-        DELETE FROM nuclear WHERE id = ?
+        SELECT nombre, id_central FROM centrales WHERE id = ?;
     `, [id]);
 }
-exports.eliminarEnCentrales = id => {
+
+exports.eliminarCentral = id => {
     return db(`
-        DELETE FROM centrales WHERE id_central = ?
+        UPDATE centrales SET borrado = 1 WHERE id = ?;
     `, [id]);
 }

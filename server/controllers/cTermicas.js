@@ -1,4 +1,5 @@
 const mTermicas = require('../models/mTermicas');
+const mBorro = require('../models/mBorro');
 
 const returnError = res => {
     return res.send({
@@ -45,8 +46,12 @@ exports.editarCentral = async (req, res) => {
 }
 
 exports.eliminarCentral = async (req, res) => {
-    const result = await mTermicas.eliminarEnTermica(req.params.id);
-    const result2 = await mTermicas.eliminarEnCentrales(req.params.id);
+    const {id} = req.params;
+    const result = await mTermicas.eliminarCentral(id);
+    const nombre = await mTermicas.getNombre(id);
+    await mBorro.nuevoBorradoCentral(req.usuario, 
+        `Borro una central térmica: ${nombre[0].nombre}`, 'termica', nombre[0].id_central, id
+    );
     if(result.affectedRows && result2.affectedRows){
         return returnExisto(res, "Central eliminada correctamente");
     } return returnError(res);

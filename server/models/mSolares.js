@@ -2,18 +2,20 @@ const db = require('../db').db().query;
 
 exports.getAll = () => {
     return db(`
-        SELECT s.*, c.nombre, c.prod_media, c.prod_maxima,
+        SELECT c.id, c.nombre, c.prod_media, c.prod_maxima,
+        s.sup_paneles, s.media_hs_sol, s.tipo_panel,
         DATE_FORMAT(c.fecha_func, '%m/%d/%Y') AS fecha_func
-        FROM solar s LEFT JOIN centrales c ON c.id_central = s.id
+        FROM centrales c LEFT JOIN solar s ON c.id_central = s.id
         WHERE c.tipo_central_fk = 1 AND c.borrado = 0;
     `, []);
 }
 
 exports.getById = id => {
     return db(`
-        SELECT s.*, c.nombre, c.prod_media, c.prod_maxima, 
-        c.fecha_func AS fecha
-        FROM solar s LEFT JOIN centrales c ON c.id_central = s.id
+        SELECT c.id, c.nombre, c.prod_media, c.prod_maxima, c.id_central, 
+        s.sup_paneles, s.media_hs_sol, s.tipo_panel,
+        DATE_FORMAT(c.fecha_func, '%m/%d/%Y') AS fecha_func
+        FROM centrales c LEFT JOIN solar s ON c.id_central = s.id
         WHERE s.id = ? AND c.tipo_central_fk = 1;
     `, [id]);
 }
@@ -36,23 +38,23 @@ exports.editarEnSolar = obj => {
     return db(`
         UPDATE solar SET sup_paneles = ?, media_hs_sol = ?,
         tipo_panel = ? WHERE id = ?;
-        
-    `, [obj.sup_paneles, obj.media_hs_sol, obj.tipo_panel, obj.id]);
+    `, [obj.sup_paneles, obj.media_hs_sol, obj.tipo_panel, obj.id_central]);
 }
 exports.editarEnCentrales = obj => {
     return db(`
         UPDATE centrales SET nombre = ?, prod_media = ?,
-        prod_maxima = ?, fecha_func = ? WHERE id_central = ?;
+        prod_maxima = ?, fecha_func = ? WHERE id = ?;
     `, [obj.nombre, obj.prod_media, obj.prod_maxima, obj.fecha, obj.id])
 }
 
-exports.eliminarEnSolar = id => {
+exports.getNombre = id => {
     return db(`
-        DELETE FROM solar WHERE id = ?
+        SELECT nombre, id_central FROM centrales WHERE id = ?;
     `, [id]);
 }
-exports.eliminarEnCentrales = id => {
+
+exports.eliminarCentral = id => {
     return db(`
-        DELETE FROM centrales WHERE id_central = ?
+        UPDATE centrales SET borrado = 1 WHERE id = ?
     `, [id]);
 }

@@ -23,8 +23,8 @@ router.post('/login', cLogin.verificarUsuario);
 //Borrado
 router.get('/borro/get/all', auth, cBorro.getAll);
 router.get('/borro/get/:id/:tabla', auth, cBorro.verRegistro);
-router.get('/borro/eliminar/:id/', auth, cBorro.eliminarRegistro);
-router.get('/borro/restaurar/:id/:id_tabla/:tabla', auth, cBorro.restaurarRegistro);
+router.get('/borro/eliminar/:id', auth, cBorro.eliminarRegistro);
+router.get('/borro/restaurar/:id', auth, cBorro.restaurarRegistro);
 //Accesos
 router.get('/accesos/get/:id', auth, cAccesos.getAccesosById);
 router.post('/accesos/update', auth, cAccesos.actualizacionAccesos);

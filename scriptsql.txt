@@ -148,7 +148,9 @@ CREATE TABLE borro (
     titulo varchar(100) NOT NULL,
     fecha date,
     tabla varchar(50) NOT NULL,
-    id_tabla int(11) NOT NULL
+    id_tabla int(11) NOT NULL,
+    central tinyint NOT NULL DEFAULT 0,
+    id_centrales_fk int(11) NOT NULL DEFAULT 0
 );
 
 INSERT INTO niveles (titulo) VALUES ('Administrador');
@@ -157,21 +159,23 @@ INSERT INTO niveles (titulo) VALUES ('Empleado');
 
 INSERT INTO empleados (nombre, dni, email) VALUES ('admin', '12345678', 'admin@hotmail.com');
 INSERT INTO empleados (nombre, dni, email, borrado) VALUES ('Juan Velazques', '12345679', 'juancho@hotmail.com', 1);
-INSERT INTO empleados (nombre, dni, email) VALUES ('Rodrigo Paz', '12345688', 'pazrodri10@hotmail.com');
-INSERT INTO empleados (nombre, dni, email) VALUES ('Enzo Diaz', '12345689', 'enzito@hotmail.com');
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Rodrigo Paz', '12345688', 'pazrodri10@hotmail.com', '011516912');
+INSERT INTO empleados (nombre, dni, email, fecha_nac) VALUES ('Enzo Diaz', '12345689', 'enzito@hotmail.com', '1999-10-06');
 INSERT INTO empleados (nombre, dni, email) VALUES ('Alejandro Moreno', '12345778', 'alemore@hotmail.com');
-INSERT INTO empleados (nombre, dni, email) VALUES ('Leonel Lima', '12345878', 'leonel_lima@hotmail.com');
+INSERT INTO empleados (nombre, dni, email, telefono, fecha_nac) VALUES ('Leonel Lima', '12345878', 'leonel_lima@hotmail.com', '3364519919', '2020-09-02');
 INSERT INTO empleados (nombre, dni, email) VALUES ('Martin Garrix', '12345978', 'mgarrix@hotmail.com');
-INSERT INTO empleados (nombre, dni, email) VALUES ('David Guetta', '12346678', 'david@hotmail.com');
-INSERT INTO empleados (nombre, dni, email) VALUES ('Joaquin Peralta', '12347678', 'david@hotmail.com');
-INSERT INTO empleados (nombre, dni, email) VALUES ('Armin Van Buuren', '12348678', 'david@hotmail.com');
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('David Guetta', '12346678', 'david@hotmail.com', '3364513917');
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Joaquin Peralta', '12347678', 'joakoperalta@hotmail.com', '3364314959');
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Armin Van Buuren', '12348678', 'arminvan@hotmail.com', '3364413972');
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('José Cuarto', '12349678', 'cuarto4@hotmail.com', '3364872539');
+INSERT INTO empleados (nombre, dni, email) VALUES ('Juan Carlos Palmera', '12355678', 'elpalmera@hotmail.com');
+INSERT INTO empleados (nombre, dni, email) VALUES ('Armando Esteban Quito', '12367678', 'estaban_quito@hotmail.com');
+INSERT INTO empleados (nombre, dni, email, telefono, borrado) VALUES ('Juan Pelotas', '12377678', 'pelotas@hotmail.com', '3363871656', 1);
 
 INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('admin', '123456', 1, 1, 1);
 INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('enzito', '123456', 4, 1, 1);
 INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('leytho', '123456', 6, 1, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('mgarrix', '123456', 7, 2, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('david', '123456', 8, 3, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('joako', '123456', 9, 3, 0);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('mgarrix', '123456', 7, 2, 0);
 INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo, borrado) VALUES ('arminvan', '123456', 10, 3, 0, 1);
 
 INSERT INTO tipo_central (id, tipo) VALUES (1, 'solar');
@@ -233,6 +237,7 @@ INSERT INTO provincias (nombre, codigo) VALUES ('Santa Fe', 'AR-S');
 INSERT INTO provincias (nombre, codigo) VALUES ('Tucuman', 'AR-T');
 INSERT INTO provincias (nombre, codigo) VALUES ('Chubut', 'AR-U');
 INSERT INTO provincias (nombre, codigo) VALUES ('Tierra del Fuego', 'AR-V');
+-- Cordoba es id = 20
 INSERT INTO provincias (nombre, codigo) VALUES ('Corrientes', 'AR-W');
 INSERT INTO provincias (nombre, codigo) VALUES ('Cordoba', 'AR-X');
 INSERT INTO provincias (nombre, codigo) VALUES ('Jujuy', 'AR-Y');
@@ -246,12 +251,22 @@ INSERT INTO zonas_servicio (nombre, id_provincia_fk, borrado) VALUES ('Ramallo',
 INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('Rosario', 16);
 INSERT INTO zonas_servicio (nombre, id_provincia_fk, borrado) VALUES ('Villa Constitución', 16, 1);
 INSERT INTO zonas_servicio (nombre, id_provincia_fk, borrado) VALUES ('Santo Tomé', 16, 1);
+INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('La Plata', 2);
+INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('Junín', 2);
+INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('Lujan', 2);
+INSERT INTO zonas_servicio (nombre, id_provincia_fk, borrado) VALUES ('Campana', 2, 1);
+INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('Alta Gracia', 20);
+INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('Villa Carlos Paz', 20);
+INSERT INTO zonas_servicio (nombre, id_provincia_fk, borrado) VALUES ('La Falda', 20, 1);
 
-INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('admin', 'Borro un empleado', '2020-10-08', 'empleados', 2);
-INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('admin', 'Borro un usuario', '2020-10-08', 'usuarios', 7);
-INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('admin', 'Borro una central nuclear', '2020-10-08', 'centrales', 3);
-INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('admin', 'Borro una provincia', '2020-10-08', 'provincias', 23);
-INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('admin', 'Borro una zona de servicio', '2020-10-08', 'zonas_servicio', 4);
-INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('admin', 'Borro una zona de servicio', '2020-10-08', 'zonas_servicio', 5);
-INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('admin', 'Borro una zona de servicio', '2020-10-08', 'zonas_servicio', 7);
-INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('admin', 'Borro una zona de servicio', '2020-10-08', 'zonas_servicio', 8);
+INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('admin', 'Borro un empleado: Juan Velazques', '2020-08-01', 'empleados', 2);
+INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('admin', 'Borro un usuario: arminvan', '2020-08-01', 'usuarios', 7);
+INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('enzito', 'Borro una central nuclear: Embalse', '2020-08-02', 'centrales', 3);
+INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('enzito', 'Borro una provincia: Santa Cruz', '2020-08-04', 'provincias', 23);
+INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('leytho', 'Borro una zona de servicio: Mar del Plata', '2020-08-05', 'zonas_servicio', 4);
+INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('admin', 'Borro una zona de servicio: Ramallo', '2020-08-05', 'zonas_servicio', 5);
+INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('leytho', 'Borro una zona de servicio: Villa Constitución', '2020-08-08', 'zonas_servicio', 7);
+INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('admin', 'Borro una zona de servicio: Santo Tomé', '2020-08-10', 'zonas_servicio', 8);
+INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('admin', 'Borro una zona de servicio: Campana', '2020-08-11', 'zonas_servicio', 12);
+INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('leytho', 'Borro una zona de servicio: La Falda', '2020-08-11', 'zonas_servicio', 15);
+INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('enzito', 'Borro un empleado: Juan Pelotas', '2020-08-11', 'empleados', 14);

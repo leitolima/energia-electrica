@@ -58,20 +58,33 @@ const Borro = () => {
         })
     }
 
-    const restaurarRegistro = async (id, id_tabla, tabla) => {
-        const token = localStorage.getItem('token');
-        const result = await clientAxios.get(`/borro/restaurar/${id}/${id_tabla}/${tabla}`, 
-            {headers: {access:token}}
-        );
-        if(result.data.type === 'success'){
-            Swal.fire({
-                icon: result.data.type,
-                title: result.data.title,
-                text: result.data.text,
-                timer: 1500
-            });
-            handleLoading();
-        }
+    const restaurarRegistro = async (id) => {
+        Swal.fire({
+            title: 'Confirmación necesaria',
+            text: "Desea restaurar este registro",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '¡Si, restaurar!'
+        })
+        .then(async res => {
+            if(res.value) {
+                const token = localStorage.getItem('token');
+                const result = await clientAxios.get(`/borro/restaurar/${id}`, 
+                    {headers: {access:token}}
+                );
+                if(result.data.type === 'success'){
+                    Swal.fire({
+                        icon: result.data.type,
+                        title: result.data.title,
+                        text: result.data.text,
+                        timer: 1500
+                    });
+                    handleLoading();
+                }
+            }
+        })
     }
 
     return (
@@ -100,12 +113,12 @@ const Borro = () => {
                                                 <button 
                                                     className="btn btn-success btn-icon" 
                                                     title="Restaurar"
-                                                    onClick={() => restaurarRegistro(r.id, r.id_tabla, r.tabla)}
+                                                    onClick={() => restaurarRegistro(r.id)}
                                                 ><i className="fas fa-undo-alt"></i></button>
                                                 <button 
                                                     className="btn btn-warning btn-icon" 
                                                     title="Ver registro"
-                                                    onClick={() => verRegistro(r.id_tabla, r.tabla)}
+                                                    onClick={() => verRegistro(r.id)}
                                                 ><i className="fas fa-eye"></i></button>
                                                 <button 
                                                     className="btn btn-danger btn-icon m-0" 
@@ -122,7 +135,7 @@ const Borro = () => {
                                 })
                             ) : (
                                 <tr>
-                                    <td colSpan="5">No se encontraron empleados registrados</td>
+                                    <td colSpan="5">No se encontraron registros borrados</td>
                                 </tr>
                             )
                         }
