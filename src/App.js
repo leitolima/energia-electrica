@@ -1,5 +1,6 @@
 import React from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {UsuarioProvider} from './context';
 import withAuth from './withAuth';
 //Alertas
 import {ToastContainer} from 'react-toastify';
@@ -33,38 +34,40 @@ import Borro from './pages/Borro';
 
 const App = () => {
     return (
-        <Router>  
-            <ToastContainer />          
-            <Switch>
-                <Route exact path="/login" component={Login}/>
+        <UsuarioProvider>
+            <Router>  
+                <ToastContainer />          
+                <Switch>
+                    <Route exact path="/login" component={Login}/>
 
-                <Route path='/'>
-                    <Navbar/>
-                    <Sidebar/>
-                
-                    <Route exact path="/" component={Root}/>
-                    <Route exact path="/personas/empleados" component={withAuth(Empleados)}/> 
-                    <Route exact path="/personas/usuarios" component={withAuth(Usuarios)}/>
-                    <Route exact path="/permisos/usuario/:id" component={withAuth(Accesos)}/>
+                    <Route path='/'>
+                        <Navbar/>
+                        <Sidebar/>
+                    
+                        <Route exact path="/" component={Root}/>
+                        <Route exact path="/personas/empleados" component={withAuth(Empleados)}/> 
+                        <Route exact path="/personas/usuarios" component={withAuth(Usuarios)}/>
+                        <Route exact path="/permisos/usuario/:id" component={withAuth(Accesos)}/>
 
-                    <Route exact path="/centrales/solares" component={withAuth(Solar)}/>
-                    <Route exact path="/centrales/hidroelectrica" component={withAuth(Hidroelectrica)}/>
-                    <Route exact path="/centrales/termica" component={withAuth(Termica)}/>
-                    <Route exact path="/centrales/nuclear" component={withAuth(Nuclear)}/>
+                        <Route exact path="/centrales/solares" component={withAuth(Solar)}/>
+                        <Route exact path="/centrales/hidroelectrica" component={withAuth(Hidroelectrica)}/>
+                        <Route exact path="/centrales/termica" component={withAuth(Termica)}/>
+                        <Route exact path="/centrales/nuclear" component={withAuth(Nuclear)}/>
 
-                    <Route exact path="/estaciones/primarias"/>
-                    <Route exact path="/estaciones/secundarias" component={Subestaciones}/>
+                        <Route exact path="/estaciones/primarias"/>
+                        <Route exact path="/estaciones/secundarias" component={Subestaciones}/>
 
-                    <Route exact path="/redes" component={Redes}/> 
-                    <Route exact path="/lineas" component={Lineas}/>
-                    <Route exact path="/companias" component={Companias}/>
+                        <Route exact path="/redes" component={Redes}/> 
+                        <Route exact path="/lineas" component={Lineas}/>
+                        <Route exact path="/companias" component={Companias}/>
 
-                    <Route exact path="/provincias" component={Provincias}/>
-                    <Route exact path="/zonaservicio" component={Zonas}/>
-                    <Route exact path="/historial/borrado" component={Borro}/>
-                </Route>
-            </Switch>
-        </Router>
+                        <Route exact path="/provincias" component={Provincias}/>
+                        <Route exact path="/zonaservicio" component={Zonas}/>
+                        <Route exact path="/historial/borrado" component={Borro}/>
+                    </Route>
+                </Switch>
+            </Router>
+        </UsuarioProvider>
     )
 }
 

@@ -7,6 +7,13 @@ exports.getAccesosById = async (req, res) => {
     res.send({usuario, accesos});
 }
 
+exports.getMisAccesos = async (req, res) => {
+    const id = req.userId;
+    console.log(id);
+    const accesos = await mAccesos.getPermisosDeUsuario(id);
+    res.send(accesos);
+}
+
 exports.actualizacionAccesos = async (req,res) => {
     const {user,accesos} = req.body;
     console.log(user);
