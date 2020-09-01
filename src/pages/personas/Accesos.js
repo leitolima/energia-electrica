@@ -35,7 +35,6 @@ const Accesos = () => {
             accesos
         }
         const result = await agregarNuevoEditar('/accesos/update', data);
-        console.log(result);
         Swal.fire({
             icon: result.type,
             title: result.title,

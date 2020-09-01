@@ -28,6 +28,7 @@ router.get('/borro/eliminar/:id', auth, cBorro.eliminarRegistro);
 router.get('/borro/restaurar/:id', auth, cBorro.restaurarRegistro);
 //Accesos
 router.get('/accesos/get/:id', auth, cAccesos.getAccesosById);
+router.get('/accesos/misaccesos', auth, cAccesos.getMisAccesos);
 router.post('/accesos/update', auth, cAccesos.actualizacionAccesos);
 //Usuarios
 router.get('/usuarios/get/all', auth, cUsuarios.getAll);

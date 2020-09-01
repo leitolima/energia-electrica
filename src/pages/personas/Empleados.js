@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Swal from 'sweetalert2';
 import {toast} from 'react-toastify';
 
+import {useUsuario} from '../../context';
 import ModalEmpleado from '../../components/modals/ModalEmpleado';
 
 //Functions
@@ -28,7 +29,9 @@ const Empleados = () => {
 
     const[show, setShow] = useState(false);
     const[editar, setEditar] = useState(false);
-    
+
+    const value = useUsuario();
+
     const {valores, errores, handleChange, handleSubmit, handleEditar} = useValidar(INITIAL_STATE, validarEmpleado, registrarEmpleado);
     const {rows, error, handleLoading} = useData('/empleados/get/all');
 
