@@ -112,6 +112,31 @@ const Sidebar = () => {
                 <div className="divisor rainbow my-2"></div>
                 <li className="nav-item d-flex flex-row">
                     <div className="icon-box">
+                        <i className="fas fa-flag"></i>
+                    </div>
+                    <h5>
+                        <Link to="/provincias">Provincias</Link>
+                    </h5>
+                </li>
+                <li className="nav-item d-flex flex-row">
+                    <div className="icon-box">
+                        <i className="fas fa-city"></i>
+                    </div>
+                    <h5>
+                        <Link to="/zonaservicio">Zonas de servicio</Link>
+                    </h5>
+                </li>
+                <div className="divisor rainbow my-2"></div>
+                <li className="nav-item d-flex flex-row">
+                    <div className="icon-box">
+                        <i className="fas fa-folder-open"></i>
+                    </div>
+                    <h5>
+                        <Link to="/historial/borrado">Borrado</Link>
+                    </h5>
+                </li>
+                <li className="nav-item d-flex flex-row">
+                    <div className="icon-box">
                         <i className="fas fa-question-circle"></i>
                     </div>
                     <h5>

@@ -1,11 +1,32 @@
-import React from 'react';
-
+import React,{useState,useEffect}  from 'react';
+import ModalRedes from '../components/modals/ModalRedes';
 const Redes = () => {
+    const[show, setShow] = useState(false);
+
+    const[red, setRed] = useState({
+        idRed: '',
+        estacion: '',
+        compania: ''
+    });
+
+    const handleClose = () => setShow(false);
+    const handleOpen = () => setShow(true);
+
+    const handleChange = e => {
+        setRed({
+            ...red,
+            [e.target.name]: e.target.value
+        });
+    }
     return (
         <div className="container-fluid mt-4">
             <div className="d-flex flex-row justify-content-between">
                 <h2>Redes</h2>
-                <button className="btn btn-success">Agregar nueva</button>
+                <button 
+                    type="button"
+                    className="btn btn-success"
+                    onClick={handleOpen}
+                >Agregar nuevo</button>
             </div>
             <div className="fixed-head w-100 mt-4">
                 <table className="table table-hover mt-5">
@@ -57,6 +78,13 @@ const Redes = () => {
                     </tbody>
                 </table>
             </div>
+            <ModalRedes
+                show={show}
+                red={red}
+                handleClose={handleClose}
+                handleChange={handleChange}
+                //handleSubmit={handleEditarCompleto}
+            />
         </div>
     );
 }

@@ -1,11 +1,112 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import Swal from 'sweetalert2';
+import {toast} from 'react-toastify';
+
+import {useUsuario} from '../../context';
+import ModalEmpleado from '../../components/modals/ModalEmpleado';
+
+//Functions
+import {
+    eliminarRegistro, 
+    buscarRegistroById,
+    agregarNuevoEditar,
+    lanzarError
+} from '../../functions';
+import useData from '../../hooks/useData';
+//Validar
+import useValidar from '../../hooks/useValidar';
+import validarEmpleado from '../../validations/validarEmpleado';
+
+const INITIAL_STATE  = {
+    nombre: '',
+    fecha: '',
+    dni: '',
+    email: '',
+    telefono: ''
+}
 
 const Empleados = () => {
+
+    const[show, setShow] = useState(false);
+    const[editar, setEditar] = useState(false);
+
+    const value = useUsuario();
+
+    const {valores, errores, handleChange, handleSubmit, handleEditar} = useValidar(INITIAL_STATE, validarEmpleado, registrarEmpleado);
+    const {rows, error, handleLoading} = useData('/empleados/get/all');
+
+    useEffect(() => {
+        if(error){
+            lanzarError(error);
+        }
+    }, [error]);
+
+    useEffect(() => {
+        if(Object.keys(errores).length !== 0){
+            errores.map(e => {
+                return toast.error(e);
+            })
+        }
+    }, [errores]);
+
+    async function registrarEmpleado(){
+        let result = {};
+        if(editar){
+            //Edita un empleado existente
+            result = await agregarNuevoEditar('/empleado/editar', valores);
+        } else {
+            //Agrega un nuevo empleado
+            result = await agregarNuevoEditar('/empleado/nuevo', valores);
+        }
+        if(result.type === 'success'){
+            setShow(false);
+            handleLoading();
+        } else {
+            lanzarError(result.text);
+        }
+    }
+
+    const editarEmpleado = async id => {
+        const result = await buscarRegistroById('/empleado/get', id);
+        setEditar(true);
+        handleEditar(result);
+        setShow(true);
+    }
+
+    const eliminarEmpleado = async id => {
+        Swal.fire({
+            title: '¿Estás seguro/a?',
+            text: "Esta acción puede ser irreversible",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '¡Si, eliminar!'
+        }).then(async res => {
+            if(res.value) {
+                const result = await eliminarRegistro('/empleado/eliminar', id);
+                if(result.type === 'success'){
+                    handleLoading();
+                } else {
+                    lanzarError(result.text);
+                }
+            }
+        })
+    }
+
     return (
         <div className="container-fluid mt-4">
             <div className="d-flex flex-row justify-content-between">
                 <h2>Administrar empleados</h2>
-                <button className="btn btn-success">Agregar nuevo</button>
+                <button 
+                    type="button"
+                    className="btn btn-success"
+                    onClick={() => {
+                        handleEditar(INITIAL_STATE);
+                        setEditar(false);
+                        setShow(true);
+                    }}
+                >Agregar nuevo</button>
             </div>
             <div className="fixed-head w-100 mt-4">
                 <table className="table table-striped">
@@ -13,94 +114,54 @@ const Empleados = () => {
                         <tr>
                             <th className="options">Opciones</th>
                             <th>Nombre</th>
+                            <th>DNI</th>
                             <th>Fecha nacimiento</th>
                             <th>Correo electrónico</th>
                             <th>Telefono</th>
-                            <th>Central</th>
-                            <th>Nivel</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                            </td>
-                            <td>Leonel Lima</td><td>02/09/1999</td><td>leonel_lima19@hotmail.com</td><td>336419919</td><td>Enel Generación Costanera</td><td>Administrador</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                            </td>
-                            <td>Susana Horia</td><td>18/01/1991</td><td>suhoria@hotmail.com</td><td>3364432181</td><td>Enel Generación Costanera</td><td>Empleado</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                            </td>
-                            <td>Enzo Diaz</td><td>05/11/1999</td><td>enzodiaz@hotmail.com</td><td>3364582767</td><td>AES Argentina</td><td>Administrador</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                            </td>
-                            <td>Homero Simpson</td><td>12/12/1989</td><td>homerjsimpson@hotmail.com</td><td>3364132517</td><td>AES Argentina</td><td>Supervisor</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                            </td>
-                            <td>Cosme Fulanito</td><td>04/06/1999</td><td>fulanito@hotmail.com</td><td>3364532717</td><td>AES Argentina</td><td>Empleado</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                            </td>
-                            <td>Martin Garrix</td><td>27/03/1994</td><td>ngarrix@hotmail.com</td><td>3364592214</td><td>AES Argentina</td><td>Empleado</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                            </td>
-                            <td>Martin Garrix</td><td>27/03/1994</td><td>ngarrix@hotmail.com</td><td>3364592214</td><td>AES Argentina</td><td>Empleado</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                            </td>
-                            <td>Martin Garrix</td><td>27/03/1994</td><td>ngarrix@hotmail.com</td><td>3364592214</td><td>AES Argentina</td><td>Empleado</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                            </td>
-                            <td>Martin Garrix</td><td>27/03/1994</td><td>ngarrix@hotmail.com</td><td>3364592214</td><td>AES Argentina</td><td>Empleado</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                            </td>
-                            <td>Martin Garrix</td><td>27/03/1994</td><td>ngarrix@hotmail.com</td><td>3364592214</td><td>AES Argentina</td><td>Empleado</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                            </td>
-                            <td>Martin Garrix</td><td>27/03/1994</td><td>ngarrix@hotmail.com</td><td>3364592214</td><td>AES Argentina</td><td>Empleado</td>
-                        </tr>
+                        {
+                            rows.length > 0 ? (
+                                rows.map((r, key) => {
+                                    return(
+                                        <tr key={key}>
+                                            <td>
+                                                <button 
+                                                    className="btn btn-warning btn-icon" 
+                                                    title="Editar"
+                                                    onClick={() => editarEmpleado(r.id)}
+                                                ><i className="fas fa-pen"></i></button>
+                                                <button 
+                                                    className="btn btn-danger btn-icon" 
+                                                    title="Eliminar"
+                                                    onClick={() => eliminarEmpleado(r.id)}
+                                                ><i className="fas fa-trash-alt"></i></button>
+                                            </td>
+                                            <td>{r.nombre}</td>
+                                            <td>{r.dni}</td>
+                                            <td>{r.fecha}</td>
+                                            <td>{r.email}</td>
+                                            <td>{r.telefono}</td>
+                                        </tr>
+                                    )
+                                })
+                            ) : (
+                                <tr>
+                                    <td colSpan="6">No se encontraron empleados registrados</td>
+                                </tr>
+                            )
+                        }
                     </tbody>
                 </table>
             </div>
+            <ModalEmpleado
+                show={show}
+                empleado={valores}
+                handleClose={() => setShow(false)}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+            />
         </div>
     )
 }

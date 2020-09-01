@@ -1,0 +1,22 @@
+Installar como dev dependencies: morgan nodemon
+npm i morgan nodemon -D
+
+https://github.com/leitolima/energia-electrica.git
+
+-----------------------------------------------------------------------
+Mensajes de error del servidor 
+(tener en cuenta revisar estos errores en la 
+funcion 'then' de las peticiones axios con res.data.type)
+
+'notok': Error de token
+'notfound': Dato no encontrado
+'error': Error al procesar solicitud insert o update
+'success': Todo correcto
+
+-----------------------------------------------------------------------
+Ideas:
+- Existe un unico usuario 'Admin' con permisos absolutos
+- Cada usuario de nivel 'administrador' puede registrar nuevos empleados
+  unicamente para la central/compañia a la que pertenezca
+- Se podria intentar aplicar el mismo metodo para que un administrador
+  solo puede eliminar empleados/usuarios de su misma central/compañia

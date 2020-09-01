@@ -1,11 +1,33 @@
-import React from 'react';
+import React,{useState,useEffect}  from 'react';
+import ModalCompanias from '../components/modals/ModalCompanias';
 
 const Companias = () => {
+
+    const[show, setShow] = useState(false);
+
+    const[compania, setCompania] = useState({
+        nomComp: '',
+        idRed: ''
+    });
+
+    const handleClose = () => setShow(false);
+    const handleOpen = () => setShow(true);
+
+    const handleChange = e => {
+        setCompania({
+            ...compania,
+            [e.target.name]: e.target.value
+        });
+    }
     return (
         <div className="container-fluid mt-4">
             <div className="d-flex flex-row justify-content-between">
-                <h2>Redes</h2>
-                <button className="btn btn-success">Agregar nueva</button>
+                <h2>Compañias</h2>
+                <button 
+                    type="button"
+                    className="btn btn-success"
+                    onClick={handleOpen}
+                >Agregar nuevo</button>
             </div>
             <div className="fixed-head w-100 mt-4">
                 <table className="table table-hover">
@@ -52,6 +74,13 @@ const Companias = () => {
                     </tbody>
                 </table>
             </div>
+            <ModalCompanias
+                show={show}
+                compania={compania}
+                handleClose={handleClose}
+                handleChange={handleChange}
+                //handleSubmit={handleEditarCompleto}
+            />
         </div>
     );
 }
