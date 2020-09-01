@@ -10,6 +10,7 @@ const cNucleares = require('./controllers/cNucleares');
 const cHidroelectricas = require('./controllers/cHidroelectricas');
 const cProvincias = require('./controllers/cProvincias');
 const cZona = require('./controllers/cZona');
+const cEstaciones = require('./controllers/cEstaciones');
 
 const auth = require('./middleware').auth;
 
@@ -42,7 +43,12 @@ router.get('/empleado/get/:id', auth, cEmpleados.getById);
 router.post('/empleado/nuevo', auth, cEmpleados.agregarNuevoEmpleado);
 router.post('/empleado/editar', auth, cEmpleados.editarEmpleado);
 router.get('/empleado/eliminar/:id', auth, cEmpleados.eliminarEmpleado);
-
+//Estaciones
+router.get('/estaciones/get/all', auth, cEstaciones.getAll);
+router.get('/estaciones/get/:id', auth, cEstaciones.getById);
+router.post('/estaciones/nueva', auth,cEstaciones.agregarNueva);
+router.post('/estaciones/editar', auth, cEstaciones.editarEstacion);
+router.get('/estaciones/eliminar/:id', auth, cEstaciones.eliminarEstacion);
 //------------------Centrales------------------//
 //Solares
 router.get('/solares/get/all', auth, cSolares.getAll);

@@ -20,6 +20,7 @@ import Termica from './pages/centrales/Termica';
 import Nuclear from './pages/centrales/Nuclear';
 import Hidroelectrica from './pages/centrales/Hidroelectrica';
 
+import Estaciones from './pages/estaciones/Estaciones';
 import Subestaciones from './pages/estaciones/Subestaciones';
 
 import Redes from './pages/Redes';
@@ -52,7 +53,7 @@ const App = () => {
                     <Route exact path="/centrales/termica" component={withAuth(Termica)}/>
                     <Route exact path="/centrales/nuclear" component={withAuth(Nuclear)}/>
 
-                    <Route exact path="/estaciones/primarias"/>
+                    <Route exact path="/estaciones/primarias" component={Estaciones}/>
                     <Route exact path="/estaciones/secundarias" component={Subestaciones}/>
 
                     <Route exact path="/redes" component={Redes}/> 
