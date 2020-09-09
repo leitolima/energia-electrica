@@ -47,7 +47,7 @@ exports.eliminarEstacion = async (req, res) => {
     const result = await mEstaciones.eliminarEstacion(id);
     const nombre = await mEstaciones.getById(id);
     await mBorro.nuevoBorrado(req.usuario, 
-        `Borro una zona de servicio: ${nombre[0].nombre}`, 'estaciones', id
+        `Borro una estacion: ${nombre[0].nombre}`, 'estaciones', id
     );
     if(result.affectedRows){
         return returnExisto(res, 'Estacion eliminada correctamente');

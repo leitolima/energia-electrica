@@ -5,7 +5,7 @@ const ModalLineas = ({show, linea, handleClose, handleChange, handleSubmit}) => 
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Agregar compañía</Modal.Title>
+                <Modal.Title>Agregar Línea</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <form>

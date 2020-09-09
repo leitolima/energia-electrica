@@ -136,7 +136,7 @@ const Estaciones = () => {
                                 })
                             ) : (
                                 <tr>
-                                    <td colSpan="3">No hay zonas de servicio registradas</td>
+                                    <td colSpan="3">No hay estaciones registradas</td>
                                 </tr>
                             )
                         }

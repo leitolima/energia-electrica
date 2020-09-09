@@ -46,7 +46,7 @@ const App = () => {
                         <Navbar/>
                         <Sidebar/>
                     
-                        <Route exact path="/" component={Root}/>
+                        <Route exact path="/" component={withAuth(Root)}/>
                         <Route exact path="/personas/empleados" component={withAuth(Empleados)}/> 
                         <Route exact path="/personas/usuarios" component={withAuth(Usuarios)}/>
                         <Route exact path="/permisos/usuario/:id" component={withAuth(Accesos)}/>
