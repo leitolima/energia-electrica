@@ -8,6 +8,7 @@ const cSolares = require('./controllers/cSolares');
 const cTermicas = require('./controllers/cTermicas');
 const cNucleares = require('./controllers/cNucleares');
 const cHidroelectricas = require('./controllers/cHidroelectricas');
+const cTransformadores = require('./controllers/cTransformadores');
 const cProvincias = require('./controllers/cProvincias');
 const cZona = require('./controllers/cZona');
 const cEstaciones = require('./controllers/cEstaciones');
@@ -75,6 +76,13 @@ router.get('/hidroelectricas/get/:id', auth, cHidroelectricas.getById);
 router.post('/hidroelectricas/nuevo', auth, cHidroelectricas.agregarNueva);
 router.post('/hidroelectricas/editar', auth, cHidroelectricas.editarCentral);
 router.get('/hidroelectricas/eliminar/:id', auth, cHidroelectricas.eliminarCentral);
+
+//Transformadores
+router.get('/transformadores/get/all', auth, cTransformadores.getAll);
+router.get('/transformadores/get/:id', auth, cTransformadores.getById);
+router.post('/transformadores/nuevo', auth, cTransformadores.agregarNuevo);
+router.post('/transformadores/editar', auth, cTransformadores.editarTransformador);
+router.get('/transformadores/eliminar/:id', auth, cTransformadores.eliminarTransformador);
 
 //Provincias
 router.get('/provincias/get/all', auth, cProvincias.getAll);

@@ -270,3 +270,6 @@ INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('admin', 'Bo
 INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('admin', 'Borro una zona de servicio: Campana', '2020-08-11', 'zonas_servicio', 12);
 INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('leytho', 'Borro una zona de servicio: La Falda', '2020-08-11', 'zonas_servicio', 15);
 INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('enzito', 'Borro un empleado: Juan Pelotas', '2020-08-11', 'empleados', 14);
+
+
+ALTER TABLE transformadores ADD codigo varchar(10) DEFAULT NULL;

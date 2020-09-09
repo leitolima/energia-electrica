@@ -26,6 +26,7 @@ import Subestaciones from './pages/estaciones/Subestaciones';
 
 import Redes from './pages/Redes';
 import Lineas from './pages/Lineas';
+import Transformadores from './pages/Transformadores';
 import Companias from './pages/Companias';
 
 import Provincias from './pages/provincias/Provincias';
@@ -60,6 +61,7 @@ const App = () => {
 
                         <Route exact path="/redes" component={Redes}/> 
                         <Route exact path="/lineas" component={Lineas}/>
+                        <Route exact path="/transformadores" component={Transformadores}/>
                         <Route exact path="/companias" component={Companias}/>
 
                         <Route exact path="/provincias" component={Provincias}/>
