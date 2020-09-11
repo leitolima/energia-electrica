@@ -15,6 +15,7 @@ import Usuarios from './pages/personas/Usuarios';
 import Accesos from './pages/personas/Accesos';
 
 import Login from './pages/Login';
+import Home from './pages/Home';
 
 import Solar from './pages/centrales/Solar';
 import Termica from './pages/centrales/Termica';
@@ -46,7 +47,7 @@ const App = () => {
                         <Navbar/>
                         <Sidebar/>
                     
-                        <Route exact path="/" component={withAuth(Root)}/>
+                        <Route exact path="/" component={withAuth(Home)}/>
                         <Route exact path="/personas/empleados" component={withAuth(Empleados)}/> 
                         <Route exact path="/personas/usuarios" component={withAuth(Usuarios)}/>
                         <Route exact path="/permisos/usuario/:id" component={withAuth(Accesos)}/>
@@ -71,14 +72,6 @@ const App = () => {
                 </Switch>
             </Router>
         </UsuarioProvider>
-    )
-}
-
-const Root = () => {
-    return (
-        <div>
-            <h1>Sistema de energia electrica</h1>
-        </div>
     )
 }
 

@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const cLogin = require('./controllers/cLogin');
+const cHome = require('./controllers/cHome');
 const cBorro = require('./controllers/cBorro');
 const cAccesos = require('./controllers/cAccesos');
 const cUsuarios = require('./controllers/cUsuarios');
@@ -21,6 +22,7 @@ router.get('/api/checktoken', auth, (req, res) => {
 
 //Login
 router.post('/login', cLogin.verificarUsuario);
+router.get('/home', auth, cHome.getData);
 
 //Borrado
 router.get('/borro/get/all', auth, cBorro.getAll);
