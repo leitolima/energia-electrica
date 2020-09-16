@@ -57,17 +57,17 @@ const App = () => {
                         <Route exact path="/centrales/termica" component={withAuth(Termica)}/>
                         <Route exact path="/centrales/nuclear" component={withAuth(Nuclear)}/>
 
-                        <Route exact path="/estaciones/primarias" component={Estaciones}/>
-                        <Route exact path="/estaciones/secundarias" component={Subestaciones}/>
+                        <Route exact path="/estaciones/primarias" component={withAuth(Estaciones)}/>
+                        <Route exact path="/estaciones/secundarias" component={withAuth(Subestaciones)}/>
 
-                        <Route exact path="/redes" component={Redes}/> 
-                        <Route exact path="/lineas" component={Lineas}/>
-                        <Route exact path="/transformadores" component={Transformadores}/>
-                        <Route exact path="/companias" component={Companias}/>
+                        <Route exact path="/redes" component={withAuth(Redes)}/> 
+                        <Route exact path="/lineas" component={withAuth(Lineas)}/>
+                        <Route exact path="/transformadores" component={withAuth(Transformadores)}/>
+                        <Route exact path="/companias" component={withAuth(Companias)}/>
 
-                        <Route exact path="/provincias" component={Provincias}/>
-                        <Route exact path="/zonaservicio" component={Zonas}/>
-                        <Route exact path="/historial/borrado" component={Borro}/>
+                        <Route exact path="/provincias" component={withAuth(Provincias)}/>
+                        <Route exact path="/zonaservicio" component={withAuth(Zonas)}/>
+                        <Route exact path="/historial/borrado" component={withAuth(Borro)}/>
                     </Route>
                 </Switch>
             </Router>

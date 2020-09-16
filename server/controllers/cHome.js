@@ -28,7 +28,5 @@ exports.getData = async (req, res) => {
         (nuclear.length*100)/completo2,
         (hidroelectrica.length*100)/completo2,
     ];
-    console.log(porcentajesUsuarios);
-    console.log(porcentajesCentrales);
     res.send({usuarios: porcentajesUsuarios, centrales: porcentajesCentrales});
 }

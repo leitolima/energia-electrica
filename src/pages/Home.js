@@ -25,12 +25,11 @@ const Home = () => {
 
     useEffect(() => {
         if(graficar){
-            console.log(usuarios);
-            console.log(centrales);
             graficarUsuarios();
             graficarCentrales();
             setGraficar(false);
         }
+        // eslint-disable-next-line
     }, [graficar])
 
     const graficarUsuarios = () => {
@@ -41,6 +40,7 @@ const Home = () => {
                 plotShadow: false,
                 type: 'pie'
             },
+            colors: ['#0d6efd', '#fd7e14', '#6f42c1'],
             title: {text: 'Usuarios registrados'},
             accessibility: {
                 announceNewData: {enabled: true},
@@ -93,6 +93,7 @@ const Home = () => {
                 plotShadow: false,
                 type: 'pie'
             },
+            colors: ['#0d6efd', '#fd7e14', '#6f42c1'],
             title: {text: 'Centrales eléctricas'},
             accessibility: {
                 announceNewData: {enabled: true},

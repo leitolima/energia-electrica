@@ -9,7 +9,7 @@ export default function validarZona(valores){
 
     if(!valores.idprovincia){
         errores.push('El código es obligatorio');
-    }else if(valores.idprovincia == 0){
+    }else if(valores.idprovincia === 0){
         errores.push('Debe elegir un codigo de provincia');
     }
 

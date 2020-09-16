@@ -4,7 +4,7 @@ export default function validarEstacion(valores){
     if(!valores.estacion){
         errores.push('Seleccione una estación.');
     }
-    if(valores.codigo == ''){
+    if(valores.codigo === ''){
         errores.push('Debe ingresar el codigo.');
     }
     return errores;

@@ -1,4 +1,4 @@
-import React,{useState,useEffect}  from 'react';
+import React, {useState}  from 'react';
 import ModalLineas from '../components/modals/ModalLineas';
 
 const Lineas = () => {

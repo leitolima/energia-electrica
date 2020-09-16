@@ -178,8 +178,8 @@ INSERT INTO provincias (nombre, codigo) VALUES ('Santa Fe', 'AR-S');
 INSERT INTO provincias (nombre, codigo) VALUES ('Tucuman', 'AR-T');
 INSERT INTO provincias (nombre, codigo) VALUES ('Chubut', 'AR-U');
 INSERT INTO provincias (nombre, codigo) VALUES ('Tierra del Fuego', 'AR-V');
--- Cordoba es id = 20
 INSERT INTO provincias (nombre, codigo) VALUES ('Corrientes', 'AR-W');
+-- Cordoba es id = 21
 INSERT INTO provincias (nombre, codigo) VALUES ('Cordoba', 'AR-X');
 INSERT INTO provincias (nombre, codigo) VALUES ('Jujuy', 'AR-Y');
 INSERT INTO provincias (nombre, codigo, borrado) VALUES ('Santa Cruz', 'AR-Z', 1);
@@ -196,9 +196,9 @@ INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('La Plata', 2);
 INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('Junín', 2);
 INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('Lujan', 2);
 INSERT INTO zonas_servicio (nombre, id_provincia_fk, borrado) VALUES ('Campana', 2, 1);
-INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('Alta Gracia', 20);
-INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('Villa Carlos Paz', 20);
-INSERT INTO zonas_servicio (nombre, id_provincia_fk, borrado) VALUES ('La Falda', 20, 1);
+INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('Alta Gracia', 21);
+INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('Villa Carlos Paz', 21);
+INSERT INTO zonas_servicio (nombre, id_provincia_fk, borrado) VALUES ('La Falda', 21, 1);
 
 INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('admin', 'Borro un empleado: Juan Velazques', '2020-08-01', 'empleados', 2);
 INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('enzito', 'Borro una central nuclear: Embalse', '2020-08-02', 'centrales', 3);
@@ -210,3 +210,54 @@ INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('admin', 'Bo
 INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('admin', 'Borro una zona de servicio: Campana', '2020-08-11', 'zonas_servicio', 12);
 INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('leytho', 'Borro una zona de servicio: La Falda', '2020-08-11', 'zonas_servicio', 15);
 INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('enzito', 'Borro un empleado: Juan Pelotas', '2020-08-11', 'empleados', 14);
+
+-- Estaciones Cordoba
+INSERT INTO estaciones (nombre) VALUES ('Estacion Cordoba Alfa');
+INSERT INTO estaciones (nombre) VALUES ('Estacion Cordoba Beta');
+INSERT INTO estaciones (nombre) VALUES ('Estacion Cordoba Omega');
+INSERT INTO estaciones (nombre) VALUES ('Estacion Cordoba America');
+-- Estaciones Santa Fe
+INSERT INTO estaciones (nombre) VALUES ('Estacion Santa Fe Primera');
+INSERT INTO estaciones (nombre) VALUES ('Estacion Santa Fe Segunda');
+INSERT INTO estaciones (nombre) VALUES ('Estacion Santa Fe Tercera');
+INSERT INTO estaciones (nombre) VALUES ('Estacion Santa Fe Cuarta');
+INSERT INTO estaciones (nombre) VALUES ('Estacion Santa Fe Quinta');
+-- Estaciones Buenos Aires
+INSERT INTO estaciones (nombre) VALUES ('Estacion Buenos Aires Zona Norte');
+INSERT INTO estaciones (nombre) VALUES ('Estacion Buenos Aires Zona Sur');
+INSERT INTO estaciones (nombre) VALUES ('Estacion Buenos Aires Noreste');
+INSERT INTO estaciones (nombre) VALUES ('Estacion Buenos Aires Sureste');
+INSERT INTO estaciones (nombre) VALUES ('Estacion Buenos Aires Palermo');
+INSERT INTO estaciones (nombre) VALUES ('Estacion Buenos Aires Quilmes');
+INSERT INTO estaciones (nombre) VALUES ('Estacion Buenos Aires Puerto Madero');
+INSERT INTO estaciones (nombre) VALUES ('Estacion Buenos Aires Quintuple');
+INSERT INTO estaciones (nombre) VALUES ('Estacion Buenos Aires Invernadero');
+
+-- Transformadores Cordoba
+INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (1, 'ARXCA1');
+INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (1, 'ARXCA2');
+INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (1, 'ARXCA3');
+INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (2, 'ARXCB1');
+INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (3, 'ARXCC1');
+INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (4, 'ARXCD1');
+-- Transformadores Santa Fe
+INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (5, 'ARSA1');
+INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (6, 'ARSB1');
+INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (7, 'ARSC1');
+INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (8, 'ARSD1');
+INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (8, 'ARSD2');
+INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (9, 'ARSE1');
+-- Transformadores Buenos Aires
+INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (10, 'ARBAA1');
+INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (11, 'ARBAB1');
+INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (11, 'ARBAB2');
+INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (12, 'ARBAC1');
+INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (13, 'ARBAD1');
+INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (14, 'ARBAE1');
+INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (14, 'ARBAE2');
+INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (14, 'ARBAE3');
+INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (15, 'ARBAF1');
+INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (16, 'ARBAG1');
+INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (16, 'ARBAG2');
+INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (17, 'ARBAH1');
+INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (18, 'ARBAH2');
