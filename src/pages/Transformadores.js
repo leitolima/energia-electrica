@@ -108,8 +108,9 @@ const Transformadores = () => {
                     <thead className="thead-dark thead-border-top">
                         <tr>
                             <th className="options">Opciones</th>
-                            <th>Id. Estacion</th>
-                            <th>Nombre</th>
+                            <th>Id</th>
+                            <th>Estación</th>
+                            <th>Código</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -132,6 +133,7 @@ const Transformadores = () => {
                                             </td>
                                             <td>{r.id}</td>
                                             <td>{r.nombre}</td>
+                                            <td>{r.codigo}</td>
                                         </tr>
                                     )
                                 })
