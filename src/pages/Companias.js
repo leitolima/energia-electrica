@@ -19,8 +19,7 @@ import useData from '../hooks/useData';
 import useValidar from '../hooks/useValidar';
 
 const INITIAL_STATE = {
-    nombre: '',
-    idred: 0
+    nombre: ''
 }
 
 const Companias = () => {
@@ -107,7 +106,6 @@ const Companias = () => {
                         <tr>
                             <th className="options text-center">Actions</th>
                             <th>Nombre</th>
-                            <th>Id.Red</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -129,13 +127,12 @@ const Companias = () => {
                                                 ><i className="fas fa-trash-alt"></i></button>
                                             </td>
                                             <td>{r.nombre}</td>
-                                            <td>{r.codigo}</td>
                                         </tr>
                                     )
                                 })
                             ) : (
                                 <tr>
-                                    <td colSpan="4">No hay companias registradas</td>
+                                    <td colSpan="2">No hay companias registradas</td>
                                 </tr>
                             )
                         }
@@ -144,7 +141,7 @@ const Companias = () => {
             </div>
             <ModalCompania
                 show={show}
-                provincia={valores}
+                compania={valores}
                 handleClose={() => setShow(false)}
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}

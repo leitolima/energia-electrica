@@ -44,9 +44,11 @@ const ModalCompanias = ({show, compania, handleClose, handleChange, handleSubmit
                                     className="form-control" 
                                     id="nombre"
                                     onChange={handleChange}
+                                    value={compania.nombre}
                                 />
                             </div>
                         </div>
+                        {/*
                         <div className="col-md-12 col-lg-12 col-xl-12">
                             <div className="form-group">
                                 <label htmlFor="idred">Id. Red: </label>
@@ -66,6 +68,7 @@ const ModalCompanias = ({show, compania, handleClose, handleChange, handleSubmit
                                 </select>
                             </div>
                         </div>
+                        */}
                     </div>
                 </form>
             </Modal.Body>
