@@ -13,6 +13,8 @@ const cTransformadores = require('./controllers/cTransformadores');
 const cProvincias = require('./controllers/cProvincias');
 const cZona = require('./controllers/cZona');
 const cEstaciones = require('./controllers/cEstaciones');
+const cCompania = require('./controllers/cCompania');
+const cRedes = require('./controllers/cRedes')
 
 const auth = require('./middleware').auth;
 
@@ -99,5 +101,19 @@ router.get('/zona/get/:id', auth, cZona.getById);
 router.post('/zona/nueva', auth, cZona.agregarNueva)
 router.post('/zona/editar', auth, cZona.editarZona);
 router.get('/zona/eliminar/:id', auth, cZona.eliminarZona);
+
+//Companias
+router.get('/compania/get/all',auth, cCompania.getAll);
+router.get('/compania/get/:id',auth, cCompania.getById);
+router.post('/compania/nueva', auth, cCompania.agregarNueva);
+router.post('/compania/editar', auth, cCompania.editarCompania);
+router.get('/compania/eliminar/:id', auth, cCompania.eliminarCompania);
+
+//Redes
+router.get('/redes/get/all',auth, cRedes.getAll);
+router.get('/redes/get/:id',auth, cRedes.getById);
+router.post('/redes/nueva', auth, cRedes.agregarNueva);
+router.post('/redes/editar', auth, cRedes.editarRed);
+router.get('/redes/eliminar/:id', auth, cRedes.eliminarRed);
 
 module.exports = router;

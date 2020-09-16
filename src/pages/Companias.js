@@ -1,24 +1,92 @@
-import React,{useState,useEffect}  from 'react';
-import ModalCompanias from '../components/modals/ModalCompanias';
+import React, {useState, useEffect} from 'react';
+import Swal from 'sweetalert2';
+import {toast} from 'react-toastify';
+
+import validarCompania from '../validations/validarCompania';
+
+import ModalCompania from '../components/modals/ModalCompanias';
+
+import {
+    eliminarRegistro, 
+    buscarRegistroById,
+    agregarNuevoEditar,
+    lanzarError
+} from '../functions';
+
+import useData from '../hooks/useData';
+
+//Validar
+import useValidar from '../hooks/useValidar';
+
+const INITIAL_STATE = {
+    nombre: '',
+    idred: 0
+}
 
 const Companias = () => {
 
     const[show, setShow] = useState(false);
+    const[editar, setEditar] = useState(false);
+    
+    const {valores, errores, handleChange, handleSubmit, handleEditar} = useValidar(INITIAL_STATE, validarCompania, registrarNuevaCompania);
+    const {rows, error, handleLoading} = useData('/compania/get/all');
 
-    const[compania, setCompania] = useState({
-        nomComp: '',
-        idRed: ''
-    });
+    useEffect(() => {
+        if(error){
+            lanzarError(error);
+        }
+    }, [error]);
 
-    const handleClose = () => setShow(false);
-    const handleOpen = () => setShow(true);
+    useEffect(() => {
+        if(Object.keys(errores).length !== 0){
+            errores.map(e => {
+                return toast.error(e);
+            })
+        }
+    }, [errores]);
 
-    const handleChange = e => {
-        setCompania({
-            ...compania,
-            [e.target.name]: e.target.value
-        });
+    async function registrarNuevaCompania(){
+        let result = {};
+        if(editar){
+            result = await agregarNuevoEditar('/compania/editar', valores);
+        } else {
+            result = await agregarNuevoEditar('/compania/nueva', valores);
+        }
+        if(result.type === 'success'){
+            setShow(false);
+            handleLoading();
+        } else {
+            lanzarError(result.text);
+        }
     }
+
+    const editarCompania = async id => {
+        const result = await buscarRegistroById('/compania/get', id);
+        setEditar(true);
+        handleEditar(result);
+        setShow(true);
+    }
+    const eliminarCompania = id => {
+        Swal.fire({
+            title: '¿Estás seguro/a?',
+            text: "Esta acción puede ser irreversible",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '¡Si, eliminar!'
+        }).then(async res => {
+            if(res.value) {
+                const result = await eliminarRegistro('/compania/eliminar', id);
+                if(result.type === 'success'){
+                    handleLoading();
+                } else {
+                    lanzarError(result.text);
+                }
+            }
+        })
+    }
+
     return (
         <div className="container-fluid mt-4">
             <div className="d-flex flex-row justify-content-between">
@@ -26,7 +94,11 @@ const Companias = () => {
                 <button 
                     type="button"
                     className="btn btn-success"
-                    onClick={handleOpen}
+                    onClick={() => {
+                        handleEditar(INITIAL_STATE);
+                        setEditar(false);
+                        setShow(true);
+                    }}
                 >Agregar nuevo</button>
             </div>
             <div className="fixed-head w-100 mt-4">
@@ -39,47 +111,43 @@ const Companias = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                            </td>
-                            <td>EDEN</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                            </td>
-                            <td>AES</td>
-                            <td>2</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                            </td>
-                            <td>TRANSBA</td>
-                            <td>3</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                            </td>
-                            <td>EDENOR</td>
-                            <td>4</td>
-                        </tr>      
+                        {
+                            rows.length > 0 ? (
+                                rows.map((r, key) => {
+                                    return(
+                                        <tr key={key}>
+                                            <td>
+                                                <button 
+                                                    className="btn btn-warning btn-icon" 
+                                                    title="Editar"
+                                                    onClick={() => editarCompania(r.id)}
+                                                ><i className="fas fa-pen"></i></button>
+                                                <button 
+                                                    className="btn btn-danger btn-icon" 
+                                                    title="Eliminar"
+                                                    onClick={() => eliminarCompania(r.id)}
+                                                ><i className="fas fa-trash-alt"></i></button>
+                                            </td>
+                                            <td>{r.nombre}</td>
+                                            <td>{r.codigo}</td>
+                                        </tr>
+                                    )
+                                })
+                            ) : (
+                                <tr>
+                                    <td colSpan="4">No hay companias registradas</td>
+                                </tr>
+                            )
+                        }
                     </tbody>
                 </table>
             </div>
-            <ModalCompanias
+            <ModalCompania
                 show={show}
-                compania={compania}
-                handleClose={handleClose}
+                provincia={valores}
+                handleClose={() => setShow(false)}
                 handleChange={handleChange}
-                //handleSubmit={handleEditarCompleto}
+                handleSubmit={handleSubmit}
             />
         </div>
     );

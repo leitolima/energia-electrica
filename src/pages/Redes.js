@@ -1,23 +1,96 @@
-import React,{useState,useEffect}  from 'react';
+import React, {useState}  from 'react';
+
+import Swal from 'sweetalert2';
+import {toast} from 'react-toastify';
+
 import ModalRedes from '../components/modals/ModalRedes';
+
+//Functions
+import {
+    eliminarRegistro, 
+    buscarRegistroById,
+    agregarNuevoEditar,
+    lanzarError
+} from '../functions';
+
+import useData from '../hooks/useData';
+
+//Validar
+import useValidar from '../hooks/useValidar';
+import validarRed from '../validations/validarRed';
+
+const INITIAL_STATE  = {
+    idred: 0,
+    estacion: '',
+    compania: ''
+}
+
 const Redes = () => {
+
     const[show, setShow] = useState(false);
+    const[editar, setEditar] = useState(false);
+    
+    const {valores, errores, handleChange, handleSubmit, handleEditar} = useValidar(INITIAL_STATE, validarRed, registrarNuevaRed);
+    const {rows, error, handleLoading} = useData('/redes/get/all');
+   
+    useEffect(() => {
+        if(error){
+            lanzarError(error);
+        }
+    }, [error]);
 
-    const[red, setRed] = useState({
-        idRed: '',
-        estacion: '',
-        compania: ''
-    });
-
-    const handleClose = () => setShow(false);
-    const handleOpen = () => setShow(true);
-
-    const handleChange = e => {
-        setRed({
-            ...red,
-            [e.target.name]: e.target.value
-        });
+    useEffect(() => {
+        if(Object.keys(errores).length !== 0){
+            errores.map(e => {
+                return toast.error(e);
+            })
+        }
+    }, [errores]);
+    
+    async function registrarNuevaRed(){
+        let result = {};
+        if(editar){
+            result = await agregarNuevoEditar('/redes/editar', valores);
+        } else {
+            result = await agregarNuevoEditar('/redes/nueva', valores);
+        }
+        if(result.type === 'success'){
+            setShow(false);
+            handleLoading();
+        } else {
+            lanzarError(result.text);
+        }
     }
+
+    const editarRed = async id => {
+        const result = await buscarRegistroById('/redes/get', id);
+        setEditar(true);
+        handleEditar(result);
+        setShow(true);
+    }
+
+    const eliminarRed = id => {
+        Swal.fire({
+            title: '¿Estás seguro/a?',
+            text: "Esta acción puede ser irreversible",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '¡Si, eliminar!'
+        }).then(async res => {
+            if(res.value) {
+                const result = await eliminarRegistro('/redes/eliminar', id);
+                if(result.type === 'success'){
+                    handleLoading();
+                } else {
+                    lanzarError(result.text);
+                }
+            }
+        })
+    }
+    
+    
     return (
         <div className="container-fluid mt-4">
             <div className="d-flex flex-row justify-content-between">
@@ -25,7 +98,11 @@ const Redes = () => {
                 <button 
                     type="button"
                     className="btn btn-success"
-                    onClick={handleOpen}
+                    onClick={() => {
+                        handleEditar(INITIAL_STATE);
+                        setEditar(false);
+                        setShow(true);
+                    }}
                 >Agregar nuevo</button>
             </div>
             <div className="fixed-head w-100 mt-4">
@@ -39,51 +116,43 @@ const Redes = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                            </td>
-                            <td>1</td>
-                            <td>32</td>
-                            <td>EDEN</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                            </td>
-                            <td>2</td>
-                            <td>15</td>
-                            <td>AES</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                            </td>
-                            <td>3</td>
-                            <td>12</td>
-                            <td>TRANSBA</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                            </td>
-                            <td>4</td>
-                            <td>23</td>
-                            <td>EDENOR</td>
-                        </tr>      
+                    {
+                            rows.length > 0 ?(
+                                rows.map((z,key) => {
+                                    return (
+                                        <tr key={key}>
+                                            <td>
+                                            <button 
+                                                    className="btn btn-warning btn-icon" 
+                                                    title="Editar"
+                                                    onClick={() => editarRed(z.id)}
+                                                ><i className="fas fa-pen"></i></button>
+                                                <button 
+                                                    className="btn btn-danger btn-icon" 
+                                                    title="Eliminar"
+                                                    onClick={() => eliminarRed(z.id)}
+                                                ><i className="fas fa-trash-alt"></i></button>   
+                                            </td>
+                                            <td>{z.id}</td>
+                                            <td>{z.nombre}</td>
+                                        </tr>
+                                    )
+                                })
+                            ) : (
+                                <tr>
+                                    <td colSpan="3">No hay redes registradas</td>
+                                </tr>
+                            )
+                        }
                     </tbody>
                 </table>
             </div>
             <ModalRedes
                 show={show}
-                red={red}
-                handleClose={handleClose}
+                red={valores}
+                handleClose={() => setShow(false)}
                 handleChange={handleChange}
-                //handleSubmit={handleEditarCompleto}
+                handleSubmit={handleSubmit}
             />
         </div>
     );
