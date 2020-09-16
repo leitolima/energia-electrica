@@ -153,4 +153,4 @@ CREATE TABLE borro (
     id_centrales_fk int(11) NOT NULL DEFAULT 0
 );
 
-ALTER TABLE transformadores ADD codigo varchar(10) DEFAULT NULL;
+ALTER TABLE transformadores ADD codigo varchar(25) DEFAULT NULL;
