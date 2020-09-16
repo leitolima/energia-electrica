@@ -7,22 +7,14 @@ import clientAxios from '../../config/clientAxios';
 const ModalTransformadores = ({show, trafo, handleClose, handleChange, handleSubmit}) => {
     
     const[estaciones, setEstaciones] = useState([]);
-    const[activo, setActivo] = useState(true);
 
     useEffect(() => {
-        /*
-        if(trafo.usuario === ''){
-            setActivo(true);
-        } else {
-            setActivo(false);
-        }
-        */
         if(show){
             setEstaciones([]); //Precaucion
             const token = localStorage.getItem('token');
             clientAxios.get('/estaciones/get/all', {headers: {access:token}})
             .then(res => {
-                if(res.data.length == 0){
+                if(res.data.length === 0){
                     Swal.fire({
                         icon: 'error',
                         title: 'Hubo un error',

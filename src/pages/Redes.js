@@ -1,4 +1,4 @@
-import React,{useState,useEffect}  from 'react';
+import React, {useState}  from 'react';
 import ModalRedes from '../components/modals/ModalRedes';
 const Redes = () => {
     const[show, setShow] = useState(false);

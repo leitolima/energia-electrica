@@ -27,6 +27,7 @@ const ModalZonas = ({show, zona, handleClose, handleChange, handleSubmit}) => {
                 }
             })
         }
+        // eslint-disable-next-line
     },[show])
     return (
         <Modal show={show} onHide={handleClose}>

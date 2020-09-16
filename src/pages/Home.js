@@ -29,6 +29,7 @@ const Home = () => {
             graficarCentrales();
             setGraficar(false);
         }
+        // eslint-disable-next-line
     }, [graficar])
 
     const graficarUsuarios = () => {

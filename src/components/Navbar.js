@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {Link} from 'react-router-dom';
 
 const Navbar = () => {
 
@@ -14,7 +14,7 @@ const Navbar = () => {
                 <span className="navbar-toggler-icon"></span>
             </button>
             <h4 className="ml-auto">
-                <a className="navbar-brand" href="#">Energia electrica</a>
+                <Link className="navbar-brand" to="/">Energia electrica</Link>
             </h4>
         </nav>
     )

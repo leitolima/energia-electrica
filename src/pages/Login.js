@@ -1,13 +1,10 @@
 import React, {useState} from 'react';
 import clientAxios from '../config/clientAxios';
-import {useHistory} from 'react-router';
 import {toast} from 'react-toastify';
 
 const Login = () => {
 
     const[login, setLogin] = useState({usuario: '', clave: ''});
-    
-    const history = useHistory();
 
     const handleChange = e => {
         setLogin({
