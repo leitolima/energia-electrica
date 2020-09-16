@@ -79,7 +79,7 @@ const Transformadores = () => {
             confirmButtonText: '¡Si, eliminar!'
         }).then(async res => {
             if(res.value) {
-                const result = await eliminarRegistro('/transformador/eliminar', id);
+                const result = await eliminarRegistro('/transformadores/eliminar', id);
                 if(result.type === 'success'){
                     handleLoading();
                 } else {

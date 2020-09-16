@@ -48,6 +48,6 @@ exports.eliminarTransformador = async (req, res) => {
         `Borro un transformador id: #${id}`, 'transformadores', id
     );
     if(result.affectedRows){
-        return returnExisto(res, 'Transformador eliminado correctamente');
+        return returnExito(res, 'Transformador eliminado correctamente');
     } return returnError(res);
 }
