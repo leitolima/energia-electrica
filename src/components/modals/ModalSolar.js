@@ -71,11 +71,11 @@ const ModalSolar = ({show, central, handleClose, handleChange, handleSubmit}) =>
                         </div>
                         <div className="col-md-12 col-lg-12 col-xl-12">
                             <div className="form-group">
-                                <label htmlFor="fecha">Fecha de fundacion</label>
+                                <label htmlFor="fecha_func">Fecha de fundacion</label>
                                 <input 
                                     type="date" 
                                     className="form-control" 
-                                    id="fecha"
+                                    id="fecha_func"
                                     onChange={handleChange}
                                     value={central.fecha_func}
                                 />

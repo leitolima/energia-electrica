@@ -33,8 +33,8 @@ exports.registrarEnCentrales = (obj, id) => {
     return db(`
         INSERT INTO centrales (nombre, prod_media, prod_maxima, 
             fecha_func, id_central, tipo_central_fk, id_provincia_fk)
-        VALUES (?, ?, ?, ?, ?, 1);
-    `, [obj.nombre, obj.prod_media, obj.prod_maxima, obj.fecha_func, obj.provincia, id]);
+        VALUES (?, ?, ?, ?, ?, 1, ?);
+    `, [obj.nombre, obj.prod_media, obj.prod_maxima, obj.fecha_func, id, obj.provincia]);
 }
 
 exports.editarEnSolar = obj => {
