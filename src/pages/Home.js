@@ -93,7 +93,7 @@ const Home = () => {
                 plotShadow: false,
                 type: 'pie'
             },
-            colors: ['#0d6efd', '#fd7e14', '#6f42c1'],
+            colors: ['#0d6efd', '#fd7e14', '#6f42c1', '#dc3545'],
             title: {text: 'Centrales eléctricas'},
             accessibility: {
                 announceNewData: {enabled: true},
@@ -129,12 +129,12 @@ const Home = () => {
                         },
                         {
                             name: "Nucleares",
-                            y: centrales[3],
+                            y: centrales[2],
                             drilldown: "Nucleares"
                         },
                         {
                             name: "Hidroelectrica",
-                            y: centrales[4],
+                            y: centrales[3],
                             drilldown: "Hidroelectrica"
                         }
                 ]}
