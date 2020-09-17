@@ -20,7 +20,9 @@ import useValidar from '../../hooks/useValidar';
 import useData from '../../hooks/useData';
 
 const INITIAL_STATE = {
-    nombre:''
+    nombre: '',
+    central: 0,
+    provincia: 0
 }
 const Estaciones = () => {
 
@@ -29,8 +31,6 @@ const Estaciones = () => {
 
     const {rows, error, handleLoading} = useData('/estaciones/get/all');
     const {valores, errores, handleChange, handleSubmit, handleEditar} = useValidar(INITIAL_STATE, validarEstacion, registrarNueva);
-
-
     
     useEffect(() => {
         if(error){
@@ -110,6 +110,8 @@ const Estaciones = () => {
                             <th className="options">Opciones</th>
                             <th>Id. Estacion</th>
                             <th>Nombre</th>
+                            <th>Provincia</th>
+                            <th>Central proveedora</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -132,6 +134,8 @@ const Estaciones = () => {
                                             </td>
                                             <td>{z.id}</td>
                                             <td>{z.nombre}</td>
+                                            <td>{z.nombreprov}</td>
+                                            <td>{z.nombrecentral}</td>
                                         </tr>
                                     )
                                 })

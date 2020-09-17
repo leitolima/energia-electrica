@@ -5,6 +5,7 @@ const cBorro = require('./controllers/cBorro');
 const cAccesos = require('./controllers/cAccesos');
 const cUsuarios = require('./controllers/cUsuarios');
 const cEmpleados = require('./controllers/cEmpleados');
+const cCentrales = require('./controllers/cCentrales');
 const cSolares = require('./controllers/cSolares');
 const cTermicas = require('./controllers/cTermicas');
 const cNucleares = require('./controllers/cNucleares');
@@ -56,6 +57,7 @@ router.post('/estaciones/nueva', auth,cEstaciones.agregarNueva);
 router.post('/estaciones/editar', auth, cEstaciones.editarEstacion);
 router.get('/estaciones/eliminar/:id', auth, cEstaciones.eliminarEstacion);
 //------------------Centrales------------------//
+router.get('/centrales/get/all', auth, cCentrales.getAll);
 //Solares
 router.get('/solares/get/all', auth, cSolares.getAll);
 router.get('/solares/get/:id', auth, cSolares.getById);

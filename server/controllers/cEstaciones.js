@@ -17,9 +17,7 @@ const returnExisto = (res, text) => {
 }
 
 exports.getAll = async (req, res) => {
-    
     const result = await mEstaciones.getAll();
-    console.log(result);
     res.send(result);
 }
 
