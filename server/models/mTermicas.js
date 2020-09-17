@@ -4,8 +4,10 @@ exports.getAll = () => {
     return db(`
         SELECT c.id, c.nombre, c.prod_media, c.prod_maxima,
         t.num_hornos, t.vol_carbon_consum, t.vol_emision_gases,
+        p.nombre AS nombreprov,
         DATE_FORMAT(c.fecha_func, '%d/%m/%Y') AS fecha_func
         FROM centrales c LEFT JOIN termica t ON t.id = c.id_central
+        LEFT JOIN provincias p ON p.id = c.id_provincia_fk
         WHERE c.tipo_central_fk = 2 AND c.borrado = 0;
     `, []);   
 }
@@ -14,9 +16,10 @@ exports.getById = id => {
     return db(`
         SELECT c.id, c.nombre, c.prod_media, c.prod_maxima, c.id_central, 
         t.num_hornos, t.vol_carbon_consum, t.vol_emision_gases,
-        DATE_FORMAT(c.fecha_func, '%d/%m/%Y') AS fecha_func
+        p.id AS provincia, c.fecha_func
         FROM centrales c LEFT JOIN termica t ON t.id = c.id_central
-        WHERE t.id = ? AND c.tipo_central_fk = 2;
+        LEFT JOIN provincias p ON p.id = c.id_provincia_fk
+        WHERE c.id = ? AND c.tipo_central_fk = 2;
     `, [id]);   
 }
 
@@ -29,9 +32,9 @@ exports.registrarEnTermica = obj => {
 exports.registrarEnCentrales = (obj, id) => {
     return db(`
         INSERT INTO centrales (nombre, prod_media, prod_maxima, 
-            fecha_func, id_central, tipo_central_fk)
-        VALUES (?, ?, ?, ?, ?, 2);
-    `, [obj.nombre, obj.prod_media, obj.prod_maxima, obj.fecha, id]);   
+            fecha_func, id_central, tipo_central_fk, id_provincia_fk)
+        VALUES (?, ?, ?, ?, ?, 2, ?);
+    `, [obj.nombre, obj.prod_media, obj.prod_maxima, obj.fecha_func, id, obj.provincia]);   
 }
 
 exports.editarEnTermica = obj => {
@@ -43,8 +46,8 @@ exports.editarEnTermica = obj => {
 exports.editarEnCentrales = obj => {
     return db(`
         UPDATE centrales SET nombre = ?, prod_media = ?,
-        prod_maxima = ?, fecha_func = ? WHERE id = ?;
-    `, [obj.nombre, obj.prod_media, obj.prod_maxima, obj.fecha, obj.id]);   
+        prod_maxima = ?, fecha_func = ?, id_provincia_fk = ? WHERE id = ?;
+    `, [obj.nombre, obj.prod_media, obj.prod_maxima, obj.fecha_func, obj.provincia, obj.id]);   
 }
 
 exports.getNombre = id => {
