@@ -1,7 +1,34 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Modal} from 'react-bootstrap';
+import Swal from 'sweetalert2';
+
+import clientAxios from '../../config/clientAxios';
 
 const ModalSolar = ({show, central, handleClose, handleChange, handleSubmit}) => {
+    const[provincias, setProvincias] = useState([]);
+
+    useEffect(() =>{
+        if(show){
+            const token = localStorage.getItem('token');
+            clientAxios.get('/provincias/get/all', {headers: {access:token}})
+            .then(res => {
+                if(res.data.type === 'notfound'){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Hubo un error',
+                        text: 'No hay provincias disponibles',
+                        showCancelButton: false,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Cerrar'
+                    }).then((result) => handleClose());
+                }else {
+                    setProvincias(res.data);
+                }
+            })
+        }
+        // eslint-disable-next-line
+    },[show]);
+
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -24,13 +51,33 @@ const ModalSolar = ({show, central, handleClose, handleChange, handleSubmit}) =>
                         </div>
                         <div className="col-md-12 col-lg-12 col-xl-12">
                             <div className="form-group">
+                                <label htmlFor="provincia">Provincia: </label>
+                                <select 
+                                    className="form-control" 
+                                    id="provincia"
+                                    onChange={handleChange}
+                                    value={central.provincia}
+                                >
+                                    <option value="0">Selectionar</option>
+                                    {
+                                        provincias.map((p, key)=>{
+                                            return(
+                                                <option key={key} value={p.id}>{p.nombre}</option>
+                                            )
+                                        })
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div className="col-md-12 col-lg-12 col-xl-12">
+                            <div className="form-group">
                                 <label htmlFor="fecha">Fecha de fundacion</label>
                                 <input 
                                     type="date" 
                                     className="form-control" 
                                     id="fecha"
                                     onChange={handleChange}
-                                    value={central.fecha}
+                                    value={central.fecha_func}
                                 />
                             </div>
                         </div>

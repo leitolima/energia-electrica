@@ -154,3 +154,4 @@ CREATE TABLE borro (
 );
 
 ALTER TABLE transformadores ADD codigo varchar(25) DEFAULT NULL;
+ALTER TABLE centrales ADD id_provincia_fk int(11) NOT NULL;

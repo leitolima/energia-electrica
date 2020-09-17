@@ -19,7 +19,8 @@ import validarSolar from '../../validations/validarSolar';
 
 const INITIAL_STATE  = {
     nombre: '',
-    fecha: '',
+    provincia: 0,
+    fecha_func: '',
     prod_media: '',
     prod_maxima: '',
     sup_paneles: '',
@@ -112,6 +113,7 @@ const Solar = () => {
                         <tr>
                             <th className="options">Opciones</th>
                             <th>Nombre</th>
+                            <th>Provincia</th>
                             <th>Fundación</th>
                             <th>Prod. Media</th>
                             <th>Prod. Max.</th>
@@ -139,6 +141,7 @@ const Solar = () => {
                                                 ><i className="fas fa-trash-alt"></i></button>
                                             </td>
                                             <td>{r.nombre}</td>
+                                            <td>{r.nombreprov}</td>
                                             <td>{r.fecha_func}</td>
                                             <td>{r.prod_media} Mw</td>
                                             <td>{r.prod_maxima} Mw</td>
