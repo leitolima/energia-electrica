@@ -1,5 +1,4 @@
-export default function validarCompania
-(valores){
+export default function validarCompania(valores){
     let errores = [];
 
     if(!valores.nombre){
