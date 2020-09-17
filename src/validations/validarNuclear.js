@@ -6,6 +6,9 @@ export default function validarSolar(valores){
     } else if(valores.nombre.length > 100){
         errores.push('El nombre es demasiado largo.');
     }
+    if(valores.provincia === 0){
+        errores.push('Debe seleccionar una provincia');
+    }
     if(!valores.prod_media || valores.prod_media === 0){
         errores.push('La producción media es obligatoria.');
     } else if(valores.prod_media < 0){
