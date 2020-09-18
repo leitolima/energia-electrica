@@ -1,25 +1,93 @@
-import React, {useState}  from 'react';
+import React, {useState, useEffect}  from 'react';
+import Swal from 'sweetalert2';
+import {toast} from 'react-toastify';
+
+import validarLinea from '../validations/validarLinea';
+
 import ModalLineas from '../components/modals/ModalLineas';
+
+import {
+    eliminarRegistro, 
+    buscarRegistroById,
+    agregarNuevoEditar,
+    lanzarError
+} from '../functions';
+
+import useData from '../hooks/useData';
+
+//Validar
+import useValidar from '../hooks/useValidar';
+
+const INITIAL_STATE = {
+    numero: 0,
+    longitud: 0
+}
 
 const Lineas = () => {
     
     const[show, setShow] = useState(false);
+    const[editar, setEditar] = useState(false);
+    
+    const {valores, errores, handleChange, handleSubmit, handleEditar} = useValidar(INITIAL_STATE, validarLinea, registrarNuevaLinea);
+    const {rows, error, handleLoading} = useData('/lineas/get/all');
 
-    const[linea, setLinea] = useState({
-        idLinea: '',
-        idRed: '',
-        longitud: ''
-    });
+    useEffect(() => {
+        if(error){
+            lanzarError(error);
+        }
+    }, [error]);
 
-    const handleClose = () => setShow(false);
-    const handleOpen = () => setShow(true);
+    useEffect(() => {
+        if(Object.keys(errores).length !== 0){
+            errores.map(e => {
+                return toast.error(e);
+            })
+        }
+    }, [errores]);
 
-    const handleChange = e => {
-        setLinea({
-            ...linea,
-            [e.target.name]: e.target.value
-        });
+    async function registrarNuevaLinea(){
+        let result = {};
+        if(editar){
+            result = await agregarNuevoEditar('/lineas/editar', valores);
+        } else {
+            result = await agregarNuevoEditar('/lineas/nueva', valores);
+        }
+        if(result.type === 'success'){
+            setShow(false);
+            handleLoading();
+        } else {
+            lanzarError(result.text);
+        }
     }
+
+    const editarLinea = async id => {
+        const result = await buscarRegistroById('/lineas/get', id);
+        setEditar(true);
+        handleEditar(result);
+        setShow(true);
+    }
+
+    const eliminarLinea = id => {
+        Swal.fire({
+            title: '¿Estás seguro/a?',
+            text: "Esta acción puede ser irreversible",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '¡Si, eliminar!'
+        }).then(async res => {
+            if(res.value) {
+                const result = await eliminarRegistro('/lineas/eliminar', id);
+                if(result.type === 'success'){
+                    handleLoading();
+                } else {
+                    lanzarError(result.text);
+                }
+            }
+        })
+    }
+
     return (
         <div className="container-fluid mt-4">
             <div className="d-flex flex-row justify-content-between">
@@ -27,8 +95,12 @@ const Lineas = () => {
                 <button 
                     type="button"
                     className="btn btn-success"
-                    onClick={handleOpen}
-                >Agregar nuevo</button>
+                    onClick={() => {
+                        handleEditar(INITIAL_STATE);
+                        setEditar(false);
+                        setShow(true);
+                    }}
+                >Agregar nueva</button>
             </div>
             <div className="fixed-head w-100 mt-4">
                 <table className="table table-hover">
@@ -36,74 +108,51 @@ const Lineas = () => {
                         <tr>
                             <th className="options text-center">Actions</th>
                             <th>Id.Linea</th>
-                            <th>Id. Red</th>
+                            <th>Num. Red</th>
                             <th>Longitud</th>
+                            <th>Subestaciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                            </td>
-                            <td>56215424</td>
-                            <td>2</td>
-                            <td>90 M</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                            </td>
-                            <td>12154312</td>
-                            <td>1</td>
-                            <td>50 M</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                            </td>
-                            <td>32134124</td>
-                            <td>4</td>
-                            <td>85 M</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                            </td>
-                            <td>42141672</td>
-                            <td>2</td>
-                            <td>60 M</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                            </td>
-                            <td>13456312</td>
-                            <td>3</td>
-                            <td>30 M</td>
-                        </tr> 
-                        <tr>
-                            <td>
-                                <button className="btn btn-warning btn-icon" title="Editar"><i className="fas fa-pen"></i></button>
-                                <button className="btn btn-danger btn-icon" title="Eliminar"><i className="fas fa-trash-alt"></i></button>
-                            </td>
-                            <td>32790012</td>
-                            <td>2</td>
-                            <td>60 M</td>
-                        </tr>     
+                        {
+                            rows.length > 0 ? (
+                                rows.map((r, key) => {
+                                    return(
+                                        <tr key={key}>
+                                            <td>
+                                                <button 
+                                                    className="btn btn-warning btn-icon" 
+                                                    title="Editar"
+                                                    onClick={() => editarLinea(r.id)}
+                                                ><i className="fas fa-pen"></i></button>
+                                                <button 
+                                                    className="btn btn-danger btn-icon" 
+                                                    title="Eliminar"
+                                                    onClick={() => eliminarLinea(r.id)}
+                                                ><i className="fas fa-trash-alt"></i></button>
+                                            </td>
+                                            <td>{r.id}</td>
+                                            <td>{r.numero}</td>
+                                            <td>{r.longitud} Mts</td>
+                                            <td>{r.subestaciones}</td>
+                                        </tr>
+                                    )
+                                })
+                            ) : (
+                                <tr>
+                                    <td colSpan="5">No hay lineas registradas</td>
+                                </tr>
+                            )
+                        }
                     </tbody>
                 </table>
             </div>
             <ModalLineas
                 show={show}
-                linea={linea}
-                handleClose={handleClose}
+                linea={valores}
+                handleClose={() => setShow(false)}
                 handleChange={handleChange}
-                //handleSubmit={handleEditarCompleto}
+                handleSubmit={handleSubmit}
             />
         </div>
     );

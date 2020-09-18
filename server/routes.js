@@ -15,7 +15,8 @@ const cProvincias = require('./controllers/cProvincias');
 const cZona = require('./controllers/cZona');
 const cEstaciones = require('./controllers/cEstaciones');
 const cCompania = require('./controllers/cCompania');
-const cRedes = require('./controllers/cRedes')
+const cRedes = require('./controllers/cRedes');
+const cLineas = require('./controllers/cLineas');
 
 const auth = require('./middleware').auth;
 
@@ -117,5 +118,12 @@ router.get('/redes/get/:id',auth, cRedes.getById);
 router.post('/redes/nueva', auth, cRedes.agregarNueva);
 router.post('/redes/editar', auth, cRedes.editarRed);
 router.get('/redes/eliminar/:id', auth, cRedes.eliminarRed);
+
+//Lineas
+router.get('/lineas/get/all', auth, cLineas.getAll);
+router.get('/lineas/get/:id', auth, cLineas.getById);
+router.post('/lineas/nueva', auth, cLineas.agregarNueva);
+router.post('/lineas/editar', auth, cLineas.editarLinea);
+router.get('/lineas/eliminar/:id', auth, cLineas.eliminarLinea);
 
 module.exports = router;
