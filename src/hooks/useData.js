@@ -9,8 +9,11 @@ const useData = (url) => {
 
     useEffect(() => {
         if(loading){
+            console.log('Buscando...');
             const token = localStorage.getItem('token');
-            clientAxios.get(url, {headers: {access:token}})
+            clientAxios.post(url, {}, {
+                headers: {access:token}
+            })
             .then(res => {
                 if(res.data.type === 'notok') throw new Error(res.data.text);
                 setLoading(false);
@@ -30,7 +33,8 @@ const useData = (url) => {
     return{
         rows,
         error,
-        handleLoading
+        handleLoading,
+        setLoading
     }
 }
 
