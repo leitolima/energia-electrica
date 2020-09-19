@@ -52,3 +52,9 @@ export async function buscarRegistroById(url, id){
     //Retorna el objeto
     return result.data[0];
 }
+
+export async function buscarTodosLosRegistros(url){
+    const token = localStorage.getItem('token');
+    const result = await clientAxios.get(`${url}`, {headers: {access: token}});
+    return result.data;
+}
