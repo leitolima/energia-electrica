@@ -2,16 +2,15 @@ import {useState, useEffect} from 'react';
 
 import clientAxios from '../config/clientAxios';
 
-const useData = (url) => {
+const useData = (url, filtro = {}) => {
     const[loading, setLoading] = useState(true);
     const[rows, setRows] = useState([]);
     const[error, setError] = useState(null);
 
     useEffect(() => {
         if(loading){
-            console.log('Buscando...');
             const token = localStorage.getItem('token');
-            clientAxios.post(url, {}, {
+            clientAxios.post(url, filtro, {
                 headers: {access:token}
             })
             .then(res => {
