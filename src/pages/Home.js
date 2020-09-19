@@ -40,7 +40,7 @@ const Home = () => {
                 plotShadow: false,
                 type: 'pie'
             },
-            colors: ['#0d6efd', '#fd7e14', '#6f42c1'],
+            colors: ['#0d6efd', '#fd7e14', '#6f42c1', '#dc3545'],
             title: {text: 'Usuarios registrados'},
             accessibility: {
                 announceNewData: {enabled: true},
