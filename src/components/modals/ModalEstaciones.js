@@ -36,14 +36,14 @@ const ModalEstaciones = ({show, estaciones, handleClose, handleChange, handleSub
     },[show]);
 
     useEffect(() => {
-        if(estaciones.central != 0){
+        if(estaciones.central != 0 && centrales.length != 0){
             console.log(estaciones.central);
             //Busca provincia de la central
             const provArray = centrales.filter(element => element.id == estaciones.central);
             console.log(provArray);
             handleChange({target: {id: 'provincia', type: 'select-one', value: provArray[0].id_provincia_fk}});
         }
-    }, [estaciones.central])
+    }, [estaciones.central, centrales])
 
     return (
         <Modal show={show} onHide={handleClose}>
