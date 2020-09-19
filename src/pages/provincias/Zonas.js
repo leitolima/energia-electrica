@@ -10,7 +10,8 @@ import {
     eliminarRegistro, 
     buscarRegistroById,
     agregarNuevoEditar,
-    lanzarError
+    lanzarError,
+    buscarTodosLosRegistros
 } from '../../functions';
 
 //Validar
@@ -25,9 +26,23 @@ const INITIAL_STATE = {
 const Zonas = () => {
     const[show, setShow] = useState(false);
     const[editar, setEditar] = useState(false);
+    //Para filtro
+    const[loadinfo, setLoadinfo] = useState(true);
+    const[provincias, setProvincias] = useState([]);
+    const[filtro, setFiltro] = useState({
+        fprovincia: 0
+    });
 
-    const {rows, error, handleLoading} = useData('/zona/get/all');
+    const {rows, error, handleLoading, setLoading} = useData('/zona/get/all', filtro);
     const {valores, errores, handleChange, handleSubmit, handleEditar} = useValidar(INITIAL_STATE, validarZona, registrarNuevaZona);
+
+    //Busca informacion para los filtros
+    useEffect(() => {
+        if(loadinfo){
+            buscarTodosLosRegistros('/provincias/get/all', setProvincias);
+            setLoadinfo(false);
+        }
+    }, [loadinfo])
 
     useEffect(() => {
         if(error){
@@ -85,6 +100,14 @@ const Zonas = () => {
         })
     }
 
+    //Setea el objeto de filtro
+    const changeFiltro = e => {
+        setFiltro({
+            ...filtro,
+            [e.target.name]: e.target.value
+        })
+    }
+
     return (
         <div className="container-fluid mt-4">
             <div className="d-flex flex-row justify-content-between">
@@ -98,6 +121,29 @@ const Zonas = () => {
                         setShow(true);
                     }}
                 >Agregar nueva</button>
+            </div>
+            <div className="mt-3 d-flex flex-row justify-content-end">
+                <button className="btn btn-info" onClick={() => setLoading(true)}>Filtrar</button>
+                <div className="col-md-3 col-lg-3 col-xl-3 pr-0">
+                    <select 
+                        name="fprovincia" 
+                        id="fprovincia"
+                        className="form-control"
+                        onChange={changeFiltro}
+                    >
+                        <option value="0" defaultValue>Selecciona para filtrar</option>
+                        {
+                        provincias.length > 0 ? (
+                            provincias.map((p, key) => {
+                                return (
+                                    <option key={key} value={p.id}>{p.nombre}</option>
+                                );
+                            })
+                        ) : (
+                            <option value="0" defaultValue>No hay provincias</option>
+                        )
+                    }</select>
+                </div>
             </div>
             <div className="fixed-head w-100 mt-4">
                 <table className="table table-striped">

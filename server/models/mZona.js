@@ -1,11 +1,12 @@
 const db = require('../db').db().query;
 
-exports.getAll = () => {
+exports.getAll = (fprovincia) => {
     return db(`
         SELECT z.id, z.nombre, p.nombre AS provincia 
         FROM zonas_servicio z
         LEFT JOIN provincias p ON z.id_provincia_fk = p.id
-        WHERE z.borrado = 0;
+        WHERE z.borrado = 0
+        ${fprovincia != 0 ? 'AND z.id_provincia_fk = ' + fprovincia : ''};
     `, [])
 }
 

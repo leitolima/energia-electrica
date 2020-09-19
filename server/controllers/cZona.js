@@ -17,7 +17,8 @@ const returnExisto = (res, text) => {
 }
 
 exports.getAll = async (req, res) => {
-    const result = await mZona.getAll();
+    const {fprovincia} = req.body;
+    const result = await mZona.getAll(fprovincia);
     res.send(result);
 }
 
