@@ -14,6 +14,7 @@ const cTransformadores = require('./controllers/cTransformadores');
 const cProvincias = require('./controllers/cProvincias');
 const cZona = require('./controllers/cZona');
 const cEstaciones = require('./controllers/cEstaciones');
+const cSubestaciones = require('./controllers/cSubestaciones');
 const cCompania = require('./controllers/cCompania');
 const cRedes = require('./controllers/cRedes');
 const cLineas = require('./controllers/cLineas');
@@ -57,6 +58,13 @@ router.get('/estaciones/get/:id', auth, cEstaciones.getById);
 router.post('/estaciones/nueva', auth,cEstaciones.agregarNueva);
 router.post('/estaciones/editar', auth, cEstaciones.editarEstacion);
 router.get('/estaciones/eliminar/:id', auth, cEstaciones.eliminarEstacion);
+//Subestaciones
+router.post('/subestaciones/get/all', auth, cSubestaciones.getAll);
+router.get('/subestaciones/get/:id', auth, cSubestaciones.getById);
+router.post('/subestaciones/nueva', auth, cSubestaciones.agregarNueva);
+router.post('/subestaciones/editar', auth, cSubestaciones.editarSubestacion);
+router.get('/subestaciones/eliminar/:id', auth, cSubestaciones.eliminarSubestacion);
+
 //------------------Centrales------------------//
 router.get('/centrales/get/all', auth, cCentrales.getAll);
 //Solares
