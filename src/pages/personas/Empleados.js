@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
+import {Redirect} from 'react-router-dom';
 import Swal from 'sweetalert2';
 import {toast} from 'react-toastify';
 
-//import {useUsuario} from '../../context';
+import {useUsuario} from '../../context';
 import ModalEmpleado from '../../components/modals/ModalEmpleado';
 
 //Functions
@@ -30,7 +31,11 @@ const Empleados = () => {
     const[show, setShow] = useState(false);
     const[editar, setEditar] = useState(false);
 
-    //const value = useUsuario();
+    const permiso = useUsuario();
+
+    useEffect(() => {
+        console.log(permiso.usuario);
+    }, [permiso])
 
     const {valores, errores, handleChange, handleSubmit, handleEditar} = useValidar(INITIAL_STATE, validarEmpleado, registrarEmpleado);
     const {rows, error, handleLoading} = useData('/empleados/get/all');
@@ -94,75 +99,120 @@ const Empleados = () => {
         })
     }
 
-    return (
-        <div className="container-fluid mt-4">
-            <div className="d-flex flex-row justify-content-between">
-                <h2>Administrar empleados</h2>
-                <button 
-                    type="button"
-                    className="btn btn-success"
-                    onClick={() => {
-                        handleEditar(INITIAL_STATE);
-                        setEditar(false);
-                        setShow(true);
-                    }}
-                >Agregar nuevo</button>
-            </div>
-            <div className="fixed-head w-100 mt-4">
-                <table className="table table-striped">
-                    <thead className="thead-dark thead-border-top">
-                        <tr>
-                            <th className="options">Opciones</th>
-                            <th>Nombre</th>
-                            <th>DNI</th>
-                            <th>Fecha nacimiento</th>
-                            <th>Correo electrónico</th>
-                            <th>Telefono</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+    const renderPage = () => {
+        if(permiso.usuario == null){
+            return null
+        }
+        if(!permiso.usuario[0].c){
+            toast.error('No tienes permiso de visualizar esta página.');
+            return <Redirect to='/'/>
+        }
+        if(permiso.usuario[0].c){
+            return(
+                <div className="container-fluid mt-4">
+                    <div className="d-flex flex-row justify-content-between">
+                        <h2>Administrar empleados</h2>
                         {
-                            rows.length > 0 ? (
-                                rows.map((r, key) => {
-                                    return(
-                                        <tr key={key}>
-                                            <td>
-                                                <button 
-                                                    className="btn btn-warning btn-icon" 
-                                                    title="Editar"
-                                                    onClick={() => editarEmpleado(r.id)}
-                                                ><i className="fas fa-pen"></i></button>
-                                                <button 
-                                                    className="btn btn-danger btn-icon" 
-                                                    title="Eliminar"
-                                                    onClick={() => eliminarEmpleado(r.id)}
-                                                ><i className="fas fa-trash-alt"></i></button>
-                                            </td>
-                                            <td>{r.nombre}</td>
-                                            <td>{r.dni}</td>
-                                            <td>{r.fecha}</td>
-                                            <td>{r.email}</td>
-                                            <td>{r.telefono}</td>
-                                        </tr>
-                                    )
-                                })
-                            ) : (
-                                <tr>
-                                    <td colSpan="6">No se encontraron empleados registrados</td>
-                                </tr>
+                            permiso.usuario == null ? null : (
+                                permiso.usuario[0].a ? (
+                                    //Inicio codigo retorno
+                                    <button 
+                                        type="button"
+                                        className="btn btn-success"
+                                        onClick={() => {
+                                            handleEditar(INITIAL_STATE);
+                                            setEditar(false);
+                                            setShow(true);
+                                        }}
+                                    >Agregar nuevo</button>
+                                    //Fin codigo retorno
+                                ) : (
+                                    null
+                                )
                             )
                         }
-                    </tbody>
-                </table>
-            </div>
-            <ModalEmpleado
-                show={show}
-                empleado={valores}
-                handleClose={() => setShow(false)}
-                handleChange={handleChange}
-                handleSubmit={handleSubmit}
-            />
-        </div>
+                    </div>
+                    <div className="fixed-head w-100 mt-4">
+                        <table className="table table-striped">
+                            <thead className="thead-dark thead-border-top">
+                                <tr>
+                                    <th className="options">Opciones</th>
+                                    <th>Nombre</th>
+                                    <th>DNI</th>
+                                    <th>Fecha nacimiento</th>
+                                    <th>Correo electrónico</th>
+                                    <th>Telefono</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    rows.length > 0 ? (
+                                        rows.map((r, key) => {
+                                            return(
+                                                <tr key={key}>
+                                                    <td>
+                                                        {
+                                                            permiso.usuario == null ? null : (
+                                                                permiso.usuario[0].m ? (
+                                                                    //Inicio codigo retorno
+                                                                    <button 
+                                                                        className="btn btn-warning btn-icon" 
+                                                                        title="Editar"
+                                                                        onClick={() => editarEmpleado(r.id)}
+                                                                    ><i className="fas fa-pen"></i></button>
+                                                                    //Fin codigo retorno
+                                                                ) : (
+                                                                    null
+                                                                )
+                                                            )
+                                                        }
+                                                        {
+                                                            permiso.usuario == null ? null : (
+                                                                permiso.usuario[0].b ? (
+                                                                    //Inicio codigo retorno
+                                                                    <button 
+                                                                        className="btn btn-danger btn-icon" 
+                                                                        title="Eliminar"
+                                                                        onClick={() => eliminarEmpleado(r.id)}
+                                                                    ><i className="fas fa-trash-alt"></i></button>
+                                                                    //Fin codigo retorno
+                                                                ) : (
+                                                                    null
+                                                                )
+                                                            )
+                                                        }
+                                                    </td>
+                                                    <td>{r.nombre}</td>
+                                                    <td>{r.dni}</td>
+                                                    <td>{r.fecha}</td>
+                                                    <td>{r.email}</td>
+                                                    <td>{r.telefono}</td>
+                                                </tr>
+                                            )
+                                        })
+                                    ) : (
+                                        <tr>
+                                            <td colSpan="6">No se encontraron empleados registrados</td>
+                                        </tr>
+                                    )
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <ModalEmpleado
+                        show={show}
+                        empleado={valores}
+                        handleClose={() => setShow(false)}
+                        handleChange={handleChange}
+                        handleSubmit={handleSubmit}
+                    />
+                </div>
+            )
+        }
+    }
+
+    return(
+        renderPage()
     )
 }
 

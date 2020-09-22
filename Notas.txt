@@ -20,3 +20,16 @@ Ideas:
   unicamente para la central/compañia a la que pertenezca
 - Se podria intentar aplicar el mismo metodo para que un administrador
   solo puede eliminar empleados/usuarios de su misma central/compañia
+
+
+{
+    permiso.usuario == null ? null : (
+        permiso.usuario[0].a ? (
+            //Inicio codigo retorno
+            
+            //Fin codigo retorno
+        ) : (
+            null
+        )
+    )
+}
