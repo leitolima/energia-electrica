@@ -1,7 +1,7 @@
 import React, {useState, useEffect}  from 'react';
-
 import Swal from 'sweetalert2';
 import {toast} from 'react-toastify';
+import {useHistory} from 'react-router';
 
 import ModalRedes from '../../components/modals/ModalRedes';
 
@@ -31,7 +31,9 @@ const Redes = () => {
     
     const {valores, errores, handleChange, handleSubmit, handleEditar} = useValidar(INITIAL_STATE, validarRed, registrarNuevaRed);
     const {rows, error, handleLoading} = useData('/redes/get/all');
-   
+
+    const history = useHistory();
+    
     useEffect(() => {
         if(error){
             lanzarError(error);
@@ -79,7 +81,7 @@ const Redes = () => {
             confirmButtonText: '¡Si, eliminar!'
         }).then(async res => {
             if(res.value) {
-                const result = await eliminarRegistro('/redes/eliminar', id);
+                const result = await eliminarRegistro('/redes/eliminar/', id);
                 if(result.type === 'success'){
                     handleLoading();
                 } else {
@@ -88,10 +90,6 @@ const Redes = () => {
             }
         })
     }
-
-    const verCompanias = id => {
-
-    }    
     
     return (
         <div className="container-fluid mt-4">
@@ -137,7 +135,7 @@ const Redes = () => {
                                                 <button 
                                                     className="btn btn-success btn-icon" 
                                                     title="Ver propietarios"
-                                                    onClick={() => verCompanias(z.id)}
+                                                    onClick={() => history.push(`/redes/propietarios/${z.id}`)}
                                                 ><i className="fas fa-map-marker-alt"></i></button>   
                                             </td>
                                             <td>{z.id}</td>

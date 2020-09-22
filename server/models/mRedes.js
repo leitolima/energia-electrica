@@ -37,3 +37,10 @@ exports.eliminarRed = id => {
         UPDATE redes SET borrado = 1 WHERE id = ?;
     `, [id]);
 }
+
+exports.eliminarPropietario = (idred, idcompania) => {
+    return db(`
+        DELETE FROM propiedad_red
+        WHERE id_red_fk = ? AND id_compania_fk = ?
+    `, [idred, idcompania]);
+}

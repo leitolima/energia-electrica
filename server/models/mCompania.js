@@ -35,3 +35,12 @@ exports.eliminarCompania = id => {
         UPDATE companias SET borrado = 1 WHERE id = ?;
     `, [id]);
 }
+
+exports.getPropietariosDeRed = id => {
+    return db(`
+        SELECT c.nombre AS compania, c.id
+        FROM companias c 
+        LEFT JOIN propiedad_red pr ON pr.id_compania_fk = c.id
+        WHERE id_red_fk = ?
+    `, [id]);
+}

@@ -157,3 +157,4 @@ ALTER TABLE transformadores ADD codigo varchar(25) DEFAULT NULL;
 ALTER TABLE centrales ADD id_provincia_fk int(11) NOT NULL;
 ALTER TABLE estaciones ADD id_central_fk int(11) NOT NULL, ADD id_provincia_fk int(11) NOT NULL;
 ALTER TABLE subestaciones ADD id_provincia_fk int(11) NOT NULL;
+ALTER TABLE propiedad_red CHANGE numero_red_fk id_red_fk int(11) NOT NULL;

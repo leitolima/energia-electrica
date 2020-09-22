@@ -1,5 +1,6 @@
 const mRedes = require('../models/mRedes');
 const mBorro = require('../models/mBorro');
+const mCompania = require('../models/mCompania');
 
 const returnError = res => {
     return res.send({
@@ -53,5 +54,19 @@ exports.eliminarRed = async (req, res) => {
     );
     if(result.affectedRows){
         return returnExito(res, 'Red eliminado correctamente');
+    } return returnError(res);
+}
+
+exports.getPropietarios = async (req, res) => {
+    const {idred} = req.body;
+    const propietarios = await mCompania.getPropietariosDeRed(idred);
+    res.send(propietarios);
+}
+
+exports.eliminarPropietario = async (req, res) => {
+    const {idred, idcompania} = req.params.id;
+    const result = await mRedes.eliminarPropietario(idred, idcompania);
+    if(result.affectedRows){
+        return returnExito(res, 'Propietario eliminado correctamente');
     } return returnError(res);
 }

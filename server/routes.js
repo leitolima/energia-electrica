@@ -126,6 +126,8 @@ router.get('/redes/get/:id',auth, cRedes.getById);
 router.post('/redes/nueva', auth, cRedes.agregarNueva);
 router.post('/redes/editar', auth, cRedes.editarRed);
 router.get('/redes/eliminar/:id', auth, cRedes.eliminarRed);
+router.post('/redes/get/propietarios', auth, cRedes.getPropietarios);
+router.get('/redes/eliminar/propietario/:idred/:idcompania', auth, cRedes.eliminarPropietario);
 
 //Lineas
 router.post('/lineas/get/all', auth, cLineas.getAll);

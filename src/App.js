@@ -26,6 +26,7 @@ import Estaciones from './pages/estaciones/Estaciones';
 import Subestaciones from './pages/estaciones/Subestaciones';
 
 import Redes from './pages/redes/Redes';
+import Propietarios from './pages/redes/Propietarios';
 import Lineas from './pages/Lineas';
 import Transformadores from './pages/Transformadores';
 import Companias from './pages/Companias';
@@ -61,6 +62,7 @@ const App = () => {
                         <Route exact path="/estaciones/secundarias" component={withAuth(Subestaciones)}/>
 
                         <Route exact path="/redes" component={withAuth(Redes)}/> 
+                        <Route exact path="/redes/propietarios/:id" component={withAuth(Propietarios)}/> 
                         <Route exact path="/lineas" component={withAuth(Lineas)}/>
                         <Route exact path="/transformadores" component={withAuth(Transformadores)}/>
                         <Route exact path="/companias" component={withAuth(Companias)}/>
