@@ -10,7 +10,7 @@ const ModalHidroelectrica = ({show, central, handleClose, handleChange, handleSu
     useEffect(() =>{
         if(show){
             const token = localStorage.getItem('token');
-            clientAxios.get('/provincias/get/all', {headers: {access:token}})
+            clientAxios.post('/provincias/get/all', {}, {headers: {access:token}})
             .then(res => {
                 if(res.data.type === 'notfound'){
                     Swal.fire({
@@ -58,7 +58,7 @@ const ModalHidroelectrica = ({show, central, handleClose, handleChange, handleSu
                                     onChange={handleChange}
                                     value={central.provincia}
                                 >
-                                    <option value="0">Selectionar</option>
+                                    <option value="0">Seleccionar</option>
                                     {
                                         provincias.map((p, key)=>{
                                             return(
