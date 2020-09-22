@@ -33,10 +33,6 @@ const Empleados = () => {
 
     const permiso = useUsuario();
 
-    useEffect(() => {
-        console.log(permiso.usuario);
-    }, [permiso])
-
     const {valores, errores, handleChange, handleSubmit, handleEditar} = useValidar(INITIAL_STATE, validarEmpleado, registrarEmpleado);
     const {rows, error, handleLoading} = useData('/empleados/get/all');
 
@@ -112,25 +108,20 @@ const Empleados = () => {
                 <div className="container-fluid mt-4">
                     <div className="d-flex flex-row justify-content-between">
                         <h2>Administrar empleados</h2>
-                        {
-                            permiso.usuario == null ? null : (
-                                permiso.usuario[0].a ? (
-                                    //Inicio codigo retorno
-                                    <button 
-                                        type="button"
-                                        className="btn btn-success"
-                                        onClick={() => {
-                                            handleEditar(INITIAL_STATE);
-                                            setEditar(false);
-                                            setShow(true);
-                                        }}
-                                    >Agregar nuevo</button>
-                                    //Fin codigo retorno
-                                ) : (
-                                    null
+                        <button 
+                            type="button"
+                            className="btn btn-success"
+                            disabled={
+                                permiso.usuario == null ? null : (
+                                    permiso.usuario[0].a ? false : true
                                 )
-                            )
-                        }
+                            }
+                            onClick={() => {
+                                handleEditar(INITIAL_STATE);
+                                setEditar(false);
+                                setShow(true);
+                            }}
+                        >Agregar nuevo</button>
                     </div>
                     <div className="fixed-head w-100 mt-4">
                         <table className="table table-striped">
@@ -151,36 +142,26 @@ const Empleados = () => {
                                             return(
                                                 <tr key={key}>
                                                     <td>
-                                                        {
-                                                            permiso.usuario == null ? null : (
-                                                                permiso.usuario[0].m ? (
-                                                                    //Inicio codigo retorno
-                                                                    <button 
-                                                                        className="btn btn-warning btn-icon" 
-                                                                        title="Editar"
-                                                                        onClick={() => editarEmpleado(r.id)}
-                                                                    ><i className="fas fa-pen"></i></button>
-                                                                    //Fin codigo retorno
-                                                                ) : (
-                                                                    null
+                                                        <button 
+                                                            className="btn btn-warning btn-icon" 
+                                                            title="Editar"
+                                                            disabled={
+                                                                permiso.usuario == null ? null : (
+                                                                    permiso.usuario[0].m ? false : true
                                                                 )
-                                                            )
-                                                        }
-                                                        {
-                                                            permiso.usuario == null ? null : (
-                                                                permiso.usuario[0].b ? (
-                                                                    //Inicio codigo retorno
-                                                                    <button 
-                                                                        className="btn btn-danger btn-icon" 
-                                                                        title="Eliminar"
-                                                                        onClick={() => eliminarEmpleado(r.id)}
-                                                                    ><i className="fas fa-trash-alt"></i></button>
-                                                                    //Fin codigo retorno
-                                                                ) : (
-                                                                    null
+                                                            }
+                                                            onClick={() => editarEmpleado(r.id)}
+                                                        ><i className="fas fa-pen"></i></button>
+                                                        <button 
+                                                            className="btn btn-danger btn-icon" 
+                                                            title="Eliminar"
+                                                            disabled={
+                                                                permiso.usuario == null ? null : (
+                                                                    permiso.usuario[0].b ? false : true
                                                                 )
-                                                            )
-                                                        }
+                                                            }
+                                                            onClick={() => eliminarEmpleado(r.id)}
+                                                        ><i className="fas fa-trash-alt"></i></button>
                                                     </td>
                                                     <td>{r.nombre}</td>
                                                     <td>{r.dni}</td>
