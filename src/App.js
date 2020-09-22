@@ -25,7 +25,7 @@ import Hidroelectrica from './pages/centrales/Hidroelectrica';
 import Estaciones from './pages/estaciones/Estaciones';
 import Subestaciones from './pages/estaciones/Subestaciones';
 
-import Redes from './pages/Redes';
+import Redes from './pages/redes/Redes';
 import Lineas from './pages/Lineas';
 import Transformadores from './pages/Transformadores';
 import Companias from './pages/Companias';

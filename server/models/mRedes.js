@@ -11,8 +11,9 @@ exports.getAll = () => {
 
 exports.getById = id => {
     return db(`
-        SELECT * FROM redes
-        WHERE id = ?
+        SELECT r.*, e.id AS estacion FROM redes r
+        LEFT JOIN estaciones e ON e.id = r.id_estacion_fk
+        WHERE r.id = ?
     `, [id])
 }
 
@@ -20,7 +21,7 @@ exports.registrarNuevaRed = obj => {
     return db(`
         INSERT INTO redes (numero,id_estacion_fk)
         VALUES (?, ?);
-    `, [obj.idred, obj.estacion]);
+    `, [obj.numero, obj.estacion]);
 }
 
 exports.editarRed = obj => {
@@ -28,7 +29,7 @@ exports.editarRed = obj => {
         UPDATE redes SET
         numero = ?, id_estacion_fk = ?
         WHERE id = ?;
-    `, [obj.idred, obj.estacion, obj.id]);
+    `, [obj.numero, obj.estacion, obj.id]);
 }
 
 exports.eliminarRed = id => {

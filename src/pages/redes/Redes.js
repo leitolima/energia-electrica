@@ -3,7 +3,7 @@ import React, {useState, useEffect}  from 'react';
 import Swal from 'sweetalert2';
 import {toast} from 'react-toastify';
 
-import ModalRedes from '../components/modals/ModalRedes';
+import ModalRedes from '../../components/modals/ModalRedes';
 
 //Functions
 import {
@@ -11,18 +11,17 @@ import {
     buscarRegistroById,
     agregarNuevoEditar,
     lanzarError
-} from '../functions';
+} from '../../functions';
 
-import useData from '../hooks/useData';
+import useData from '../../hooks/useData';
 
 //Validar
-import useValidar from '../hooks/useValidar';
-import validarRed from '../validations/validarRed';
+import useValidar from '../../hooks/useValidar';
+import validarRed from '../../validations/validarRed';
 
 const INITIAL_STATE  = {
-    idred: 0,
-    estacion: '',
-    compania: ''
+    numero: 0,
+    estacion: ''
 }
 
 const Redes = () => {
@@ -89,7 +88,10 @@ const Redes = () => {
             }
         })
     }
-    
+
+    const verCompanias = id => {
+
+    }    
     
     return (
         <div className="container-fluid mt-4">
@@ -106,13 +108,13 @@ const Redes = () => {
                 >Agregar nuevo</button>
             </div>
             <div className="fixed-head w-100 mt-4">
-                <table className="table table-hover mt-5">
+                <table className="table table-hover">
                     <thead className="thead-dark thead-border-top">
                         <tr>
                             <th className="options text-center">Actions</th>
-                            <th>Id. Red</th>
+                            <th>Id</th>
+                            <th>Numero de Red</th>
                             <th>Estación</th>
-                            <th>Compañías</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -122,7 +124,7 @@ const Redes = () => {
                                     return (
                                         <tr key={key}>
                                             <td>
-                                            <button 
+                                                <button 
                                                     className="btn btn-warning btn-icon" 
                                                     title="Editar"
                                                     onClick={() => editarRed(z.id)}
@@ -132,8 +134,14 @@ const Redes = () => {
                                                     title="Eliminar"
                                                     onClick={() => eliminarRed(z.id)}
                                                 ><i className="fas fa-trash-alt"></i></button>   
+                                                <button 
+                                                    className="btn btn-success btn-icon" 
+                                                    title="Ver propietarios"
+                                                    onClick={() => verCompanias(z.id)}
+                                                ><i className="fas fa-map-marker-alt"></i></button>   
                                             </td>
                                             <td>{z.id}</td>
+                                            <td>{z.numero}</td>
                                             <td>{z.nombre}</td>
                                         </tr>
                                     )

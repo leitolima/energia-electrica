@@ -1,10 +1,10 @@
 export default function validarRed(valores){
     let errores = [];
 
-    if(!valores.idred){
-        errores.push('El numero de red es obligatorio.');
-    } else if(valores.idred.length > 10){
-        errores.push('El numero de red es demasiado largo.');
+    if(!valores.numero){
+        errores.push('El número de red es obligatorio.');
+    } else if(valores.numero.length > 10){
+        errores.push('El número de red es demasiado largo.');
     }
 
 

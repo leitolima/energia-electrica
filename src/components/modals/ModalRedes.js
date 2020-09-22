@@ -3,16 +3,15 @@ import {Modal} from 'react-bootstrap';
 import Swal from 'sweetalert2';
 
 import clientAxios from '../../config/clientAxios';
-import Redes from '../../pages/Redes';
 
-const ModalLineas = ({show, red, handleClose, handleChange, handleSubmit}) => {
+const ModalRedes = ({show, red, handleClose, handleChange, handleSubmit}) => {
 
     const[estaciones, setEstaciones] = useState([]);
 
     useEffect(() =>{
         if(show){
             const token = localStorage.getItem('token');
-            clientAxios.get('/estaciones/get/all', {headers: {access:token}})
+            clientAxios.post('/estaciones/get/all', {}, {headers: {access:token}})
             .then(res => {
                 if(res.data.type === 'notfound'){
                     Swal.fire({
@@ -28,36 +27,39 @@ const ModalLineas = ({show, red, handleClose, handleChange, handleSubmit}) => {
                 }
             })
         }
+        // eslint-disable-next-line
     },[show])
 
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Agregar compañía</Modal.Title>
+                <Modal.Title>Agregar Red</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <form>
                     <div className="row">
                         <div className="col-md-12 col-lg-12 col-xl-12">
                             <div className="form-group">
-                                <label htmlFor="usuario">Id.Red: </label>
+                                <label htmlFor="usuario">Número de Red: </label>
                                 <input
                                     type="number" 
                                     className="form-control" 
-                                    id="idred"
+                                    id="numero"
+                                    value={red.numero}
                                     onChange={handleChange}
                                 />
                             </div>
                         </div>
-                        <div className="col-md-6 col-lg-6 col-xl-6">
+                        <div className="col-md-12 col-lg-12 col-xl-12">
                             <div className="form-group">
                                 <label htmlFor="estacion">Estación: </label>
                                 <select 
                                     className="form-control" 
                                     id="estacion"
+                                    value={red.estacion}
                                     onChange={handleChange}
                                 >
-                                    <option value="0">Selectionar</option>
+                                    <option value="0">Seleccionar</option>
                                     {
                                             estaciones.map((e, key) => {
                                                 return(
@@ -65,19 +67,6 @@ const ModalLineas = ({show, red, handleClose, handleChange, handleSubmit}) => {
                                                 )
                                             })
                                     }
-                                </select>
-                            </div>
-                        </div>
-                        <div className="col-md-12 col-lg-12 col-xl-12">
-                            <div className="form-group">
-                                <label htmlFor="companias">Compañias</label>
-                                <select 
-                                    className="form-control" 
-                                    id="companias"
-                                    onChange={handleChange}
-                                >
-                                    <option value="0">Selectionar</option>
-                                    
                                 </select>
                             </div>
                         </div>
@@ -100,4 +89,4 @@ const ModalLineas = ({show, red, handleClose, handleChange, handleSubmit}) => {
     )
 }
 
-export default ModalLineas
+export default ModalRedes
