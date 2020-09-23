@@ -1,8 +1,10 @@
 import React, {useState,useEffect} from 'react'
 import Swal from 'sweetalert2';
+import {Redirect} from 'react-router-dom';
 import {toast} from 'react-toastify';
 
 import validarEstacion from '../../validations/validarEstacion';
+import {useUsuario} from '../../context';
 
 import ModalEstaciones from '../../components/modals/ModalEstaciones';
 //Functions 
@@ -31,7 +33,9 @@ const Estaciones = () => {
 
     const {rows, error, handleLoading} = useData('/estaciones/get/all');
     const {valores, errores, handleChange, handleSubmit, handleEditar} = useValidar(INITIAL_STATE, validarEstacion, registrarNueva);
-    
+
+    const permiso = useUsuario();
+
     useEffect(() => {
         if(error){
             lanzarError(error);
@@ -88,75 +92,104 @@ const Estaciones = () => {
             }
         })
     }
-
-    return (
-        <div className="container-fluid mt-4">
-            <div className="d-flex flex-row justify-content-between">
-                <h2>Estaciones</h2>
-                <button
-                    type="button"
-                    className="btn btn-success"
-                    onClick={() => {
-                        handleEditar(INITIAL_STATE);
-                        setEditar(false);
-                        setShow(true);
-                    }}
-                >Agregar nueva</button>
-            </div>
-            <div className="fixed-head w-100 mt-4">
-                <table className="table table-striped">
-                    <thead className="thead-dark thead-border-top">
-                        <tr>
-                            <th className="options">Opciones</th>
-                            <th>Id. Estacion</th>
-                            <th>Nombre</th>
-                            <th>Provincia</th>
-                            <th>Central proveedora</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            rows.length > 0 ?(
-                                rows.map((z,key) => {
-                                    return (
-                                        <tr key={key}>
-                                            <td>
-                                            <button 
-                                                    className="btn btn-warning btn-icon" 
-                                                    title="Editar"
-                                                    onClick={() => editarEstacion(z.id)}
-                                                ><i className="fas fa-pen"></i></button>
-                                                <button 
-                                                    className="btn btn-danger btn-icon" 
-                                                    title="Eliminar"
-                                                    onClick={() => eliminarEstacion(z.id)}
-                                                ><i className="fas fa-trash-alt"></i></button>   
-                                            </td>
-                                            <td>{z.id}</td>
-                                            <td>{z.nombre}</td>
-                                            <td>{z.nombreprov}</td>
-                                            <td>{z.nombrecentral}</td>
+    const renderPage = () => {
+        if(permiso.usuario == null){
+            return null
+        }
+        if(!permiso.usuario[6].c){
+            toast.error('No tienes permiso de visualizar esta página.');
+            return <Redirect to='/'/>
+        }
+        if(permiso.usuario[6].c){
+            return (
+                <div className="container-fluid mt-4">
+                    <div className="d-flex flex-row justify-content-between">
+                        <h2>Estaciones</h2>
+                        <button
+                            type="button"
+                            className="btn btn-success"
+                            disabled={
+                                permiso.usuario == null ? null : (
+                                    permiso.usuario[6].a ? false : true
+                                )
+                            }
+                            onClick={() => {
+                                handleEditar(INITIAL_STATE);
+                                setEditar(false);
+                                setShow(true);
+                            }}
+                        >Agregar nueva</button>
+                    </div>
+                    <div className="fixed-head w-100 mt-4">
+                        <table className="table table-striped">
+                            <thead className="thead-dark thead-border-top">
+                                <tr>
+                                    <th className="options">Opciones</th>
+                                    <th>Id. Estacion</th>
+                                    <th>Nombre</th>
+                                    <th>Provincia</th>
+                                    <th>Central proveedora</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    rows.length > 0 ?(
+                                        rows.map((z,key) => {
+                                            return (
+                                                <tr key={key}>
+                                                    <td>
+                                                    <button 
+                                                            className="btn btn-warning btn-icon" 
+                                                            title="Editar"
+                                                            disabled={
+                                                                permiso.usuario == null ? null : (
+                                                                    permiso.usuario[6].m ? false : true
+                                                                )
+                                                            }
+                                                            onClick={() => editarEstacion(z.id)}
+                                                        ><i className="fas fa-pen"></i></button>
+                                                        <button 
+                                                            className="btn btn-danger btn-icon" 
+                                                            title="Eliminar"
+                                                            disabled={
+                                                                permiso.usuario == null ? null : (
+                                                                    permiso.usuario[6].b ? false : true
+                                                                )
+                                                            }
+                                                            onClick={() => eliminarEstacion(z.id)}
+                                                        ><i className="fas fa-trash-alt"></i></button>   
+                                                    </td>
+                                                    <td>{z.id}</td>
+                                                    <td>{z.nombre}</td>
+                                                    <td>{z.nombreprov}</td>
+                                                    <td>{z.nombrecentral}</td>
+                                                </tr>
+                                            )
+                                        })
+                                    ) : (
+                                        <tr>
+                                            <td colSpan="3">No hay estaciones registradas</td>
                                         </tr>
                                     )
-                                })
-                            ) : (
-                                <tr>
-                                    <td colSpan="3">No hay estaciones registradas</td>
-                                </tr>
-                            )
-                        }
-                    </tbody>
-                </table>
-            </div>
-            <ModalEstaciones
-                show={show}
-                estaciones={valores}
-                handleClose={() => setShow(false)}
-                handleChange={handleChange}
-                handleSubmit={handleSubmit}
-            />
-        </div>
-    );
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <ModalEstaciones
+                        show={show}
+                        estaciones={valores}
+                        handleClose={() => setShow(false)}
+                        handleChange={handleChange}
+                        handleSubmit={handleSubmit}
+                    />
+                </div>
+            );
+                    }
+                }
+    return(
+        renderPage()
+    )
+    
 };
 
 export default Estaciones;

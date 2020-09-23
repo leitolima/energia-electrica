@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react';
+import {Redirect} from 'react-router-dom';
 import Swal from 'sweetalert2';
 import {toast} from 'react-toastify';
 
+import {useUsuario} from '../../context';
 import validarProvincia from '../../validations/validarProvincia';
 
 import ModalProvincia from '../../components/modals/ModalProvincia';
@@ -30,6 +32,8 @@ const Provincias = () => {
     
     const {valores, errores, handleChange, handleSubmit, handleEditar} = useValidar(INITIAL_STATE, validarProvincia, registrarNueva);
     const {rows, error, handleLoading} = useData('/provincias/get/all');
+
+    const permiso = useUsuario();
 
     useEffect(() => {
         if(error){
@@ -87,70 +91,99 @@ const Provincias = () => {
             }
         })
     }
+    const renderPage = () => {
 
-    return (
-        <div className="container-fluid mt-4">
-            <div className="d-flex flex-row justify-content-between">
-                <h2>Provincias</h2>
-                <button
-                    type="button"
-                    className="btn btn-success"
-                    onClick={() => {
-                        handleEditar(INITIAL_STATE);
-                        setEditar(false);
-                        setShow(true);
-                    }}
-                >Agregar nueva</button>
-            </div>
-            <div className="fixed-head w-100 mt-4">
-                <table className="table table-striped">
-                    <thead className="thead-dark thead-border-top">
-                        <tr>
-                            <th className="options">Opciones</th>
-                            <th>Nombre</th>
-                            <th>Codigo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            rows.length > 0 ? (
-                                rows.map((r, key) => {
-                                    return(
-                                        <tr key={key}>
-                                            <td>
-                                                <button 
-                                                    className="btn btn-warning btn-icon" 
-                                                    title="Editar"
-                                                    onClick={() => editarProvincia(r.id)}
-                                                ><i className="fas fa-pen"></i></button>
-                                                <button 
-                                                    className="btn btn-danger btn-icon" 
-                                                    title="Eliminar"
-                                                    onClick={() => eliminarProvincia(r.id)}
-                                                ><i className="fas fa-trash-alt"></i></button>
-                                            </td>
-                                            <td>{r.nombre}</td>
-                                            <td>{r.codigo}</td>
-                                        </tr>
+        if(permiso.usuario == null){
+            return null
+        }
+        if(!permiso.usuario[12].c){
+            toast.error('No tienes permiso de visualizar esta página.');
+            return <Redirect to='/'/>
+        }
+        if(permiso.usuario[12].c){
+                return (
+                    <div className="container-fluid mt-4">
+                        <div className="d-flex flex-row justify-content-between">
+                            <h2>Provincias</h2>
+                            <button
+                                type="button"
+                                className="btn btn-success"
+                                disabled={
+                                    permiso.usuario == null ? null : (
+                                        permiso.usuario[12].a ? false : true
                                     )
-                                })
-                            ) : (
-                                <tr>
-                                    <td colSpan="4">No hay provincias registradas</td>
-                                </tr>
-                            )
-                        }
-                    </tbody>
-                </table>
-            </div>
-            <ModalProvincia
-                show={show}
-                provincia={valores}
-                handleClose={() => setShow(false)}
-                handleChange={handleChange}
-                handleSubmit={handleSubmit}
-            />
-        </div>
+                                }
+                                onClick={() => {
+                                    handleEditar(INITIAL_STATE);
+                                    setEditar(false);
+                                    setShow(true);
+                                }}
+                            >Agregar nueva</button>
+                        </div>
+                        <div className="fixed-head w-100 mt-4">
+                            <table className="table table-striped">
+                                <thead className="thead-dark thead-border-top">
+                                    <tr>
+                                        <th className="options">Opciones</th>
+                                        <th>Nombre</th>
+                                        <th>Codigo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        rows.length > 0 ? (
+                                            rows.map((r, key) => {
+                                                return(
+                                                    <tr key={key}>
+                                                        <td>
+                                                            <button 
+                                                                className="btn btn-warning btn-icon" 
+                                                                title="Editar"
+                                                                disabled={
+                                                                    permiso.usuario == null ? null : (
+                                                                        permiso.usuario[12].m ? false : true
+                                                                    )
+                                                                }
+                                                                onClick={() => editarProvincia(r.id)}
+                                                            ><i className="fas fa-pen"></i></button>
+                                                            <button 
+                                                                className="btn btn-danger btn-icon" 
+                                                                title="Eliminar"
+                                                                disabled={
+                                                                    permiso.usuario == null ? null : (
+                                                                        permiso.usuario[12].b ? false : true
+                                                                    )
+                                                                }
+                                                                onClick={() => eliminarProvincia(r.id)}
+                                                            ><i className="fas fa-trash-alt"></i></button>
+                                                        </td>
+                                                        <td>{r.nombre}</td>
+                                                        <td>{r.codigo}</td>
+                                                    </tr>
+                                                )
+                                            })
+                                        ) : (
+                                            <tr>
+                                                <td colSpan="4">No hay provincias registradas</td>
+                                            </tr>
+                                        )
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <ModalProvincia
+                            show={show}
+                            provincia={valores}
+                            handleClose={() => setShow(false)}
+                            handleChange={handleChange}
+                            handleSubmit={handleSubmit}
+                        />
+                    </div>
+                )
+            }
+    }
+    return(
+        renderPage()
     )
 }
 

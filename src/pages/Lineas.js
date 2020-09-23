@@ -1,7 +1,9 @@
 import React, {useState, useEffect}  from 'react';
+import {Redirect} from 'react-router-dom';
 import Swal from 'sweetalert2';
 import {toast} from 'react-toastify';
 
+import {useUsuario} from '../context';
 import validarLinea from '../validations/validarLinea';
 
 import ModalLineas from '../components/modals/ModalLineas';
@@ -28,6 +30,8 @@ const Lineas = () => {
     const[show, setShow] = useState(false);
     const[editar, setEditar] = useState(false);
     
+    const permiso = useUsuario();
+
     const {valores, errores, handleChange, handleSubmit, handleEditar} = useValidar(INITIAL_STATE, validarLinea, registrarNuevaLinea);
     const {rows, error, handleLoading} = useData('/lineas/get/all');
 
@@ -87,75 +91,103 @@ const Lineas = () => {
             }
         })
     }
-
-    return (
-        <div className="container-fluid mt-4">
-            <div className="d-flex flex-row justify-content-between">
-                <h2>Lineas</h2>
-                <button 
-                    type="button"
-                    className="btn btn-success"
-                    onClick={() => {
-                        handleEditar(INITIAL_STATE);
-                        setEditar(false);
-                        setShow(true);
-                    }}
-                >Agregar nueva</button>
-            </div>
-            <div className="fixed-head w-100 mt-4">
-                <table className="table table-hover">
-                    <thead className="thead-dark thead-border-top">
-                        <tr>
-                            <th className="options text-center">Actions</th>
-                            <th>Id.Linea</th>
-                            <th>Num. Red</th>
-                            <th>Longitud</th>
-                            <th>Subestaciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            rows.length > 0 ? (
-                                rows.map((r, key) => {
-                                    return(
-                                        <tr key={key}>
-                                            <td>
-                                                <button 
-                                                    className="btn btn-warning btn-icon" 
-                                                    title="Editar"
-                                                    onClick={() => editarLinea(r.id)}
-                                                ><i className="fas fa-pen"></i></button>
-                                                <button 
-                                                    className="btn btn-danger btn-icon" 
-                                                    title="Eliminar"
-                                                    onClick={() => eliminarLinea(r.id)}
-                                                ><i className="fas fa-trash-alt"></i></button>
-                                            </td>
-                                            <td>{r.id}</td>
-                                            <td>{r.numero}</td>
-                                            <td>{r.longitud} Mts</td>
-                                            <td>{r.subestaciones}</td>
-                                        </tr>
+    const renderPage = () => {
+        if(permiso.usuario == null){
+            return null
+        }
+        if(!permiso.usuario[9].c){
+            toast.error('No tienes permiso de visualizar esta página.');
+            return <Redirect to='/'/>
+        }
+        if(permiso.usuario[9].c){
+                return (
+                    <div className="container-fluid mt-4">
+                        <div className="d-flex flex-row justify-content-between">
+                            <h2>Lineas</h2>
+                            <button 
+                                type="button"
+                                className="btn btn-success"
+                                disabled={
+                                    permiso.usuario == null ? null : (
+                                        permiso.usuario[9].a ? false : true
                                     )
-                                })
-                            ) : (
-                                <tr>
-                                    <td colSpan="5">No hay lineas registradas</td>
-                                </tr>
-                            )
-                        }
-                    </tbody>
-                </table>
-            </div>
-            <ModalLineas
-                show={show}
-                linea={valores}
-                handleClose={() => setShow(false)}
-                handleChange={handleChange}
-                handleSubmit={handleSubmit}
-            />
-        </div>
-    );
+                                }
+                                onClick={() => {
+                                    handleEditar(INITIAL_STATE);
+                                    setEditar(false);
+                                    setShow(true);
+                                }}
+                            >Agregar nueva</button>
+                        </div>
+                        <div className="fixed-head w-100 mt-4">
+                            <table className="table table-hover">
+                                <thead className="thead-dark thead-border-top">
+                                    <tr>
+                                        <th className="options text-center">Actions</th>
+                                        <th>Id.Linea</th>
+                                        <th>Num. Red</th>
+                                        <th>Longitud</th>
+                                        <th>Subestaciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        rows.length > 0 ? (
+                                            rows.map((r, key) => {
+                                                return(
+                                                    <tr key={key}>
+                                                        <td>
+                                                            <button 
+                                                                className="btn btn-warning btn-icon" 
+                                                                title="Editar"
+                                                                disabled={
+                                                                    permiso.usuario == null ? null : (
+                                                                        permiso.usuario[9].m ? false : true
+                                                                    )
+                                                                }
+                                                                onClick={() => editarLinea(r.id)}
+                                                            ><i className="fas fa-pen"></i></button>
+                                                            <button 
+                                                                className="btn btn-danger btn-icon" 
+                                                                title="Eliminar"
+                                                                disabled={
+                                                                    permiso.usuario == null ? null : (
+                                                                        permiso.usuario[9].b ? false : true
+                                                                    )
+                                                                }
+                                                                onClick={() => eliminarLinea(r.id)}
+                                                            ><i className="fas fa-trash-alt"></i></button>
+                                                        </td>
+                                                        <td>{r.id}</td>
+                                                        <td>{r.numero}</td>
+                                                        <td>{r.longitud} Mts</td>
+                                                        <td>{r.subestaciones}</td>
+                                                    </tr>
+                                                )
+                                            })
+                                        ) : (
+                                            <tr>
+                                                <td colSpan="5">No hay lineas registradas</td>
+                                            </tr>
+                                        )
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <ModalLineas
+                            show={show}
+                            linea={valores}
+                            handleClose={() => setShow(false)}
+                            handleChange={handleChange}
+                            handleSubmit={handleSubmit}
+                        />
+                    </div>
+                );
+            }
+       }
+    return(
+        renderPage()
+    )
 }
 
 export default Lineas

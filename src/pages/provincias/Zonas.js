@@ -1,7 +1,9 @@
 import React, {useState,useEffect} from 'react'
+import {Redirect} from 'react-router-dom';
 import Swal from 'sweetalert2';
 import {toast} from 'react-toastify';
 
+import {useUsuario} from '../../context';
 import ModalZonas from '../../components/modals/ModalZonas'
 
 import validarZona from '../../validations/validarZona';
@@ -26,6 +28,7 @@ const INITIAL_STATE = {
 const Zonas = () => {
     const[show, setShow] = useState(false);
     const[editar, setEditar] = useState(false);
+    const permiso = useUsuario();
     //Para filtro
     const[loadinfo, setLoadinfo] = useState(true);
     const[provincias, setProvincias] = useState([]);
@@ -108,92 +111,121 @@ const Zonas = () => {
         })
     }
 
-    return (
-        <div className="container-fluid mt-4">
-            <div className="d-flex flex-row justify-content-between">
-                <h2>Zonas de servicio</h2>
-                <button
-                    type="button"
-                    className="btn btn-success"
-                    onClick={() => {
-                        handleEditar(INITIAL_STATE);
-                        setEditar(false);
-                        setShow(true);
-                    }}
-                >Agregar nueva</button>
-            </div>
-            <div className="mt-3 d-flex flex-row justify-content-end">
-                <button className="btn btn-info" onClick={() => setLoading(true)}>Filtrar</button>
-                <div className="col-md-3 col-lg-3 col-xl-3 pr-0">
-                    <select 
-                        name="fprovincia" 
-                        id="fprovincia"
-                        className="form-control"
-                        onChange={changeFiltro}
-                    >
-                        <option value="0" defaultValue>Selecciona para filtrar</option>
-                        {
-                        provincias.length > 0 ? (
-                            provincias.map((p, key) => {
-                                return (
-                                    <option key={key} value={p.id}>{p.nombre}</option>
-                                );
-                            })
-                        ) : (
-                            <option value="0" defaultValue>No hay provincias</option>
-                        )
-                    }</select>
-                </div>
-            </div>
-            <div className="fixed-head w-100 mt-4">
-                <table className="table table-striped">
-                    <thead className="thead-dark thead-border-top">
-                        <tr>
-                            <th className="options">Opciones</th>
-                            <th>Nombre</th>
-                            <th>Provincia</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            rows.length > 0 ?(
-                                rows.map((z,key) => {
-                                    return (
-                                        <tr key={key}>
-                                            <td>
-                                            <button 
-                                                    className="btn btn-warning btn-icon" 
-                                                    title="Editar"
-                                                    onClick={() => editarZona(z.id)}
-                                                ><i className="fas fa-pen"></i></button>
-                                                <button 
-                                                    className="btn btn-danger btn-icon" 
-                                                    title="Eliminar"
-                                                    onClick={() => eliminarZona(z.id)}
-                                                ><i className="fas fa-trash-alt"></i></button>   
-                                            </td>
-                                            <td>{z.nombre}</td>
-                                            <td>{z.provincia}</td>
+    const renderPage = () => {
+        if(permiso.usuario == null){
+            return null
+        }
+        if(!permiso.usuario[13].c){
+            toast.error('No tienes permiso de visualizar esta página.');
+            return <Redirect to='/'/>
+        }
+        if(permiso.usuario[13].c){
+            return (
+                <div className="container-fluid mt-4">
+                    <div className="d-flex flex-row justify-content-between">
+                        <h2>Zonas de servicio</h2>
+                        <button
+                            type="button"
+                            className="btn btn-success"
+                            disabled={
+                                permiso.usuario == null ? null : (
+                                    permiso.usuario[13].a ? false : true
+                                )
+                            }
+                            onClick={() => {
+                                handleEditar(INITIAL_STATE);
+                                setEditar(false);
+                                setShow(true);
+                            }}
+                        >Agregar nueva</button>
+                    </div>
+                    <div className="mt-3 d-flex flex-row justify-content-end">
+                        <button className="btn btn-info" onClick={() => setLoading(true)}>Filtrar</button>
+                        <div className="col-md-3 col-lg-3 col-xl-3 pr-0">
+                            <select 
+                                name="fprovincia" 
+                                id="fprovincia"
+                                className="form-control"
+                                onChange={changeFiltro}
+                            >
+                                <option value="0" defaultValue>Selecciona para filtrar</option>
+                                {
+                                provincias.length > 0 ? (
+                                    provincias.map((p, key) => {
+                                        return (
+                                            <option key={key} value={p.id}>{p.nombre}</option>
+                                        );
+                                    })
+                                ) : (
+                                    <option value="0" defaultValue>No hay provincias</option>
+                                )
+                            }</select>
+                        </div>
+                    </div>
+                    <div className="fixed-head w-100 mt-4">
+                        <table className="table table-striped">
+                            <thead className="thead-dark thead-border-top">
+                                <tr>
+                                    <th className="options">Opciones</th>
+                                    <th>Nombre</th>
+                                    <th>Provincia</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    rows.length > 0 ?(
+                                        rows.map((z,key) => {
+                                            return (
+                                                <tr key={key}>
+                                                    <td>
+                                                    <button 
+                                                            className="btn btn-warning btn-icon" 
+                                                            title="Editar"
+                                                            disabled={
+                                                                permiso.usuario == null ? null : (
+                                                                    permiso.usuario[13].m ? false : true
+                                                                )
+                                                            }
+                                                            onClick={() => editarZona(z.id)}
+                                                        ><i className="fas fa-pen"></i></button>
+                                                        <button 
+                                                            className="btn btn-danger btn-icon" 
+                                                            title="Eliminar"
+                                                            disabled={
+                                                                permiso.usuario == null ? null : (
+                                                                    permiso.usuario[13].b ? false : true
+                                                                )
+                                                            }
+                                                            onClick={() => eliminarZona(z.id)}
+                                                        ><i className="fas fa-trash-alt"></i></button>   
+                                                    </td>
+                                                    <td>{z.nombre}</td>
+                                                    <td>{z.provincia}</td>
+                                                </tr>
+                                            )
+                                        })
+                                    ) : (
+                                        <tr>
+                                            <td colSpan="3">No hay zonas de servicio registradas</td>
                                         </tr>
                                     )
-                                })
-                            ) : (
-                                <tr>
-                                    <td colSpan="3">No hay zonas de servicio registradas</td>
-                                </tr>
-                            )
-                        }
-                    </tbody>
-                </table>
-            </div>
-            <ModalZonas
-                show={show}
-                zona={valores}
-                handleClose={() => setShow(false)}
-                handleChange={handleChange}
-                handleSubmit={handleSubmit}
-            />
-        </div>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <ModalZonas
+                        show={show}
+                        zona={valores}
+                        handleClose={() => setShow(false)}
+                        handleChange={handleChange}
+                        handleSubmit={handleSubmit}
+                    />
+                </div>
+            )
+        }
+    }
+    return(
+        renderPage()
     )
 }
 
