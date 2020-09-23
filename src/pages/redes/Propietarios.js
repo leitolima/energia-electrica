@@ -9,7 +9,6 @@ import ModalPropietarioRed from '../../components/modals/ModalPropietarioRed';
 import {
     buscarTodosLosRegistros,
     eliminarRegistro,
-    buscarRegistroById,
     agregarNuevoEditar,
     lanzarError
 } from '../../functions';

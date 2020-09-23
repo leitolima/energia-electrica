@@ -3,16 +3,12 @@ import Highcharts from 'highcharts';
 
 import clientAxios from '../config/clientAxios';
 
-import {useUsuario} from '../context';
-
 const Home = () => {
 
     const [load, setLoad] = useState(false);
     const [graficar, setGraficar] = useState(false);
     const [usuarios, setUsuarios] = useState(null);
     const [centrales, setCentrales] = useState(null);
-
-    const permiso = useUsuario();
 
     useEffect(() => {
         if(!load){

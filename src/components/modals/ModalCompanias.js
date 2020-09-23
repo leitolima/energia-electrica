@@ -1,32 +1,7 @@
-import React, {useState,useEffect} from 'react';
+import React from 'react';
 import {Modal} from 'react-bootstrap';
-import Swal from 'sweetalert2';
-
-import clientAxios from '../../config/clientAxios';
 
 const ModalCompanias = ({show, compania, handleClose, handleChange, handleSubmit}) => {
-    const [companias,setCompanias] = useState([]);
-
-    useEffect(() =>{
-        if(show){
-            const token = localStorage.getItem('token');
-            clientAxios.get('/companias/get/all', {headers: {access:token}})
-            .then(res => {
-                if(res.data.type === 'notfound'){
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Hubo un error',
-                        text: 'No hay provincias disponibles',
-                        showCancelButton: false,
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Cerrar'
-                    }).then((result) => handleClose());
-                }else {
-                    setCompanias(res.data);
-                }
-            })
-        }
-    },[show])
 
     return (
         <Modal show={show} onHide={handleClose}>
