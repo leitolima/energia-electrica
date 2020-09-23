@@ -139,22 +139,22 @@ INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (3, 14, 0,
 INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (3, 15, 0, 0, 0, 1);
 
 INSERT INTO solar (sup_paneles, media_hs_sol, tipo_panel) VALUES (112, 98, 1);
-INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk) VALUES ('RenovAR', 325, 325, '2022-03-01', 1, 1);
+INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk, id_provincia_fk) VALUES ('RenovAR', 325, 325, '2022-03-01', 1, 1, 2);
 
 INSERT INTO termica (num_hornos, vol_carbon_consum, vol_emision_gases) VALUES (9, 485, 129);
-INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk) VALUES ('Central térmica Costanera', 1650, 2303.6, '1963-03-02', 1, 2);
+INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk, id_provincia_fk) VALUES ('Central térmica Costanera', 1650, 2303.6, '1963-03-02', 1, 2, 2);
 
 INSERT INTO nuclear (num_reactores, vol_plut_consum, vol_residuo) VALUES (2, 430, 126);
-INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk) VALUES ('Atucha I', 335, 362, '1974-06-24', 1, 3);
+INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk, id_provincia_fk) VALUES ('Atucha I', 335, 362, '1974-06-24', 1, 3, 2);
 INSERT INTO nuclear (num_reactores, vol_plut_consum, vol_residuo) VALUES (4, 543, 189);
-INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk) VALUES ('Atucha II', 692, 745, '2011-05-07', 2, 3);
+INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk, id_provincia_fk) VALUES ('Atucha II', 692, 745, '2011-05-07', 2, 3, 16);
 INSERT INTO nuclear (num_reactores, vol_plut_consum, vol_residuo) VALUES (1, 543, 189);
-INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk, borrado) VALUES ('Embalse', 680, 683, '1984-05-07', 3, 3, 1);
+INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk, id_provincia_fk, borrado) VALUES ('Embalse', 680, 683, '1984-05-07', 3, 3, 1, 21);
 
 INSERT INTO hidroelectrica (ocupacion, capacidad, num_turbinas) VALUES (590, 650, 20);
-INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk) VALUES ('Represa de Yacyretá', 1600, 3200, '1994-07-07', 1, 4);
+INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk, id_provincia_fk) VALUES ('Represa de Yacyretá', 1600, 3200, '1994-07-07', 1, 4, 16);
 INSERT INTO hidroelectrica (ocupacion, capacidad, num_turbinas) VALUES (335, 520, 14);
-INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk) VALUES ('Represa de Salto Grande', 1700, 1890, '1974-04-01', 2, 4);
+INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk, id_provincia_fk) VALUES ('Represa de Salto Grande', 1700, 1890, '1974-04-01', 2, 4, 21);
 
 
 INSERT INTO provincias (nombre, codigo) VALUES ('Salta', 'AR-A');
@@ -212,26 +212,26 @@ INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('leytho', 'B
 INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('enzito', 'Borro un empleado: Juan Pelotas', '2020-08-11', 'empleados', 14);
 
 -- Estaciones Cordoba
-INSERT INTO estaciones (nombre) VALUES ('Estacion Cordoba Alfa');
-INSERT INTO estaciones (nombre) VALUES ('Estacion Cordoba Beta');
-INSERT INTO estaciones (nombre) VALUES ('Estacion Cordoba Omega');
-INSERT INTO estaciones (nombre) VALUES ('Estacion Cordoba America');
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Cordoba Alfa', 5, 21);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Cordoba Beta', 7, 21);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Cordoba Omega', 7, 21);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Cordoba America', 5, 21);
 -- Estaciones Santa Fe
-INSERT INTO estaciones (nombre) VALUES ('Estacion Santa Fe Primera');
-INSERT INTO estaciones (nombre) VALUES ('Estacion Santa Fe Segunda');
-INSERT INTO estaciones (nombre) VALUES ('Estacion Santa Fe Tercera');
-INSERT INTO estaciones (nombre) VALUES ('Estacion Santa Fe Cuarta');
-INSERT INTO estaciones (nombre) VALUES ('Estacion Santa Fe Quinta');
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Santa Fe Primera', 4, 16);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Santa Fe Segunda', 4, 16);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Santa Fe Tercera', 4, 16);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Santa Fe Cuarta', 6, 16);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Santa Fe Quinta', 6, 16);
 -- Estaciones Buenos Aires
-INSERT INTO estaciones (nombre) VALUES ('Estacion Buenos Aires Zona Norte');
-INSERT INTO estaciones (nombre) VALUES ('Estacion Buenos Aires Zona Sur');
-INSERT INTO estaciones (nombre) VALUES ('Estacion Buenos Aires Noreste');
-INSERT INTO estaciones (nombre) VALUES ('Estacion Buenos Aires Sureste');
-INSERT INTO estaciones (nombre) VALUES ('Estacion Buenos Aires Palermo');
-INSERT INTO estaciones (nombre) VALUES ('Estacion Buenos Aires Quilmes');
-INSERT INTO estaciones (nombre) VALUES ('Estacion Buenos Aires Puerto Madero');
-INSERT INTO estaciones (nombre) VALUES ('Estacion Buenos Aires Quintuple');
-INSERT INTO estaciones (nombre) VALUES ('Estacion Buenos Aires Invernadero');
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Buenos Aires Zona Norte', 1, 2);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Buenos Aires Zona Sur', 1, 2);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Buenos Aires Noreste', 1, 2);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Buenos Aires Sureste', 2, 2);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Buenos Aires Palermo', 2, 2);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Buenos Aires Quilmes', 1, 2);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Buenos Aires Puerto Madero', 3, 2);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Buenos Aires Quintuple', 3, 2);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Buenos Aires Invernadero', 3, 2);
 
 -- Transformadores Cordoba
 INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (1, 'ARXCA1');
@@ -261,3 +261,7 @@ INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (16, 'ARBAG1');
 INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (16, 'ARBAG2');
 INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (17, 'ARBAH1');
 INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (18, 'ARBAH2');
+
+INSERT INTO companias (nombre) VALUES ('EDEN NORTE');
+INSERT INTO companias (nombre) VALUES ('EDEN SUR');
+INSERT INTO companias (nombre) VALUES ('EDEN Panama');

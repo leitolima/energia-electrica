@@ -43,13 +43,19 @@ exports.editarCompania = async (req, res) => {
 } 
 
 exports.eliminarCompania = async (req, res) => {
-        const {id} = req.params;
-        const result = await mCompania.eliminarCompania(id);
-        const nombre = await mCompania.getById(id);
-        await mBorro.nuevoBorrado(req.usuario, 
-            `Borro una compania: ${nombre[0].nombre}`, 'companias', id
-        );
-        if(result.affectedRows){
-            return returnExito(res, 'Compania eliminada correctamente');
-        } return returnError(res);
-    } 
+    const {id} = req.params;
+    const result = await mCompania.eliminarCompania(id);
+    const nombre = await mCompania.getById(id);
+    await mBorro.nuevoBorrado(req.usuario, 
+        `Borro una compania: ${nombre[0].nombre}`, 'companias', id
+    );
+    if(result.affectedRows){
+        return returnExito(res, 'Compania eliminada correctamente');
+    } return returnError(res);
+} 
+
+exports.getNotPropietarias = async (req, res) => {
+    const {idred} = req.params;
+    const companias = await mCompania.getNotPropietarias(idred);
+    res.send(companias);
+}

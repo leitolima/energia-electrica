@@ -1,18 +1,43 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import Swal from 'sweetalert2';
+import {toast} from 'react-toastify';
 import clientAxios from '../../config/clientAxios';
+
+import ModalPropietarioRed from '../../components/modals/ModalPropietarioRed';
 
 import {
     buscarTodosLosRegistros,
-    eliminarRegistro
+    eliminarRegistro,
+    buscarRegistroById,
+    agregarNuevoEditar,
+    lanzarError
 } from '../../functions';
+
+//Validar
+import useValidar from '../../hooks/useValidar';
+import validarPropietarioRed from '../../validations/validarPropietarioRed';
+
+const INITIAL_STATE  = {
+    compania: 0
+}
 
 const Propietarios = () => {
 
+    const[show, setShow] = useState(false);
     const[load, setLoad] = useState(true);
     const[propietarios, setPropietarios] = useState([]);
     const[red, setRed] = useState({});
+
+    const {valores, errores, handleChange, handleSubmit} = useValidar(INITIAL_STATE, validarPropietarioRed, agregarPropietario);
+
+    useEffect(() => {
+        if(Object.keys(errores).length !== 0){
+            errores.map(e => {
+                return toast.error(e);
+            })
+        }
+    }, [errores]);
 
     useEffect(() => {
         if(load){
@@ -31,7 +56,7 @@ const Propietarios = () => {
         }
     }, [load]);
 
-    const eliminarPropietario = id => {
+    const eliminarPropietario = idcompania => {
         Swal.fire({
             title: '¿Estás seguro/a?',
             text: "Esta acción puede ser irreversible",
@@ -42,16 +67,29 @@ const Propietarios = () => {
             confirmButtonText: '¡Si, eliminar!'
         }).then(async res => {
             if(res.value) {
-                /*
-                const result = await eliminarRegistro(`/redes/eliminar/propietario/${}`, id);
+                const result = await eliminarRegistro(`/redes/eliminar/propietario/${red.id}`, idcompania);
                 if(result.type === 'success'){
-                    handleLoading();
+                    setLoad(true);
                 } else {
                     lanzarError(result.text);
                 }
-                */
             }
         })
+    }
+
+    async function agregarPropietario(){
+        let data = {
+            compania: valores.compania,
+            red: red.id
+        }
+        console.log(data);
+        let result =  await agregarNuevoEditar('/redes/agregar/propietario', data);
+        if(result.type === 'success'){
+            setShow(false);
+            setLoad(true);
+        } else {
+            lanzarError(result.text);
+        }
     }
 
     return (
@@ -62,6 +100,9 @@ const Propietarios = () => {
                     <Link to="/redes" className="btn btn-info mr-3">Volver</Link>
                     <button
                         className="btn btn-success"
+                        onClick={() => {
+                            setShow(true);
+                        }}
                     >Nuevo Propietario</button>
                 </div>
             </div>
@@ -101,6 +142,14 @@ const Propietarios = () => {
                     </tbody>
                 </table>
             </div>
+            <ModalPropietarioRed
+                show={show}
+                propietario={valores}
+                idred={red.id}
+                handleClose={() => setShow(false)}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+            />
         </div>
     )
 }

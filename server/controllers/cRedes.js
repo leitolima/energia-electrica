@@ -63,8 +63,16 @@ exports.getPropietarios = async (req, res) => {
     res.send(propietarios);
 }
 
+exports.agregarPropietario = async (req, res) => {
+    const {compania, red} = req.body;
+    const result = await mRedes.agregarPropietario(red, compania);
+    if(result.affectedRows){
+        return returnExito(res, 'Propietario agregado correctamente');
+    } return returnError(res);
+}
+
 exports.eliminarPropietario = async (req, res) => {
-    const {idred, idcompania} = req.params.id;
+    const {idred, idcompania} = req.params;
     const result = await mRedes.eliminarPropietario(idred, idcompania);
     if(result.affectedRows){
         return returnExito(res, 'Propietario eliminado correctamente');

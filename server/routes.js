@@ -119,6 +119,7 @@ router.get('/compania/get/:id',auth, cCompania.getById);
 router.post('/compania/nueva', auth, cCompania.agregarNueva);
 router.post('/compania/editar', auth, cCompania.editarCompania);
 router.get('/compania/eliminar/:id', auth, cCompania.eliminarCompania);
+router.get('/compania/get/notpropietarias/:idred', auth, cCompania.getNotPropietarias);
 
 //Redes
 router.post('/redes/get/all',auth, cRedes.getAll);
@@ -127,6 +128,7 @@ router.post('/redes/nueva', auth, cRedes.agregarNueva);
 router.post('/redes/editar', auth, cRedes.editarRed);
 router.get('/redes/eliminar/:id', auth, cRedes.eliminarRed);
 router.post('/redes/get/propietarios', auth, cRedes.getPropietarios);
+router.post('/redes/agregar/propietario', auth, cRedes.agregarPropietario);
 router.get('/redes/eliminar/propietario/:idred/:idcompania', auth, cRedes.eliminarPropietario);
 
 //Lineas

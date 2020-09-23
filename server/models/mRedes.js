@@ -38,6 +38,13 @@ exports.eliminarRed = id => {
     `, [id]);
 }
 
+exports.agregarPropietario = (red, compania) => {
+    return db(`
+        INSERT INTO propiedad_red (id_red_fk, id_compania_fk)
+        VALUES (?, ?);
+    `, [red, compania])
+}
+
 exports.eliminarPropietario = (idred, idcompania) => {
     return db(`
         DELETE FROM propiedad_red
