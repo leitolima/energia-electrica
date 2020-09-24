@@ -22,11 +22,15 @@ const Sidebar = () => {
 
             <ul className="nav flex-column">
                 <li className="nav-item d-flex flex-column">
-                    <div className="d-flex flex-row">
+                    <div className="sec-nav d-flex flex-row" data-collapse="personasList">
                         <div className="icon-box">
                             <i className="fas fa-user-tie"></i>
                         </div>
-                        <h5 className="sec-nav" data-collapse="personasList">Personas</h5>
+                        <h5>Personas</h5>
+                        <div className="icon-box ml-auto flecha">
+                            <i className="fas fa-caret-down"></i>
+                            <i className="fas fa-caret-up d-none"></i>
+                        </div>
                     </div>
                     <ul className="d-none" id="personasList">
                         <li>
@@ -39,11 +43,15 @@ const Sidebar = () => {
                 </li>
                 <div className="divisor rainbow my-2"></div>
                 <li className="nav-item d-flex flex-column">
-                    <div className="d-flex d-row">
+                    <div className="sec-nav d-flex flex-row" data-collapse="centralesList">
                         <div className="icon-box">
                             <i className="fas fa-industry"></i>
                         </div>
-                        <h5 className="sec-nav" data-collapse="centralesList">Centrales</h5>
+                        <h5>Centrales</h5>
+                        <div className="icon-box ml-auto flecha">
+                            <i className="fas fa-caret-down"></i>
+                            <i className="fas fa-caret-up d-none"></i>
+                        </div>
                     </div>
                     <ul className="d-none" id="centralesList">
                         <li>
@@ -61,11 +69,15 @@ const Sidebar = () => {
                     </ul>
                 </li>
                 <li className="nav-item d-flex flex-column">
-                    <div className="d-flex flex-row">
+                    <div className="sec-nav d-flex flex-row" data-collapse="estacionesList">
                         <div className="icon-box">
                             <i className="fab fa-playstation"></i>
                         </div>
-                        <h5 className="sec-nav" data-collapse="estacionesList">Estaciones</h5>
+                        <h5>Estaciones</h5>
+                        <div className="icon-box ml-auto flecha">
+                            <i className="fas fa-caret-down"></i>
+                            <i className="fas fa-caret-up d-none"></i>
+                        </div>
                     </div>
                     <ul className="d-none" id="estacionesList">
                         <li>
