@@ -3,12 +3,16 @@ import Highcharts from 'highcharts';
 
 import clientAxios from '../config/clientAxios';
 
+import {useUsuario} from '../context';
+
 const Home = () => {
 
     const [load, setLoad] = useState(false);
     const [graficar, setGraficar] = useState(false);
     const [usuarios, setUsuarios] = useState(null);
     const [centrales, setCentrales] = useState(null);
+
+    const permiso = useUsuario();
 
     useEffect(() => {
         if(!load){
@@ -51,10 +55,17 @@ const Home = () => {
                 pie: {
                     allowPointSelect: true,
                     cursor: 'pointer',
-                    dataLabels: {enabled: false},
-                    showInLegend: true
+                    showInLegend: true,
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                      }
+                
                 }
             },
+            credits: {
+                enabled: false
+              },
             tooltip: { 
                 headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
                 pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
@@ -99,18 +110,26 @@ const Home = () => {
                 announceNewData: {enabled: true},
                 point: {valueSuffix: '%'}
             },
+            credits: {
+                enabled: false
+              },
+            tooltip: { 
+                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+            },
+
             plotOptions: {
                 column: {stacking: 'percent'      },
                 pie: {
                     allowPointSelect: true,
                     cursor: 'pointer',
-                    dataLabels: {enabled: false},
-                    showInLegend: true
+                    showInLegend: true,
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                      }
+                
                 }
-            },
-            tooltip: { 
-                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
             },
             series: [
                 {
