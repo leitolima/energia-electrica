@@ -1,12 +1,15 @@
+DROP TABLE IF EXISTS usuarios;
 CREATE TABLE usuarios (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     usuario varchar(25) NOT NULL,
     clave varchar(255) NOT NULL,
     id_empleado_fk int(11) NOT NULL,
     id_nivel_fk int(2) NOT NULL,
+    id_central_fk int(11) NOT NULL,
     activo tinyint NOT NULL DEFAULT 1,
     borrado tinyint NOT NULL DEFAULT 0
 );
+DROP TABLE IF EXISTS empleados;
 CREATE TABLE empleados (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     nombre varchar(75) NOT NULL,
@@ -16,16 +19,19 @@ CREATE TABLE empleados (
     telefono varchar(25),
     borrado tinyint NOT NULL DEFAULT 0
 );
+DROP TABLE IF EXISTS niveles;
 CREATE TABLE niveles (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     titulo varchar(25) NOT NULL
 );
 
+DROP TABLE IF EXISTS ayuda;
 CREATE TABLE ayuda (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     menu int(11) NOT NULL,
     titulo varchar(25) NOT NULL
 );
+DROP TABLE IF EXISTS accesos;
 CREATE TABLE accesos (
     id_usuario_fk int(11) NOT NULL,
     menu_ayuda_fk int(11) NOT NULL,
@@ -35,6 +41,7 @@ CREATE TABLE accesos (
     c tinyint NOT NULL
 );
 
+DROP TABLE IF EXISTS centrales;
 CREATE TABLE centrales (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     nombre varchar(100) NOT NULL,
@@ -43,41 +50,49 @@ CREATE TABLE centrales (
     fecha_func date,
     id_central int(11) NOT NULL,
     tipo_central_fk int(11) NOT NULL,
+    id_provincia_fk int(11) NOT NULL,
     borrado tinyint NOT NULL DEFAULT 0
 );
+DROP TABLE IF EXISTS tipo_central;
 CREATE TABLE tipo_central (
     id int(1) PRIMARY KEY,
     tipo varchar(14) NOT NULL
 );
+DROP TABLE IF EXISTS solar;
 CREATE TABLE solar (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     sup_paneles float NOT NULL,
     media_hs_sol float NOT NULL,
     tipo_panel tinyint(4) NOT NULL
 );
+DROP TABLE IF EXISTS termica;
 CREATE TABLE termica (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     num_hornos int(4) NOT NULL,
     vol_carbon_consum float NOT NULL,
     vol_emision_gases float NOT NULL
 );
+DROP TABLE IF EXISTS hidroelectrica;
 CREATE TABLE hidroelectrica (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     ocupacion int(10) NOT NULL,
     capacidad int(10) NOT NULL,
     num_turbinas int(10) NOT NULL
 );
+DROP TABLE IF EXISTS nuclear;
 CREATE TABLE nuclear (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     num_reactores int(10) NOT NULL,
     vol_plut_consum float NOT NULL,
     vol_residuo float NOT NULL
 );
+DROP TABLE IF EXISTS transportista;
 CREATE TABLE transportista (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     nombre varchar(100) NOT NULL,
     matricula int(15) NOT NULL
 );
+DROP TABLE IF EXISTS suministro;
 CREATE TABLE suministro (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     nombre varchar(100) NOT NULL,
@@ -88,31 +103,40 @@ CREATE TABLE suministro (
     fecha date
 );
 
+DROP TABLE IF EXISTS estaciones;
 CREATE TABLE estaciones (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     nombre varchar(100) NOT NULL,
+    id_central_fk int(11) NOT NULL,
+    id_provincia_fk int(11) NOT NULL,
     borrado tinyint NOT NULL DEFAULT 0
 );
+DROP TABLE IF EXISTS transformadores;
 CREATE TABLE transformadores (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     id_estacion_fk int(11) NOT NULL,
+    codigo varchar(25) DEFAULT NULL,
     borrado tinyint NOT NULL DEFAULT 0
 );
+DROP TABLE IF EXISTS redes;
 CREATE TABLE redes (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     numero int(11) NOT NULL,
     id_estacion_fk int(11) NOT NULL,
     borrado tinyint NOT NULL DEFAULT 0
 );
+DROP TABLE IF EXISTS companias;
 CREATE TABLE companias (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     nombre varchar(100) NOT NULL,
     borrado tinyint NOT NULL DEFAULT 0
 );
+DROP TABLE IF EXISTS propiedad_red;
 CREATE TABLE propiedad_red (
-    numero_red_fk int(11) NOT NULL,
+    id_red_fk int(11) NOT NULL,
     id_compania_fk int(11) NOT NULL
 );
+DROP TABLE IF EXISTS lineas;
 CREATE TABLE lineas (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     numero_red_sec int(11) NOT NULL,
@@ -120,28 +144,34 @@ CREATE TABLE lineas (
     subestaciones int(11) NOT NULL DEFAULT 0,
     borrado tinyint NOT NULL DEFAULT 0
 );
+DROP TABLE IF EXISTS subestaciones;
 CREATE TABLE subestaciones (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     id_linea_fk int(11) NOT NULL,
+    id_provincia_fk int(11) NOT NULL,
     borrado tinyint NOT NULL DEFAULT 0
 );
+DROP TABLE IF EXISTS provincias;
 CREATE TABLE provincias (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     codigo varchar(10) NOT NULL,
     nombre varchar(100) NOT NULL,
     borrado tinyint NOT NULL DEFAULT 0
 );
+DROP TABLE IF EXISTS zonas_servicio;
 CREATE TABLE zonas_servicio (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     nombre varchar(100) NOT NULL,
     id_provincia_fk int(11) NOT NULL,
     borrado tinyint NOT NULL DEFAULT 0
 );
+DROP TABLE IF EXISTS zona_abastecida;
 CREATE TABLE zona_abastecida (
     id_zona_fk int(11) NOT NULL,
     id_subestacion_fk int(11) NOT NULL
 );
 
+DROP TABLE IF EXISTS borro;
 CREATE TABLE borro (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     usuario varchar(25) NOT NULL,
@@ -152,10 +182,3 @@ CREATE TABLE borro (
     central tinyint NOT NULL DEFAULT 0,
     id_centrales_fk int(11) NOT NULL DEFAULT 0
 );
-
-ALTER TABLE transformadores ADD codigo varchar(25) DEFAULT NULL;
-ALTER TABLE centrales ADD id_provincia_fk int(11) NOT NULL;
-ALTER TABLE estaciones ADD id_central_fk int(11) NOT NULL, ADD id_provincia_fk int(11) NOT NULL;
-ALTER TABLE subestaciones ADD id_provincia_fk int(11) NOT NULL;
-ALTER TABLE propiedad_red CHANGE numero_red_fk id_red_fk int(11) NOT NULL;
-ALTER TABLE usuarios ADD id_central_fk int(11) NOT NULL;
