@@ -23,6 +23,7 @@ const INITIAL_STATE  = {
     clave: '',
     empleado: 0,
     nivel: 0,
+    central: 0,
     activo: 1
 }
 
@@ -117,6 +118,7 @@ const Usuarios = () => {
                             <th>Nombre</th>
                             <th>Usuario</th>
                             <th>Nivel</th>
+                            <th>Central</th>
                             <th>Activo</th>
                         </tr>
                     </thead>
@@ -146,13 +148,14 @@ const Usuarios = () => {
                                             <td>{r.nombre}</td>
                                             <td>{r.usuario}</td>
                                             <td>{r.nivel}</td>
+                                            <td>{r.nomcentral}</td>
                                             <td>{r.activo ? 'Activo' : 'No activo'}</td>
                                         </tr>
                                     )
                                 })
                             ) : (
                                 <tr>
-                                    <td colSpan="5">No se encontraron usuarios registrados</td>
+                                    <td colSpan="6">No se encontraron usuarios registrados</td>
                                 </tr>
                             )
                         }

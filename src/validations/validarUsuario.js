@@ -19,6 +19,9 @@ export default function validarUsuario(valores){
     if(valores.nivel === 0){
         errores.push('Selecione un nivel.');
     }
+    if(valores.central === 0){
+        errores.push('Seleccione una central');
+    }
 
     return errores;
 }

@@ -3,19 +3,22 @@ const db = require('../db').db().query;
 exports.getAll = () => {
     return db(`
         SELECT u.id, u.usuario, u.activo,
-        e.nombre, n.titulo AS nivel
+        u.id_central_fk AS central,
+        e.nombre, n.titulo AS nivel,
+        c.nombre AS nomcentral
         FROM usuarios u
         LEFT JOIN empleados e ON e.id = u.id_empleado_fk
         LEFT JOIN niveles n ON n.id = u.id_nivel_fk
+        LEFT JOIN centrales c ON c.id = u.id_central_fk
         WHERE u.borrado = 0;
     `, []);
 }
 
 exports.agregarNuevo = obj => {
     return db(`
-        INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk)
-        VALUES (?, ?, ?, ?);
-    `, [obj.usuario, obj.clave, obj.empleado, obj.nivel]);
+        INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk)
+        VALUES (?, ?, ?, ?, ?);
+    `, [obj.usuario, obj.clave, obj.empleado, obj.nivel, obj.central]);
 }
 
 exports.getNombre = id => {
@@ -27,7 +30,8 @@ exports.getNombre = id => {
 exports.getById = id => {
     return db(`
         SELECT u.id, u.usuario, u.clave, u.activo,
-        e.nombre, n.id AS nivel, e.id AS empleado
+        e.nombre, n.id AS nivel, e.id AS empleado,
+        u.id_central_fk AS central
         FROM usuarios u
         LEFT JOIN empleados e ON e.id = u.id_empleado_fk
         LEFT JOIN niveles n ON n.id = u.id_nivel_fk
@@ -41,9 +45,10 @@ exports.editarUsuario = obj => {
         usuario = ?,
         id_empleado_fk = ?,
         id_nivel_fk = ?,
-        activo = ?
+        activo = ?,
+        id_central_fk = ?
         WHERE id = ?
-    `, [obj.usuario, obj.empleado, obj.nivel, obj.activo, obj.id]);
+    `, [obj.usuario, obj.empleado, obj.nivel, obj.activo, obj.central, obj.id]);
 }
 
 exports.eliminarUsuario = (id) => {

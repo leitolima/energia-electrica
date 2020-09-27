@@ -67,9 +67,10 @@ INSERT INTO empleados (nombre, dni, email) VALUES ('Juan Carlos Palmera', '12355
 INSERT INTO empleados (nombre, dni, email) VALUES ('Armando Esteban Quito', '12367678', 'estaban_quito@hotmail.com');
 INSERT INTO empleados (nombre, dni, email, telefono, borrado) VALUES ('Juan Pelotas', '12377678', 'pelotas@hotmail.com', '3363871656', 1);
 
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('admin', '123456', 1, 1, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('enzito', '123456', 2, 2, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('leytho', '123456', 3, 3, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('admin', '123456', 1, 1, 1, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('enzito', '123456', 2, 2, 2, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('leytho', '123456', 3, 3, 2, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('garrix', '123456', 7, 3, 5, 1);
 
 INSERT INTO tipo_central (id, tipo) VALUES (1, 'Solar');
 INSERT INTO tipo_central (id, tipo) VALUES (2, 'Termica');
