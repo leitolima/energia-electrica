@@ -12,7 +12,7 @@ const ModalUsuario = ({show, usuario, handleClose, handleChange, handleSubmit}) 
 
     const fetchData = (url, fn) => {
         const token = localStorage.getItem('token');
-            clientAxios.get(url, {headers: {access:token}})
+            clientAxios.post(url, {headers: {access:token}})
             .then(res => {
                 if(res.data.type === 'notfound'){
                     Swal.fire({

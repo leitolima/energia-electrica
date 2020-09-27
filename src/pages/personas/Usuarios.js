@@ -10,7 +10,8 @@ import {
     eliminarRegistro, 
     buscarRegistroById,
     agregarNuevoEditar,
-    lanzarError
+    lanzarError,
+    buscarTodosLosRegistros
 } from '../../functions';
 import useData from '../../hooks/useData';
 
@@ -31,11 +32,26 @@ const Usuarios = () => {
 
     const[show, setShow] = useState(false);
     const[editar, setEditar] = useState(false);
+    //Para filtro
+    const[loadinfo, setLoadinfo] = useState(true);
+    const[centrales, setCentrales] = useState([]);
+    const[filtro, setFiltro] = useState({
+        fcentral: 0
+    });
 
     const {valores, errores, handleChange, handleSubmit, handleEditar} = useValidar(INITIAL_STATE, validarUsuario, registrarUsuario);
-    const {rows, error, handleLoading} = useData('/usuarios/get/all');
+    const {rows, error, handleLoading, setLoading} = useData('/usuarios/get/all', filtro);
 
     const history = useHistory();
+
+    //Busca informacion para los filtros
+    useEffect(() => {
+        if(loadinfo){
+            buscarTodosLosRegistros('/centrales/get/all', setCentrales);
+            setLoadinfo(false);
+        }
+    }, [loadinfo])
+
 
     useEffect(() => {
         if(error){
@@ -96,6 +112,14 @@ const Usuarios = () => {
         })
     }
 
+    //Setea el objeto de filtro
+    const changeFiltro = e => {
+        setFiltro({
+            ...filtro,
+            [e.target.name]: e.target.value
+        })
+    }
+
     return (
         <div className="container-fluid mt-4">
             <div className="d-flex flex-row justify-content-between">
@@ -110,6 +134,29 @@ const Usuarios = () => {
                     }}
                 >Agregar nuevo</button>
             </div>
+            <div className="mt-3 d-flex flex-row justify-content-end">
+                        <button className="btn btn-info" onClick={() => setLoading(true)}>Filtrar</button>
+                        <div className="col-md-3 col-lg-3 col-xl-3 pr-0">
+                            <select 
+                                name="fcentral" 
+                                id="fcentral"
+                                className="form-control"
+                                onChange={changeFiltro}
+                            >
+                                <option value="0" defaultValue>Selecciona para filtrar</option>
+                                {
+                                centrales.length > 0 ? (
+                                    centrales.map((c, key) => {
+                                        return (
+                                            <option key={key} value={c.id}>{c.nombre}</option>
+                                        );
+                                    })
+                                ) : (
+                                    <option value="0" defaultValue>No hay centrales</option>
+                                )
+                            }</select>
+                        </div>
+                    </div>
             <div className="fixed-head w-100 mt-4">
                 <table className="table table-striped">
                     <thead className="thead-dark thead-border-top">

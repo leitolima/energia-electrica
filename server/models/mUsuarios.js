@@ -1,6 +1,6 @@
 const db = require('../db').db().query;
 
-exports.getAll = () => {
+exports.getAll = fcentral => {
     return db(`
         SELECT u.id, u.usuario, u.activo,
         u.id_central_fk AS central,
@@ -10,7 +10,8 @@ exports.getAll = () => {
         LEFT JOIN empleados e ON e.id = u.id_empleado_fk
         LEFT JOIN niveles n ON n.id = u.id_nivel_fk
         LEFT JOIN centrales c ON c.id = u.id_central_fk
-        WHERE u.borrado = 0;
+        WHERE u.borrado = 0
+        ${fcentral != 0 ? 'AND u.id_central_fk = ' + fcentral : ''}
     `, []);
 }
 

@@ -66,7 +66,7 @@ router.post('/subestaciones/editar', auth, cSubestaciones.editarSubestacion);
 router.get('/subestaciones/eliminar/:id', auth, cSubestaciones.eliminarSubestacion);
 
 //------------------Centrales------------------//
-router.get('/centrales/get/all', auth, cCentrales.getAll);
+router.post('/centrales/get/all', auth, cCentrales.getAll);
 //Solares
 router.post('/solares/get/all', auth, cSolares.getAll);
 router.get('/solares/get/:id', auth, cSolares.getById);
