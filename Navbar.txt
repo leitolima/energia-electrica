@@ -1,0 +1,24 @@
+<li className="nav-item d-flex flex-column">
+                    <div className="sec-nav d-flex flex-row" data-collapse="energialist">
+                        <div className="icon-box">
+                            <i className="fab fa-playstation"></i>
+                        </div>
+                        <h5>Informes</h5>
+                        <div className="icon-box ml-auto flecha">
+                            <i className="fas fa-caret-down"></i>
+                            <i className="fas fa-caret-up d-none"></i>
+                        </div>
+                    </div>
+                    <ul className="d-none" id="energialist">
+                        <li>
+                            <Link to="#">Carga de datos</Link>
+                        </li>
+                        <li>
+                            <Link to="#">Energía producida</Link>
+                        </li>
+                        <li>
+                            <Link to="#">Energía consumida</Link>
+                        </li>
+                    </ul>
+                </li>
+                <div className="divisor rainbow my-2"></div>
