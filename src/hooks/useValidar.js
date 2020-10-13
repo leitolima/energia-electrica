@@ -29,7 +29,7 @@ const useValidar = (initialState, validar, fn) => {
     const handleChange = e => {
         setValores({
             ...valores,
-            [e.target.id]: e.target.type === 'select-one' ? (
+            [e.target.id]: e.target.type === 'select-one' || 'number' ? (
                 parseInt(e.target.value)) : (
                     e.target.value
                 )
