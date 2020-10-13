@@ -129,7 +129,7 @@ INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Matias Vicenz', '2
 INSERT INTO empleados (nombre, dni, email, telefono, borrado) VALUES ('Juan Pelotas', '12377678', 'pelotas@hotmail.com', '3363871656', 1);
 INSERT INTO empleados (nombre, dni, email, borrado) VALUES ('Juan Velazques', '12345679', 'juancho@hotmail.com', 1);
 
---PROVINCIAS
+-- PROVINCIAS
 -- Buenos Aires es id = 1
 INSERT INTO provincias (nombre, codigo) VALUES ('Buenos Aires', 'AR-B');
 -- Santa fe es id = 2

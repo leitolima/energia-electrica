@@ -23,7 +23,10 @@ import useData from '../../hooks/useData';
 
 const INITIAL_STATE = {
     nombre:'',
-    idprovincia:0
+    idprovincia: 0,
+    particulares: 0,
+    empresas: 0,
+    instituciones: 0
 }
 const Zonas = () => {
     const[show, setShow] = useState(false);
@@ -219,6 +222,7 @@ const Zonas = () => {
                         handleClose={() => setShow(false)}
                         handleChange={handleChange}
                         handleSubmit={handleSubmit}
+                        provincias={provincias}
                     />
                 </div>
             )

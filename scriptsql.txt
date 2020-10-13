@@ -90,7 +90,8 @@ DROP TABLE IF EXISTS transportista;
 CREATE TABLE transportista (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     nombre varchar(100) NOT NULL,
-    matricula int(15) NOT NULL
+    matricula int(15) NOT NULL,
+    borrado tinyint NOT NULL DEFAULT 0
 );
 DROP TABLE IF EXISTS suministro;
 CREATE TABLE suministro (
@@ -100,7 +101,8 @@ CREATE TABLE suministro (
     id_nuclear_fk int(11) NOT NULL,
     cant_plutonio float NOT NULL,
     id_transportista_fk int(11) NOT NULL,
-    fecha date
+    fecha date,
+    borrado tinyint NOT NULL DEFAULT 0
 );
 
 DROP TABLE IF EXISTS estaciones;
@@ -192,5 +194,16 @@ CREATE TABLE consumidores (
     id_zona_fk int(11) NOT NULL,
     particulares int(100) NOT NULL,
     empresas int(100) NOT NULL,
-    instituciones int(100) NOT NULL
+    instituciones int(100) NOT NULL,
+    activa tinyint NOT NULL DEFAULT 1
+);
+
+DROP TABLE IF EXISTS compra;
+CREATE TABLE compra (
+    id int(11) AUTO_INCREMENT PRIMARY KEY,
+    nombre varchar(100) NOT NULL,
+    central int(11) NOT NULL,
+    pais varchar(50) NOT NULL,
+    cant_plutonio float NOT NULL,
+    borrado tinyint NOT NULL DEFAULT 0
 );

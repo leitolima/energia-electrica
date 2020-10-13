@@ -1,4 +1,5 @@
 const mZona = require('../models/mZona');
+const mConsumidores = require('../models/mConsumidores');
 const mBorro = require('../models/mBorro');
 
 const returnError = res => {
@@ -27,8 +28,23 @@ exports.getById = async (req, res) => {
     res.send(result);
 }
 
+const crearFechaHoy = () => {
+    const date = new Date();
+    let dia = date.getDate();
+    if (dia < 10) dia = "0" + dia;
+    let mes = date.getMonth() + 1;
+    if (mes < 10) mes = "0" + mes;
+    let anio = date.getFullYear();
+    let fecha = anio + "-" + mes + "-" + dia;
+    return fecha;
+}
+
 exports.agregarNueva = async (req, res) => {
     const result = await mZona.registrarNuevaZona(req.body);
+    const fecha = crearFechaHoy();
+    const id_zona = result.insertId;
+    const {particulares, empresas, instituciones} = req.body;
+    await mConsumidores.cargarConsumidores(fecha, id_zona, particulares, empresas, instituciones);
     if(result.affectedRows){
         return returnExisto(res, 'Zona registrada correctamente');
     } return returnError(res);
@@ -36,6 +52,17 @@ exports.agregarNueva = async (req, res) => {
 
 exports.editarZona = async (req, res) => {
     const result = await mZona.editarZona(req.body);
+    const {idconsumidores} = req.body; 
+    const consumidores = await mConsumidores.getConsumidores(idconsumidores);
+    const cons = consumidores[0];
+    const {particulares, empresas, instituciones, id} = req.body;
+    if(cons.particulares != particulares 
+        || cons.empresas != empresas 
+        || cons.instituciones != instituciones){
+            await mConsumidores.cambiarActiva(idconsumidores);
+            const fecha = crearFechaHoy();
+            await mConsumidores.cargarConsumidores(fecha, id, particulares, empresas, instituciones);
+        }
     if(result.affectedRows){
         return returnExisto(res, 'Zona de servicio actualizada correctamente');
     } return returnError(res);

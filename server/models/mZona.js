@@ -12,8 +12,11 @@ exports.getAll = (fprovincia) => {
 
 exports.getById = id => {
     return db(`
-        SELECT id, nombre, id_provincia_fk AS idprovincia 
-        FROM zonas_servicio WHERE id = ?
+        SELECT c.*, z.id, z.nombre, z.id_provincia_fk AS idprovincia,
+        c.id AS idconsumidores
+        FROM zonas_servicio z
+        LEFT JOIN consumidores c ON c.id_zona_fk = z.id
+        WHERE z.id = ? AND c.activa = 1
     `, [id])
 }
 
