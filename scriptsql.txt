@@ -182,3 +182,15 @@ CREATE TABLE borro (
     central tinyint NOT NULL DEFAULT 0,
     id_centrales_fk int(11) NOT NULL DEFAULT 0
 );
+
+DROP TABLE IF EXISTS consumidores;
+-- Campo fecha es fecha de actualizacion
+-- Esta tabla no necesita el campo borro
+CREATE TABLE consumidores (
+    id int(11) AUTO_INCREMENT PRIMARY KEY,
+    fecha date, 
+    id_zona_fk int(11) NOT NULL,
+    particulares int(100) NOT NULL,
+    empresas int(100) NOT NULL,
+    instituciones int(100) NOT NULL
+);

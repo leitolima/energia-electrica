@@ -51,31 +51,181 @@ ALTER TABLE borro AUTO_INCREMENT = 1;
 INSERT INTO niveles (titulo) VALUES ('Administrador');
 INSERT INTO niveles (titulo) VALUES ('Supervisor');
 INSERT INTO niveles (titulo) VALUES ('Empleado');
-
-INSERT INTO empleados (nombre, dni, email) VALUES ('admin', '12345678', 'admin@hotmail.com');
-INSERT INTO empleados (nombre, dni, email, fecha_nac) VALUES ('Enzo Diaz', '12345689', 'enzito@hotmail.com', '1999-10-06');
-INSERT INTO empleados (nombre, dni, email, telefono, fecha_nac) VALUES ('Leonel Lima', '12345878', 'leonel_lima@hotmail.com', '3364519919', '2020-09-02');
-INSERT INTO empleados (nombre, dni, email, borrado) VALUES ('Juan Velazques', '12345679', 'juancho@hotmail.com', 1);
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Rodrigo Paz', '12345688', 'pazrodri10@hotmail.com', '011516912');
-INSERT INTO empleados (nombre, dni, email) VALUES ('Alejandro Moreno', '12345778', 'alemore@hotmail.com');
-INSERT INTO empleados (nombre, dni, email) VALUES ('Martin Garrix', '12345978', 'mgarrix@hotmail.com');
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('David Guetta', '12346678', 'david@hotmail.com', '3364513917');
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Joaquin Peralta', '12347678', 'joakoperalta@hotmail.com', '3364314959');
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Armin Van Buuren', '12348678', 'arminvan@hotmail.com', '3364413972');
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('José Cuarto', '12349678', 'cuarto4@hotmail.com', '3364872539');
-INSERT INTO empleados (nombre, dni, email) VALUES ('Juan Carlos Palmera', '12355678', 'elpalmera@hotmail.com');
-INSERT INTO empleados (nombre, dni, email) VALUES ('Armando Esteban Quito', '12367678', 'estaban_quito@hotmail.com');
-INSERT INTO empleados (nombre, dni, email, telefono, borrado) VALUES ('Juan Pelotas', '12377678', 'pelotas@hotmail.com', '3363871656', 1);
-
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('admin', '123456', 1, 1, 1, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('enzito', '123456', 2, 2, 2, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('leytho', '123456', 3, 3, 2, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('garrix', '123456', 7, 3, 5, 1);
-
 INSERT INTO tipo_central (id, tipo) VALUES (1, 'Solar');
 INSERT INTO tipo_central (id, tipo) VALUES (2, 'Termica');
 INSERT INTO tipo_central (id, tipo) VALUES (3, 'Nuclear');
 INSERT INTO tipo_central (id, tipo) VALUES (4, 'Hidroelectrica');
+INSERT INTO companias (nombre) VALUES ('EDEN Buenos Aires Sur');
+INSERT INTO companias (nombre) VALUES ('EDEN Buenos Aires Norte');
+INSERT INTO companias (nombre) VALUES ('EDEN Santa Fe');
+INSERT INTO companias (nombre) VALUES ('EDEN Cordoba');
+
+-- Admin id = 1
+INSERT INTO empleados (nombre, dni, email) VALUES ('Mauricio Macri', '12345678', 'admin@hotmail.com');
+-- Enzo Diaz id = 2
+INSERT INTO empleados (nombre, dni, email, fecha_nac) VALUES ('Enzo Diaz', '12345689', 'enzito@hotmail.com', '1999-10-06');
+-- Leonel Lima id = 3
+INSERT INTO empleados (nombre, dni, email, telefono, fecha_nac) VALUES ('Leonel Lima', '42000442', 'leonel_lima@hotmail.com', '3364519919', '2020-09-02');
+-- Martin Garrix id = 4
+INSERT INTO empleados (nombre, dni, email) VALUES ('Martin Garrix', '12345978', 'mgarrix@hotmail.com');
+-- David Guetta id = 5
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('David Guetta', '13346678', 'david@hotmail.com', '3364513917');
+-- Armin id = 6
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Armin Van Buuren', '11341678', 'arminvan@hotmail.com', '3364413972');
+-- Nicky id = 7
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Nicky Romero', '14348478', 'nicky@hotmail.com', '3364413972');
+-- Tiesto id = 8
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Tiesto', '92348678', 'tiesto@hotmail.com', '3364413972');
+-- Axwell id = 9
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Axwell', '12328628', 'axwell@hotmail.com', '3364413972');
+-- Ingrosso id = 10
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Sebastian Ingrosso', '93348878', 'ingrosso@hotmail.com', '3364413972');
+-- Walker id = 11
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Alan Walker', '93148828', 'alanwalker@hotmail.com', '3364413972');
+-- Tim Bergling = 12
+INSERT INTO empleados (nombre, dni, email, telefono, fecha_nac) VALUES ('Tim Bergling', '73143128', 'avicii@hotmail.com', '3364413972', '1989-09-08');
+-- Alesso = 13
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Alesso', '17643198', 'alesso@hotmail.com', '3364413972');
+-- Ed Sheeran = 14
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Ed Sheeran', '17693161', 'sheeraned@hotmail.com', '3364413972');
+-- Facundo Lopez = 15
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Facundo Lopez', '77643898', 'faculopez@hotmail.com', '3364413972');
+-- Juan Pablo Caballero = 16
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Juan Pablo Caballero', '45743518', 'juampi@hotmail.com', '3364413972');
+-- Gian Finelli = 17
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Gian Finelli', '67643495', 'gian@hotmail.com', '3364413972');
+-- Agustin Geloso  = 18
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Agustin Geloso', '17642395', 'gian@hotmail.com', '3364413972');
+-- Lucas Calderon = 19
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Lucas Calderon', '39643995', 'gian@hotmail.com', '3364413972');
+-- Julian Corredera = 20
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Julian Corredera', '23643899', 'gian@hotmail.com', '3364413972');
+-- Damian Armani = 21
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Damian Armani', '28641175', 'gian@hotmail.com', '3364413972');
+-- Martin Diaz = 22
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Martin Diaz', '21643175', 'gian@hotmail.com', '3364413972');
+-- Gonzalo Vallejos = 23
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Gonzalo Vallejos', '52642156', 'gian@hotmail.com', '3364413972');
+-- Walter Stroppiana = 24
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Walter Stroppiana', '12743295', 'gian@hotmail.com', '3364413972');
+-- Pablo Boffi = 25
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Pablo Boffi', '28643174', 'gian@hotmail.com', '3364413972');
+-- Luciano Fritzler = 26
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Luciano Fritzler', '11647199', 'gian@hotmail.com', '3364413972');
+-- Carlos Fernandez = 27
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Carlos Fernandez', '33533195', 'gian@hotmail.com', '3364413972');
+-- Ignacio Gamito = 28
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Ignacio Gamito', '42643915', 'gian@hotmail.com', '3364413972');
+-- Pablo Cremona = 29
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Pablo Cremona', '42429751', 'gian@hotmail.com', '3364413972');
+-- Victor Declerk = 30
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Victor Declerk', '74642117', 'gian@hotmail.com', '3364413972');
+-- Ezequiel Ruiz Diaz = 31
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Ezequiel Ruiz Diaz', '26147895', 'gian@hotmail.com', '3364413972');
+-- Matias Vicenz = 32
+INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Matias Vicenz', '28633178', 'gian@hotmail.com', '3364413972');
+
+-- Un par de empleados borrados
+INSERT INTO empleados (nombre, dni, email, telefono, borrado) VALUES ('Juan Pelotas', '12377678', 'pelotas@hotmail.com', '3363871656', 1);
+INSERT INTO empleados (nombre, dni, email, borrado) VALUES ('Juan Velazques', '12345679', 'juancho@hotmail.com', 1);
+
+--PROVINCIAS
+-- Buenos Aires es id = 1
+INSERT INTO provincias (nombre, codigo) VALUES ('Buenos Aires', 'AR-B');
+-- Santa fe es id = 2
+INSERT INTO provincias (nombre, codigo) VALUES ('Santa Fe', 'AR-S');
+-- Cordoba es id = 3
+INSERT INTO provincias (nombre, codigo) VALUES ('Cordoba', 'AR-X');
+-- Resto de provincias
+INSERT INTO provincias (nombre, codigo) VALUES ('Salta', 'AR-A');
+INSERT INTO provincias (nombre, codigo) VALUES ('San Luis', 'AR-D');
+INSERT INTO provincias (nombre, codigo) VALUES ('Entre Rios', 'AR-E');
+INSERT INTO provincias (nombre, codigo) VALUES ('La Rioja', 'AR-F');
+INSERT INTO provincias (nombre, codigo) VALUES ('Santiago del Estero', 'AR-G');
+INSERT INTO provincias (nombre, codigo) VALUES ('Chaco', 'AR-H');
+INSERT INTO provincias (nombre, codigo) VALUES ('San Juan', 'AR-J');
+INSERT INTO provincias (nombre, codigo) VALUES ('Catamarca', 'AR-K');
+INSERT INTO provincias (nombre, codigo) VALUES ('La Pampa', 'AR-L');
+INSERT INTO provincias (nombre, codigo) VALUES ('Mendoza', 'AR-M');
+INSERT INTO provincias (nombre, codigo) VALUES ('Misiones', 'AR-N');
+INSERT INTO provincias (nombre, codigo) VALUES ('Formosa', 'AR-P');
+INSERT INTO provincias (nombre, codigo) VALUES ('Neuquen', 'AR-Q');
+INSERT INTO provincias (nombre, codigo) VALUES ('Rio Negro', 'AR-R');
+INSERT INTO provincias (nombre, codigo) VALUES ('Tucuman', 'AR-T');
+INSERT INTO provincias (nombre, codigo) VALUES ('Chubut', 'AR-U');
+INSERT INTO provincias (nombre, codigo) VALUES ('Tierra del Fuego', 'AR-V');
+INSERT INTO provincias (nombre, codigo) VALUES ('Corrientes', 'AR-W');
+INSERT INTO provincias (nombre, codigo) VALUES ('Jujuy', 'AR-Y');
+INSERT INTO provincias (nombre, codigo, borrado) VALUES ('Santa Cruz', 'AR-Z', 1);
+
+-- BUENOS AIRES (Una termica y dos nucleares)
+-- id central = 1
+INSERT INTO termica (num_hornos, vol_carbon_consum, vol_emision_gases) VALUES (9, 485, 129);
+INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk, id_provincia_fk) VALUES ('Central Térmica Costanera', 1650, 2303.6, '1963-03-02', 1, 2, 1);
+-- id central = 2
+INSERT INTO nuclear (num_reactores, vol_plut_consum, vol_residuo) VALUES (2, 430, 126);
+INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk, id_provincia_fk) VALUES ('Atucha I', 335, 362, '1974-06-24', 1, 3, 1);
+-- id central = 3
+INSERT INTO nuclear (num_reactores, vol_plut_consum, vol_residuo) VALUES (4, 543, 189);
+INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk, id_provincia_fk) VALUES ('Atucha II', 692, 745, '2014-05-07', 2, 3, 1);
+
+-- SANTA FE (Una termica y una solar)
+-- id central = 4
+INSERT INTO termica (num_hornos, vol_carbon_consum, vol_emision_gases) VALUES (9, 485, 129);
+INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk, id_provincia_fk) VALUES ('Central Térmica Timbúes', 170, 172, '1963-03-02', 2, 2, 2);
+-- id central = 5
+INSERT INTO solar (sup_paneles, media_hs_sol, tipo_panel) VALUES (112, 98, 1);
+INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk, id_provincia_fk) VALUES ('Parque Solar SAPEM', 1.10, 1.10, '2018-03-01', 1, 1, 2);
+
+-- CORDOBA (Una solar, una nuclear y una hidroelectrica)
+-- id central = 6
+INSERT INTO solar (sup_paneles, media_hs_sol, tipo_panel) VALUES (112, 98, 1);
+INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk, id_provincia_fk) VALUES ('Parque Complejo Arroyo Cabral', 40, 40, '2018-07-28', 2, 1, 3);
+-- id central = 7
+INSERT INTO nuclear (num_reactores, vol_plut_consum, vol_residuo) VALUES (1, 543, 189);
+INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk, id_provincia_fk) VALUES ('Embalse', 680, 683, '1984-05-07', 3, 3, 3);
+-- id central = 8
+INSERT INTO hidroelectrica (ocupacion, capacidad, num_turbinas) VALUES (590, 650, 20);
+INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk, id_provincia_fk) VALUES ('Central San Roque', 24, 24, '1959-09-02', 1, 4, 3);
+
+
+
+
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('admin', '123456', 1, 1, 1, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('enzito', '123456', 2, 2, 2, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('leytho', '123456', 3, 3, 2, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('garrix', '123456', 4, 0, 0, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('guetta', '123456', 5, 0, 0, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('vanbuuren', '123456', 6, 0, 0, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('nicky', '123456', 7, 0, 0, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('tiesto', '123456', 8, 0, 0, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('axwell', '123456', 9, 0, 0, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('ingrosso', '123456', 10, 0, 0, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('walker', '123456', 11, 0, 0, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('avicii', '123456', 12, 0, 0, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('alesso', '123456', 13, 0, 0, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('edsheeran', '123456', 14, 0, 0, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('faculopez', '123456', 15, 0, 0, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('juampi', '123456', 16, 0, 0, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('finelli', '123456', 17, 0, 0, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('geloso', '123456', 18, 0, 0, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('calderon', '123456', 19, 0, 0, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('corredera', '123456', 20, 0, 0, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('armani', '123456', 21, 0, 0, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('martindiaz', '123456', 22, 0, 0, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('gonzavallejos', '123456', 23, 0, 0, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('walter', '123456', 24, 0, 0, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('boffi', '123456', 25, 0, 0, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('luciano', '123456', 26, 0, 0, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('carlosfernandez', '123456', 27, 0, 0, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('gamito', '123456', 28, 0, 0, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('cremona', '123456', 29, 0, 0, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('victor', '123456', 30, 0, 0, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('ezequielrd', '123456', 31, 0, 0, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('vicenz', '123456', 32, 0, 0, 1);
+
+
+
 
 INSERT INTO ayuda (menu, titulo) VALUE (1, 'Empleados');
 INSERT INTO ayuda (menu, titulo) VALUE (2, 'Usuario');
@@ -93,6 +243,7 @@ INSERT INTO ayuda (menu, titulo) VALUE (13, 'Provincias');
 INSERT INTO ayuda (menu, titulo) VALUE (14, 'Zonas de Servicio');
 INSERT INTO ayuda (menu, titulo) VALUE (15, 'Historial de Borrado');
 
+-- Usuarios Administradores IDs: 1, 2, 3, 26
 INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (1, 1, 1, 1, 1, 1);
 INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (1, 2, 1, 1, 1, 1);
 INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (1, 3, 1, 1, 1, 1);
@@ -108,6 +259,53 @@ INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (1, 12, 1,
 INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (1, 13, 1, 1, 1, 1);
 INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (1, 14, 1, 1, 1, 1);
 INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (1, 15, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (2, 1, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (2, 2, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (2, 3, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (2, 4, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (2, 5, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (2, 6, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (2, 7, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (2, 8, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (2, 9, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (2, 10, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (2, 11, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (2, 12, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (2, 13, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (2, 14, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (2, 15, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (3, 1, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (3, 2, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (3, 3, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (3, 4, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (3, 5, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (3, 6, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (3, 7, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (3, 8, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (3, 9, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (3, 10, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (3, 11, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (3, 12, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (3, 13, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (3, 14, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (3, 15, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (26, 1, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (26, 2, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (26, 3, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (26, 4, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (26, 5, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (26, 6, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (26, 7, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (26, 8, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (26, 9, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (26, 10, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (26, 11, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (26, 12, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (26, 13, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (26, 14, 1, 1, 1, 1);
+INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (26, 15, 1, 1, 1, 1);
+
+-- Usuarios Supervisores IDs:
 INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (2, 1, 1, 0, 1, 1);
 INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (2, 2, 1, 0, 1, 1);
 INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (2, 3, 1, 0, 1, 1);
@@ -123,6 +321,7 @@ INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (2, 12, 1,
 INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (2, 13, 1, 0, 1, 1);
 INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (2, 14, 1, 0, 1, 1);
 INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (2, 15, 1, 0, 1, 1);
+-- Usuarios Empleados IDs:
 INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (3, 1, 0, 0, 0, 1);
 INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (3, 2, 0, 0, 0, 1);
 INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (3, 3, 0, 0, 0, 1);
@@ -139,67 +338,35 @@ INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (3, 13, 0,
 INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (3, 14, 0, 0, 0, 1);
 INSERT INTO accesos (id_usuario_fk, menu_ayuda_fk, a, b, m, c) VALUES (3, 15, 0, 0, 0, 1);
 
-INSERT INTO solar (sup_paneles, media_hs_sol, tipo_panel) VALUES (112, 98, 1);
-INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk, id_provincia_fk) VALUES ('RenovAR', 325, 325, '2022-03-01', 1, 1, 2);
-
-INSERT INTO termica (num_hornos, vol_carbon_consum, vol_emision_gases) VALUES (9, 485, 129);
-INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk, id_provincia_fk) VALUES ('Central térmica Costanera', 1650, 2303.6, '1963-03-02', 1, 2, 2);
-
-INSERT INTO nuclear (num_reactores, vol_plut_consum, vol_residuo) VALUES (2, 430, 126);
-INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk, id_provincia_fk) VALUES ('Atucha I', 335, 362, '1974-06-24', 1, 3, 2);
-INSERT INTO nuclear (num_reactores, vol_plut_consum, vol_residuo) VALUES (4, 543, 189);
-INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk, id_provincia_fk) VALUES ('Atucha II', 692, 745, '2011-05-07', 2, 3, 16);
-INSERT INTO nuclear (num_reactores, vol_plut_consum, vol_residuo) VALUES (1, 543, 189);
-INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk, id_provincia_fk, borrado) VALUES ('Embalse', 680, 683, '1984-05-07', 3, 3, 1, 21);
-
-INSERT INTO hidroelectrica (ocupacion, capacidad, num_turbinas) VALUES (590, 650, 20);
-INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk, id_provincia_fk) VALUES ('Represa de Yacyretá', 1600, 3200, '1994-07-07', 1, 4, 16);
-INSERT INTO hidroelectrica (ocupacion, capacidad, num_turbinas) VALUES (335, 520, 14);
-INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk, id_provincia_fk) VALUES ('Represa de Salto Grande', 1700, 1890, '1974-04-01', 2, 4, 21);
 
 
-INSERT INTO provincias (nombre, codigo) VALUES ('Salta', 'AR-A');
--- Buenos Aires es id = 2
-INSERT INTO provincias (nombre, codigo) VALUES ('Buenos Aires', 'AR-B');
-INSERT INTO provincias (nombre, codigo) VALUES ('San Luis', 'AR-D');
-INSERT INTO provincias (nombre, codigo) VALUES ('Entre Rios', 'AR-E');
-INSERT INTO provincias (nombre, codigo) VALUES ('La Rioja', 'AR-F');
-INSERT INTO provincias (nombre, codigo) VALUES ('Santiago del Estero', 'AR-G');
-INSERT INTO provincias (nombre, codigo) VALUES ('Chaco', 'AR-H');
-INSERT INTO provincias (nombre, codigo) VALUES ('San Juan', 'AR-J');
-INSERT INTO provincias (nombre, codigo) VALUES ('Catamarca', 'AR-K');
-INSERT INTO provincias (nombre, codigo) VALUES ('La Pampa', 'AR-L');
-INSERT INTO provincias (nombre, codigo) VALUES ('Mendoza', 'AR-M');
-INSERT INTO provincias (nombre, codigo) VALUES ('Misiones', 'AR-N');
-INSERT INTO provincias (nombre, codigo) VALUES ('Formosa', 'AR-P');
-INSERT INTO provincias (nombre, codigo) VALUES ('Neuquen', 'AR-Q');
-INSERT INTO provincias (nombre, codigo) VALUES ('Rio Negro', 'AR-R');
--- Santa fe es id = 16
-INSERT INTO provincias (nombre, codigo) VALUES ('Santa Fe', 'AR-S');
-INSERT INTO provincias (nombre, codigo) VALUES ('Tucuman', 'AR-T');
-INSERT INTO provincias (nombre, codigo) VALUES ('Chubut', 'AR-U');
-INSERT INTO provincias (nombre, codigo) VALUES ('Tierra del Fuego', 'AR-V');
-INSERT INTO provincias (nombre, codigo) VALUES ('Corrientes', 'AR-W');
--- Cordoba es id = 21
-INSERT INTO provincias (nombre, codigo) VALUES ('Cordoba', 'AR-X');
-INSERT INTO provincias (nombre, codigo) VALUES ('Jujuy', 'AR-Y');
-INSERT INTO provincias (nombre, codigo, borrado) VALUES ('Santa Cruz', 'AR-Z', 1);
 
-INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('San Nicolas de los Arroyos', 2);
-INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('San Bernardo', 2);
-INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('Mar de Ajó', 2);
-INSERT INTO zonas_servicio (nombre, id_provincia_fk, borrado) VALUES ('Mar del Plata', 2, 1);
-INSERT INTO zonas_servicio (nombre, id_provincia_fk, borrado) VALUES ('Ramallo', 2, 1);
-INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('Rosario', 16);
-INSERT INTO zonas_servicio (nombre, id_provincia_fk, borrado) VALUES ('Villa Constitución', 16, 1);
-INSERT INTO zonas_servicio (nombre, id_provincia_fk, borrado) VALUES ('Santo Tomé', 16, 1);
-INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('La Plata', 2);
-INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('Junín', 2);
-INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('Lujan', 2);
-INSERT INTO zonas_servicio (nombre, id_provincia_fk, borrado) VALUES ('Campana', 2, 1);
-INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('Alta Gracia', 21);
-INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('Villa Carlos Paz', 21);
-INSERT INTO zonas_servicio (nombre, id_provincia_fk, borrado) VALUES ('La Falda', 21, 1);
+-- Zonas de Buenos Aires (1)
+INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('Mar del Plata', 1);
+INSERT INTO consumidores (fecha, id_zona_fk, particulares, empresas, instituciones) VALUES ('2020-01-01', 1, 145700, 760, 400);
+INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('San Nicolas de los Arroyos', 1);
+INSERT INTO consumidores (fecha, id_zona_fk, particulares, empresas, instituciones) VALUES ('2020-01-01', 2, 70320, 450, 290);
+INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('San Bernardo', 1);
+INSERT INTO consumidores (fecha, id_zona_fk, particulares, empresas, instituciones) VALUES ('2020-01-01', 3, 46100, 230, 170);
+-- Zonas de Santa Fe (2)
+INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('Villa Constitución', 2);
+INSERT INTO consumidores (fecha, id_zona_fk, particulares, empresas, instituciones) VALUES ('2020-01-01', 4, 41800, 640, 400);
+INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('Rosario', 2);
+INSERT INTO consumidores (fecha, id_zona_fk, particulares, empresas, instituciones) VALUES ('2020-01-01', 5, 17600, 975, 680);
+-- Zonas de Cordoba (3)
+INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('Alta Gracia', 3);
+INSERT INTO consumidores (fecha, id_zona_fk, particulares, empresas, instituciones) VALUES ('2020-01-01', 6, 35920, 210, 190);
+INSERT INTO zonas_servicio (nombre, id_provincia_fk) VALUES ('Villa Carlos Paz', 3);
+INSERT INTO consumidores (fecha, id_zona_fk, particulares, empresas, instituciones) VALUES ('2020-01-01', 7, 132000, 770, 620);
+-- Borradas
+INSERT INTO zonas_servicio (nombre, id_provincia_fk, borrado) VALUES ('Mar de Ajó', 1, 1);
+INSERT INTO consumidores (fecha, id_zona_fk, particulares, empresas, instituciones) VALUES ('2020-01-01', 8, 45700, 760, 400);
+INSERT INTO zonas_servicio (nombre, id_provincia_fk, borrado) VALUES ('Santo Tomé', 2, 1);
+INSERT INTO consumidores (fecha, id_zona_fk, particulares, empresas, instituciones) VALUES ('2020-01-01', 9, 45700, 760, 400);
+INSERT INTO zonas_servicio (nombre, id_provincia_fk, borrado) VALUES ('La Falda', 3, 1);
+INSERT INTO consumidores (fecha, id_zona_fk, particulares, empresas, instituciones) VALUES ('2020-01-01', 10, 45700, 760, 400);
+
+
 
 INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('admin', 'Borro un empleado: Juan Velazques', '2020-08-01', 'empleados', 2);
 INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('enzito', 'Borro una central nuclear: Embalse', '2020-08-02', 'centrales', 3);
@@ -212,27 +379,28 @@ INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('admin', 'Bo
 INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('leytho', 'Borro una zona de servicio: La Falda', '2020-08-11', 'zonas_servicio', 15);
 INSERT INTO borro (usuario, titulo, fecha, tabla, id_tabla) VALUES ('enzito', 'Borro un empleado: Juan Pelotas', '2020-08-11', 'empleados', 14);
 
--- Estaciones Cordoba
-INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Cordoba Alfa', 5, 21);
-INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Cordoba Beta', 7, 21);
-INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Cordoba Omega', 7, 21);
-INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Cordoba America', 5, 21);
--- Estaciones Santa Fe
-INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Santa Fe Primera', 4, 16);
-INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Santa Fe Segunda', 4, 16);
-INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Santa Fe Tercera', 4, 16);
-INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Santa Fe Cuarta', 6, 16);
-INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Santa Fe Quinta', 6, 16);
+
 -- Estaciones Buenos Aires
-INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Buenos Aires Zona Norte', 1, 2);
-INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Buenos Aires Zona Sur', 1, 2);
-INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Buenos Aires Noreste', 1, 2);
-INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Buenos Aires Sureste', 2, 2);
-INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Buenos Aires Palermo', 2, 2);
-INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Buenos Aires Quilmes', 1, 2);
-INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Buenos Aires Puerto Madero', 3, 2);
-INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Buenos Aires Quintuple', 3, 2);
-INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Buenos Aires Invernadero', 3, 2);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Buenos Aires Zona Norte', 1, 1);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Buenos Aires Zona Sur', 1, 1);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Buenos Aires Noreste', 1, 1);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Buenos Aires Sureste', 2, 1);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Buenos Aires Palermo', 2, 1);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Buenos Aires Quilmes', 1, 1);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Buenos Aires Puerto Madero', 3, 1);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Buenos Aires Quintuple', 3, 1);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Buenos Aires Invernadero', 3, 1);
+-- Estaciones Santa Fe
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Santa Fe Primera', 4, 2);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Santa Fe Segunda', 4, 2);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Santa Fe Tercera', 4, 2);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Santa Fe Cuarta', 6, 2);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Santa Fe Quinta', 6, 2);
+-- Estaciones Cordoba
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Cordoba Alfa', 5, 3);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Cordoba Beta', 7, 3);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Cordoba Omega', 7, 3);
+INSERT INTO estaciones (nombre, id_central_fk, id_provincia_fk) VALUES ('Estacion Cordoba America', 5, 3);
 
 -- Transformadores Cordoba
 INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (1, 'ARXCA1');
@@ -262,7 +430,3 @@ INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (16, 'ARBAG1');
 INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (16, 'ARBAG2');
 INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (17, 'ARBAH1');
 INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (18, 'ARBAH2');
-
-INSERT INTO companias (nombre) VALUES ('EDEN NORTE');
-INSERT INTO companias (nombre) VALUES ('EDEN SUR');
-INSERT INTO companias (nombre) VALUES ('EDEN Panama');
