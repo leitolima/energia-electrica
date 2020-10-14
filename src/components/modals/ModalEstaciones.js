@@ -1,46 +1,24 @@
 import React, {useState, useEffect} from 'react';
 import {Modal} from 'react-bootstrap';
-import Swal from 'sweetalert2';
-
-import clientAxios from '../../config/clientAxios';
+//Functions
+import {
+    buscarTodosLosRegistros
+} from '../../functions';
 
 const ModalEstaciones = ({show, estaciones, handleClose, handleChange, handleSubmit}) => {
     const[provincias, setProvincias] = useState([]);
     const[centrales, setCentrales] = useState([]);
 
-    const fetchData = (url, fn) => {
-        const token = localStorage.getItem('token');
-            clientAxios.get(url, {headers: {access:token}})
-            .then(res => {
-                if(res.data.type === 'notfound'){
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Hubo un error',
-                        text: 'No hay provincias disponibles',
-                        showCancelButton: false,
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Cerrar'
-                    }).then((result) => handleClose());
-                }else {
-                    fn(res.data);
-                }
-            })
-    }
-
-    useEffect(() =>{
-        if(show){
-            fetchData('/provincias/get/all', setProvincias);
-            fetchData('/centrales/get/all', setCentrales);
-        }
+    useEffect(() => {
+        buscarTodosLosRegistros('/provincias/get/all', setProvincias);
+        buscarTodosLosRegistros('/centrales/get/all', setCentrales);
         // eslint-disable-next-line
-    },[show]);
+    }, [show])
 
     useEffect(() => {
         if(estaciones.central !== 0 && centrales.length !== 0){
-            console.log(estaciones.central);
             //Busca provincia de la central
             const provArray = centrales.filter(element => element.id === estaciones.central);
-            console.log(provArray);
             handleChange({target: {id: 'provincia', type: 'select-one', value: provArray[0].id_provincia_fk}});
         }
         // eslint-disable-next-line

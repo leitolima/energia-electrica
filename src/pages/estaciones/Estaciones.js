@@ -168,7 +168,7 @@ const Estaciones = () => {
                                         })
                                     ) : (
                                         <tr>
-                                            <td colSpan="3">No hay estaciones registradas</td>
+                                            <td colSpan="5">No hay estaciones registradas</td>
                                         </tr>
                                     )
                                 }
