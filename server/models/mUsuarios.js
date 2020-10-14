@@ -1,6 +1,6 @@
 const db = require('../db').db().query;
 
-exports.getAll = fcentral => {
+exports.getAll = (fcentral, fnivel) => {
     return db(`
         SELECT u.id, u.usuario, u.activo,
         e.nombre, n.titulo AS nivel, c.nombre AS nomcentral
@@ -9,7 +9,8 @@ exports.getAll = fcentral => {
         LEFT JOIN niveles n ON n.id = u.id_nivel_fk
         LEFT JOIN centrales c ON c.id = e.id_central_fk
         WHERE u.borrado = 0
-        ${fcentral && fcentral != 0 ? 'AND u.id_central_fk = ' + fcentral : ''}
+        ${fcentral && fcentral != 0 ? 'AND e.id_central_fk = ' + fcentral : ''}
+        ${fnivel && fnivel != 0 ? 'AND u.id_nivel_fk = ' + fnivel : ''}
     `, []);
 }
 

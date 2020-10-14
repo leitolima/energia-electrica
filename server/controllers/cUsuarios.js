@@ -11,7 +11,8 @@ const returnError = res => {
 }
 
 exports.getAll = async (req, res) => {
-    const result = await mUsuarios.getAll(req.body.fcentral);
+    const {fcentral, fnivel} = req.body;
+    const result = await mUsuarios.getAll(fcentral, fnivel);
     res.send(result);
 }
 

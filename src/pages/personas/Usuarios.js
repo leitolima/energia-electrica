@@ -35,7 +35,8 @@ const Usuarios = () => {
     const[loadinfo, setLoadinfo] = useState(true);
     const[centrales, setCentrales] = useState([]);
     const[filtro, setFiltro] = useState({
-        fcentral: 0
+        fcentral: 0,
+        fnivel: 0
     });
 
     const {valores, errores, handleChange, handleSubmit, handleEditar} = useValidar(INITIAL_STATE, validarUsuario, registrarUsuario);
@@ -134,28 +135,41 @@ const Usuarios = () => {
                 >Agregar nuevo</button>
             </div>
             <div className="mt-3 d-flex flex-row justify-content-end">
-                        <button className="btn btn-info" onClick={() => setLoading(true)}>Filtrar</button>
-                        <div className="col-md-3 col-lg-3 col-xl-3 pr-0">
-                            <select 
-                                name="fcentral" 
-                                id="fcentral"
-                                className="form-control"
-                                onChange={changeFiltro}
-                            >
-                                <option value="0" defaultValue>Selecciona para filtrar</option>
-                                {
-                                centrales.length > 0 ? (
-                                    centrales.map((c, key) => {
-                                        return (
-                                            <option key={key} value={c.id}>{c.nombre}</option>
-                                        );
-                                    })
-                                ) : (
-                                    <option value="0" defaultValue>No hay centrales</option>
-                                )
-                            }</select>
-                        </div>
-                    </div>
+                <button className="btn btn-info" onClick={() => setLoading(true)}>Filtrar</button>
+                <div className="col-md-3 col-lg-3 col-xl-3 pr-0">
+                    <select 
+                        name="fnivel" 
+                        id="fnivel"
+                        className="form-control"
+                        onChange={changeFiltro}
+                    >
+                        <option value="0">Selecciona un nivel</option>
+                        <option value="1">Administrador</option>
+                        <option value="2">Supervisor</option>
+                        <option value="3">Empleado</option>
+                    </select>
+                </div>
+                <div className="col-md-3 col-lg-3 col-xl-3 pr-0">
+                    <select 
+                        name="fcentral" 
+                        id="fcentral"
+                        className="form-control"
+                        onChange={changeFiltro}
+                    >
+                        <option value="0" defaultValue>Selecciona una central</option>
+                        {
+                        centrales.length > 0 ? (
+                            centrales.map((c, key) => {
+                                return (
+                                    <option key={key} value={c.id}>{c.nombre}</option>
+                                );
+                            })
+                        ) : (
+                            <option value="0" defaultValue>No hay centrales</option>
+                        )
+                    }</select>
+                </div>
+            </div>
             <div className="fixed-head w-100 mt-4">
                 <table className="table table-striped">
                     <thead className="thead-dark thead-border-top">
