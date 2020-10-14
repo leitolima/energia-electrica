@@ -47,7 +47,7 @@ const ModalTransformadores = ({show, trafo, handleClose, handleChange, handleSub
                                     className="form-control" 
                                     id="codigo"
                                     onChange={handleChange}
-                                    value={trafo.codigo}
+                                    //value={trafo.codigo}
                                 />
                             </div>
                         </div>
@@ -58,7 +58,7 @@ const ModalTransformadores = ({show, trafo, handleClose, handleChange, handleSub
                                         id="estacion"
                                         onChange={handleChange}  
                                         className="form-control"
-                                        value={trafo.id_estacion_fk}
+                                        //value={trafo.id_estacion_fk}
                                     >
                                         <option value="0">Seleccionar</option>
                                         {

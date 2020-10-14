@@ -18,7 +18,8 @@ const cSubestaciones = require('./controllers/cSubestaciones');
 const cCompania = require('./controllers/cCompania');
 const cRedes = require('./controllers/cRedes');
 const cLineas = require('./controllers/cLineas');
-
+const cSuministro = require('./controllers/cSuministro');
+const cTransportista = require('./controllers/cTransportista');
 const auth = require('./middleware').auth;
 
 router.get('/api/checktoken', auth, (req, res) => {
@@ -67,6 +68,7 @@ router.get('/subestaciones/eliminar/:id', auth, cSubestaciones.eliminarSubestaci
 
 //------------------Centrales------------------//
 router.post('/centrales/get/all', auth, cCentrales.getAll);
+router.get('/centrales/getNuclear/all', auth, cCentrales.getPorTipoNuclear);
 //Solares
 router.post('/solares/get/all', auth, cSolares.getAll);
 router.get('/solares/get/:id', auth, cSolares.getById);
@@ -137,5 +139,26 @@ router.get('/lineas/get/:id', auth, cLineas.getById);
 router.post('/lineas/nueva', auth, cLineas.agregarNueva);
 router.post('/lineas/editar', auth, cLineas.editarLinea);
 router.get('/lineas/eliminar/:id', auth, cLineas.eliminarLinea);
+
+//Compras
+/*router.post('/compras/get/all', auth, cCompras.getAll);
+router.get('/compras/get/:id', auth, cCompras.getById);
+router.post('/compras/nueva', auth, cCompras.agregarNueva);
+router.post('/compras/editar', auth, cCompras.editarCompra);
+router.get('/compras/eliminar/:id', auth, cCompras.eliminarCompra);*/
+
+//Suministro
+router.post('/suministro/get/all', auth, cSuministro.getAll);
+router.get('/suministro/get/:id', auth, cSuministro.getById);
+router.post('/suministro/nueva', auth, cSuministro.agregarNueva);
+router.post('/suministro/editar', auth, cSuministro.editarSuministro);
+router.get('/suministro/eliminar/:id', auth, cSuministro.eliminarSuministro);
+
+//Transportistas
+router.post('/transportista/get/all', auth, cTransportista.getAll);
+router.get('/transportista/get/:id', auth, cTransportista.getById);
+router.post('/transportista/nuevo', auth, cTransportista.agregarNuevo);
+router.post('/transportista/editar', auth, cTransportista.editarTransportista);
+router.get('/transportista/eliminar/:id', auth, cTransportista.eliminarTransportista);
 
 module.exports = router;
