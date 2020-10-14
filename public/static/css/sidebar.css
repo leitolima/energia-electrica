@@ -59,6 +59,7 @@ ul.nav .nav-item{margin-left: 1.5rem;}
 #overlay {
     display: none;
     position: fixed;
+    top: 0;
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.5);
