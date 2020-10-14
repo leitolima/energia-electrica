@@ -13,6 +13,10 @@ export default function validarEmpleado(valores){
     } else if(valores.dni.length > 8){
         errores.push('El DNI es demasiado largo.');
     }
+    //Central
+    if(valores.central === 0){
+        errores.push('Debe seleccionar una central');
+    } 
     //fecha
     /*
     if(!valores.fecha_nac){

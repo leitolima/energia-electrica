@@ -21,6 +21,7 @@ import validarEmpleado from '../../validations/validarEmpleado';
 const INITIAL_STATE  = {
     nombre: '',
     fecha: '',
+    central: 0,
     dni: '',
     email: '',
     telefono: ''
@@ -131,6 +132,7 @@ const Empleados = () => {
                                     <th>Nombre</th>
                                     <th>DNI</th>
                                     <th>Fecha nacimiento</th>
+                                    <th>Central</th>
                                     <th>Correo electrónico</th>
                                     <th>Telefono</th>
                                 </tr>
@@ -166,6 +168,7 @@ const Empleados = () => {
                                                     <td>{r.nombre}</td>
                                                     <td>{r.dni}</td>
                                                     <td>{r.fecha}</td>
+                                                    <td>{r.nomcentral}</td>
                                                     <td>{r.email}</td>
                                                     <td>{r.telefono}</td>
                                                 </tr>

@@ -2,9 +2,11 @@ const db = require('../db').db().query;
 
 exports.getAll = () => {
     return db(`
-        SELECT id, nombre, DATE_FORMAT(fecha_nac, '%d/%m/%Y') AS fecha,
-        dni, email, telefono FROM empleados
-        WHERE borrado = 0;
+        SELECT e.id, e.nombre, DATE_FORMAT(e.fecha_nac, '%d/%m/%Y') AS fecha,
+        e.dni, e.email, e.telefono, c.nombre AS nomcentral, e.id_central_fk AS central
+        FROM empleados e
+        LEFT JOIN centrales c ON c.id = e.id_central_fk
+        WHERE e.borrado = 0;
     `, []);
 }
 
@@ -17,9 +19,9 @@ exports.getAllSinUsuario = () => {
 
 exports.agregarNuevo = obj => {
     return db(`
-        INSERT INTO empleados (nombre, fecha_nac, dni, email, telefono)
-        VALUES (?, ?, ?, ?, ?);
-    `, [obj.nombre, obj.fecha, obj.dni, obj.email, obj.telefono]);
+        INSERT INTO empleados (nombre, fecha_nac, dni, email, telefono, id_central_fk)
+        VALUES (?, ?, ?, ?, ?, ?);
+    `, [obj.nombre, obj.fecha, obj.dni, obj.email, obj.telefono, obj.central]);
 }
 
 exports.getNombre = id => {
@@ -30,7 +32,8 @@ exports.getNombre = id => {
 
 exports.getById = id => {
     return db(`
-        SELECT *, ifnull(telefono, '') AS telefono 
+        SELECT *, ifnull(telefono, '') AS telefono,
+        id_central_fk AS central
         FROM empleados WHERE id = ?
     `, [id]);
 }
@@ -42,9 +45,10 @@ exports.editarEmpleado = obj => {
         fecha_nac = ?,
         dni = ?,
         email = ?,
-        telefono = ?
+        telefono = ?,
+        id_central_fk = ?
         WHERE id = ?
-    `, [obj.nombre, obj.fecha, obj.dni, obj.email, obj.telefono, obj.id]);
+    `, [obj.nombre, obj.fecha, obj.dni, obj.email, obj.telefono, obj.central, obj.id]);
 }
 
 exports.revisarUsuario = (id) => {

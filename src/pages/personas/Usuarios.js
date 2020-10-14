@@ -24,7 +24,6 @@ const INITIAL_STATE  = {
     clave: '',
     empleado: 0,
     nivel: 0,
-    central: 0,
     activo: 1
 }
 

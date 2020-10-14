@@ -1,7 +1,20 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Modal} from 'react-bootstrap';
 
+//Functions
+import {
+    buscarTodosLosRegistros
+} from '../../functions';
+
 const ModalEmpleado = ({show, empleado, handleClose, handleChange, handleSubmit}) => {
+
+    const[centrales, setCentrales] = useState([]);
+
+    useEffect(() => {
+        buscarTodosLosRegistros('/centrales/get/all', setCentrales);
+        // eslint-disable-next-line
+    }, [show])
+
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -44,6 +57,26 @@ const ModalEmpleado = ({show, empleado, handleClose, handleChange, handleSubmit}
                                     onChange={handleChange}
                                     value={empleado.fecha_nac}
                                 />
+                            </div>
+                        </div>
+                        <div className="col-md-12 col-lg-12 col-xl-12">
+                            <div className="form-group">
+                                <label htmlFor="central">Central</label>
+                                <select 
+                                    id="central"
+                                    onChange={handleChange} 
+                                    defaultValue={empleado.central} 
+                                    className="form-control"
+                                >
+                                    <option value="0">Seleccionar</option>
+                                    {
+                                        centrales.map((e, key) => {
+                                            return(
+                                                <option key={key} value={e.id}>{e.nombre}</option>
+                                            )
+                                        })
+                                    }
+                                </select>
                             </div>
                         </div>
                         <div className="col-md-12 col-lg-12 col-xl-12">

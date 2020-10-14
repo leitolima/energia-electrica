@@ -60,75 +60,6 @@ INSERT INTO companias (nombre) VALUES ('EDEN Buenos Aires Norte');
 INSERT INTO companias (nombre) VALUES ('EDEN Santa Fe');
 INSERT INTO companias (nombre) VALUES ('EDEN Cordoba');
 
--- Admin id = 1
-INSERT INTO empleados (nombre, dni, email) VALUES ('Mauricio Macri', '12345678', 'admin@hotmail.com');
--- Enzo Diaz id = 2
-INSERT INTO empleados (nombre, dni, email, fecha_nac) VALUES ('Enzo Diaz', '12345689', 'enzito@hotmail.com', '1999-10-06');
--- Leonel Lima id = 3
-INSERT INTO empleados (nombre, dni, email, telefono, fecha_nac) VALUES ('Leonel Lima', '42000442', 'leonel_lima@hotmail.com', '3364519919', '2020-09-02');
--- Martin Garrix id = 4
-INSERT INTO empleados (nombre, dni, email) VALUES ('Martin Garrix', '12345978', 'mgarrix@hotmail.com');
--- David Guetta id = 5
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('David Guetta', '13346678', 'david@hotmail.com', '3364513917');
--- Armin id = 6
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Armin Van Buuren', '11341678', 'arminvan@hotmail.com', '3364413972');
--- Nicky id = 7
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Nicky Romero', '14348478', 'nicky@hotmail.com', '3364413972');
--- Tiesto id = 8
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Tiesto', '92348678', 'tiesto@hotmail.com', '3364413972');
--- Axwell id = 9
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Axwell', '12328628', 'axwell@hotmail.com', '3364413972');
--- Ingrosso id = 10
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Sebastian Ingrosso', '93348878', 'ingrosso@hotmail.com', '3364413972');
--- Walker id = 11
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Alan Walker', '93148828', 'alanwalker@hotmail.com', '3364413972');
--- Tim Bergling = 12
-INSERT INTO empleados (nombre, dni, email, telefono, fecha_nac) VALUES ('Tim Bergling', '73143128', 'avicii@hotmail.com', '3364413972', '1989-09-08');
--- Alesso = 13
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Alesso', '17643198', 'alesso@hotmail.com', '3364413972');
--- Ed Sheeran = 14
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Ed Sheeran', '17693161', 'sheeraned@hotmail.com', '3364413972');
--- Facundo Lopez = 15
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Facundo Lopez', '77643898', 'faculopez@hotmail.com', '3364413972');
--- Juan Pablo Caballero = 16
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Juan Pablo Caballero', '45743518', 'juampi@hotmail.com', '3364413972');
--- Gian Finelli = 17
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Gian Finelli', '67643495', 'gian@hotmail.com', '3364413972');
--- Agustin Geloso  = 18
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Agustin Geloso', '17642395', 'gian@hotmail.com', '3364413972');
--- Lucas Calderon = 19
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Lucas Calderon', '39643995', 'gian@hotmail.com', '3364413972');
--- Julian Corredera = 20
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Julian Corredera', '23643899', 'gian@hotmail.com', '3364413972');
--- Damian Armani = 21
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Damian Armani', '28641175', 'gian@hotmail.com', '3364413972');
--- Martin Diaz = 22
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Martin Diaz', '21643175', 'gian@hotmail.com', '3364413972');
--- Gonzalo Vallejos = 23
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Gonzalo Vallejos', '52642156', 'gian@hotmail.com', '3364413972');
--- Walter Stroppiana = 24
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Walter Stroppiana', '12743295', 'gian@hotmail.com', '3364413972');
--- Pablo Boffi = 25
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Pablo Boffi', '28643174', 'gian@hotmail.com', '3364413972');
--- Luciano Fritzler = 26
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Luciano Fritzler', '11647199', 'gian@hotmail.com', '3364413972');
--- Carlos Fernandez = 27
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Carlos Fernandez', '33533195', 'gian@hotmail.com', '3364413972');
--- Ignacio Gamito = 28
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Ignacio Gamito', '42643915', 'gian@hotmail.com', '3364413972');
--- Pablo Cremona = 29
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Pablo Cremona', '42429751', 'gian@hotmail.com', '3364413972');
--- Victor Declerk = 30
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Victor Declerk', '74642117', 'gian@hotmail.com', '3364413972');
--- Ezequiel Ruiz Diaz = 31
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Ezequiel Ruiz Diaz', '26147895', 'gian@hotmail.com', '3364413972');
--- Matias Vicenz = 32
-INSERT INTO empleados (nombre, dni, email, telefono) VALUES ('Matias Vicenz', '28633178', 'gian@hotmail.com', '3364413972');
-
--- Un par de empleados borrados
-INSERT INTO empleados (nombre, dni, email, telefono, borrado) VALUES ('Juan Pelotas', '12377678', 'pelotas@hotmail.com', '3363871656', 1);
-INSERT INTO empleados (nombre, dni, email, borrado) VALUES ('Juan Velazques', '12345679', 'juancho@hotmail.com', 1);
-
 -- PROVINCIAS
 -- Buenos Aires es id = 1
 INSERT INTO provincias (nombre, codigo) VALUES ('Buenos Aires', 'AR-B');
@@ -188,41 +119,109 @@ INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, 
 INSERT INTO hidroelectrica (ocupacion, capacidad, num_turbinas) VALUES (590, 650, 20);
 INSERT INTO centrales (nombre, prod_media, prod_maxima, fecha_func, id_central, tipo_central_fk, id_provincia_fk) VALUES ('Central San Roque', 24, 24, '1959-09-02', 1, 4, 3);
 
+-- Admin id = 1
+INSERT INTO empleados (nombre, dni, email, id_central_fk) VALUES ('Mauricio Macri', '12345678', 'admin@hotmail.com', 1);
+-- Enzo Diaz id = 2
+INSERT INTO empleados (nombre, dni, email, id_central_fk, fecha_nac) VALUES ('Enzo Diaz', '12345689', 'enzito@hotmail.com', 1, '1999-10-06');
+-- Leonel Lima id = 3
+INSERT INTO empleados (nombre, dni, email, id_central_fk, telefono, fecha_nac) VALUES ('Leonel Lima', '42000442', 'leonel_lima@hotmail.com', 1, '3364519919', '2020-09-02');
+-- Martin Garrix id = 4
+INSERT INTO empleados (nombre, dni, email, id_central_fk) VALUES ('Martin Garrix', '12345978', 'mgarrix@hotmail.com', 6);
+-- David Guetta id = 5
+INSERT INTO empleados (nombre, dni, email, id_central_fk, telefono) VALUES ('David Guetta', '13346678', 'david@hotmail.com', 5, '3364513917');
+-- Armin id = 6
+INSERT INTO empleados (nombre, dni, email, id_central_fk, telefono) VALUES ('Armin Van Buuren', '11341678', 'arminvan@hotmail.com', 1, '3364413972');
+-- Nicky id = 7
+INSERT INTO empleados (nombre, dni, email, id_central_fk, telefono) VALUES ('Nicky Romero', '14348478', 'nicky@hotmail.com', 4, '3364413972');
+-- Tiesto id = 8
+INSERT INTO empleados (nombre, dni, email, id_central_fk, telefono) VALUES ('Tiesto', '92348678', 'tiesto@hotmail.com', 3, '3364413972');
+-- Axwell id = 9
+INSERT INTO empleados (nombre, dni, email, id_central_fk, telefono) VALUES ('Axwell', '12328628', 'axwell@hotmail.com', 6, '3364413972');
+-- Ingrosso id = 10
+INSERT INTO empleados (nombre, dni, email, id_central_fk, telefono) VALUES ('Sebastian Ingrosso', '93348878', 'ingrosso@hotmail.com', 4, '3364413972');
+-- Walker id = 11
+INSERT INTO empleados (nombre, dni, email, id_central_fk, telefono) VALUES ('Alan Walker', '93148828', 'alanwalker@hotmail.com', 4, '3364413972');
+-- Tim Bergling = 12
+INSERT INTO empleados (nombre, dni, email, id_central_fk, telefono, fecha_nac) VALUES ('Tim Bergling', '73143128', 'avicii@hotmail.com', 2, '3364413972', '1989-09-08');
+-- Alesso = 13
+INSERT INTO empleados (nombre, dni, email, id_central_fk, telefono) VALUES ('Alesso', '17643198', 'alesso@hotmail.com', 2, '3364413972');
+-- Ed Sheeran = 14
+INSERT INTO empleados (nombre, dni, email, id_central_fk, telefono) VALUES ('Ed Sheeran', '17693161', 'sheeraned@hotmail.com', 5, '3364413972');
+-- Facundo Lopez = 15
+INSERT INTO empleados (nombre, dni, email, id_central_fk, telefono) VALUES ('Facundo Lopez', '77643898', 'faculopez@hotmail.com', 2, '3364413972');
+-- Juan Pablo Caballero = 16
+INSERT INTO empleados (nombre, dni, email, id_central_fk, telefono) VALUES ('Juan Pablo Caballero', '45743518', 'juampi@hotmail.com', 4, '3364413972');
+-- Gian Finelli = 17
+INSERT INTO empleados (nombre, dni, email, id_central_fk, telefono) VALUES ('Gian Finelli', '67643495', 'gian@hotmail.com', 7, '3364413972');
+-- Agustin Geloso  = 18
+INSERT INTO empleados (nombre, dni, email, id_central_fk, telefono) VALUES ('Agustin Geloso', '17642395', 'gian@hotmail.com', 7, '3364413972');
+-- Lucas Calderon = 19
+INSERT INTO empleados (nombre, dni, email, id_central_fk, telefono) VALUES ('Lucas Calderon', '39643995', 'gian@hotmail.com', 8, '3364413972');
+-- Julian Corredera = 20
+INSERT INTO empleados (nombre, dni, email, id_central_fk, telefono) VALUES ('Julian Corredera', '23643899', 'gian@hotmail.com', 5, '3364413972');
+-- Damian Armani = 21
+INSERT INTO empleados (nombre, dni, email, id_central_fk, telefono) VALUES ('Damian Armani', '28641175', 'gian@hotmail.com', 8, '3364413972');
+-- Martin Diaz = 22
+INSERT INTO empleados (nombre, dni, email, id_central_fk, telefono) VALUES ('Martin Diaz', '21643175', 'gian@hotmail.com', 3, '3364413972');
+-- Gonzalo Vallejos = 23
+INSERT INTO empleados (nombre, dni, email, id_central_fk, telefono) VALUES ('Gonzalo Vallejos', '52642156', 'gian@hotmail.com', 1, '3364413972');
+-- Walter Stroppiana = 24
+INSERT INTO empleados (nombre, dni, email, id_central_fk, telefono) VALUES ('Walter Stroppiana', '12743295', 'gian@hotmail.com', 7, '3364413972');
+-- Pablo Boffi = 25
+INSERT INTO empleados (nombre, dni, email, id_central_fk, telefono) VALUES ('Pablo Boffi', '28643174', 'gian@hotmail.com', 8, '3364413972');
+-- Luciano Fritzler = 26
+INSERT INTO empleados (nombre, dni, email, id_central_fk, telefono) VALUES ('Luciano Fritzler', '11647199', 'gian@hotmail.com', 6, '3364413972');
+-- Carlos Fernandez = 27
+INSERT INTO empleados (nombre, dni, email, id_central_fk, telefono) VALUES ('Carlos Fernandez', '33533195', 'gian@hotmail.com', 1, '3364413972');
+-- Ignacio Gamito = 28
+INSERT INTO empleados (nombre, dni, email, id_central_fk, telefono) VALUES ('Ignacio Gamito', '42643915', 'gian@hotmail.com', 8, '3364413972');
+-- Pablo Cremona = 29
+INSERT INTO empleados (nombre, dni, email, id_central_fk, telefono) VALUES ('Pablo Cremona', '42429751', 'gian@hotmail.com', 7, '3364413972');
+-- Victor Declerk = 30
+INSERT INTO empleados (nombre, dni, email, id_central_fk, telefono) VALUES ('Victor Declerk', '74642117', 'gian@hotmail.com', 3, '3364413972');
+-- Ezequiel Ruiz Diaz = 31
+INSERT INTO empleados (nombre, dni, email, id_central_fk, telefono) VALUES ('Ezequiel Ruiz Diaz', '26147895', 'gian@hotmail.com', 6, '3364413972');
+-- Matias Vicenz = 32
+INSERT INTO empleados (nombre, dni, email, id_central_fk, telefono) VALUES ('Matias Vicenz', '28633178', 'gian@hotmail.com', 8, '3364413972');
+
+-- Un par de empleados borrados
+INSERT INTO empleados (nombre, dni, email, telefono, borrado, id_central_fk) VALUES ('Juan Pelotas', '12377678', 'pelotas@hotmail.com', '3363871656', 1, 3);
+INSERT INTO empleados (nombre, dni, email, borrado, id_central_fk) VALUES ('Juan Velazques', '12345679', 'juancho@hotmail.com', 1, 5);
 
 
 
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('admin', '123456', 1, 1, 1, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('enzito', '123456', 2, 2, 2, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('leytho', '123456', 3, 3, 2, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('garrix', '123456', 4, 0, 0, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('guetta', '123456', 5, 0, 0, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('vanbuuren', '123456', 6, 0, 0, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('nicky', '123456', 7, 0, 0, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('tiesto', '123456', 8, 0, 0, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('axwell', '123456', 9, 0, 0, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('ingrosso', '123456', 10, 0, 0, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('walker', '123456', 11, 0, 0, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('avicii', '123456', 12, 0, 0, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('alesso', '123456', 13, 0, 0, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('edsheeran', '123456', 14, 0, 0, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('faculopez', '123456', 15, 0, 0, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('juampi', '123456', 16, 0, 0, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('finelli', '123456', 17, 0, 0, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('geloso', '123456', 18, 0, 0, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('calderon', '123456', 19, 0, 0, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('corredera', '123456', 20, 0, 0, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('armani', '123456', 21, 0, 0, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('martindiaz', '123456', 22, 0, 0, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('gonzavallejos', '123456', 23, 0, 0, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('walter', '123456', 24, 0, 0, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('boffi', '123456', 25, 0, 0, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('luciano', '123456', 26, 0, 0, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('carlosfernandez', '123456', 27, 0, 0, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('gamito', '123456', 28, 0, 0, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('cremona', '123456', 29, 0, 0, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('victor', '123456', 30, 0, 0, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('ezequielrd', '123456', 31, 0, 0, 1);
-INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, id_central_fk, activo) VALUES ('vicenz', '123456', 32, 0, 0, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('admin', '123456', 1, 1, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('enzito', '123456', 2, 3, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('leytho', '123456', 3, 2, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('garrix', '123456', 4, 1, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('guetta', '123456', 5, 1, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('vanbuuren', '123456', 6, 3, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('nicky', '123456', 7, 2, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('tiesto', '123456', 8, 1, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('axwell', '123456', 9, 2, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('ingrosso', '123456', 10, 3, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('walker', '123456', 11, 3, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('avicii', '123456', 12, 3, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('alesso', '123456', 13, 2, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('edsheeran', '123456', 14, 2, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('faculopez', '123456', 15, 1, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('juampi', '123456', 16, 1, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('finelli', '123456', 17, 3, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('geloso', '123456', 18, 3, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('calderon', '123456', 19, 3, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('corredera', '123456', 20, 3, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('armani', '123456', 21, 3, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('martindiaz', '123456', 22, 2, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('gonzavallejos', '123456', 23, 3, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('walter', '123456', 24, 1, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('boffi', '123456', 25, 2, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('luciano', '123456', 26, 3, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('carlosfernandez', '123456', 27, 3, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('gamito', '123456', 28, 1, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('cremona', '123456', 29, 2, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('victor', '123456', 30, 3, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('ezequielrd', '123456', 31, 3, 1);
+INSERT INTO usuarios (usuario, clave, id_empleado_fk, id_nivel_fk, activo) VALUES ('vicenz', '123456', 32, 3, 1);
 
 
 

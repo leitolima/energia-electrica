@@ -7,32 +7,7 @@ import clientAxios from '../../config/clientAxios';
 const ModalUsuario = ({show, usuario, handleClose, handleChange, handleSubmit}) => {
 
     const[empleados, setEmpleados] = useState([]);
-    const[centrales, setCentrales] = useState([]);
     const[activo, setActivo] = useState(true);
-
-    const fetchData = (url, fn) => {
-        const token = localStorage.getItem('token');
-            clientAxios.post(url, {headers: {access:token}})
-            .then(res => {
-                if(res.data.type === 'notfound'){
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Hubo un error',
-                        text: 'No hay provincias disponibles',
-                        showCancelButton: false,
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Cerrar'
-                    }).then((result) => handleClose());
-                }else {
-                    fn(res.data);
-                }
-            })
-    }
-
-    useEffect(() => {
-        fetchData('/centrales/get/all', setCentrales);
-        // eslint-disable-next-line
-    }, [show]);
 
     useEffect(() => {
         if(usuario.usuario === ''){
@@ -144,26 +119,6 @@ const ModalUsuario = ({show, usuario, handleClose, handleChange, handleSubmit}) 
                                     <option value="1">Administrador</option>
                                     <option value="2">Supervisor</option>
                                     <option value="3">Empleado</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div className="col-md-12 col-lg-12 col-xl-12">
-                            <div className="form-group">
-                                <label htmlFor="central">Central</label>
-                                <select 
-                                    id="central"
-                                    onChange={handleChange} 
-                                    defaultValue={usuario.central} 
-                                    className="form-control"
-                                >
-                                    <option value="0">Seleccionar</option>
-                                    {
-                                        centrales.map((e, key) => {
-                                            return(
-                                                <option key={key} value={e.id}>{e.nombre}</option>
-                                            )
-                                        })
-                                    }
                                 </select>
                             </div>
                         </div>
