@@ -123,7 +123,7 @@ const Usuarios = () => {
     return (
         <div className="container-fluid mt-4">
             <div className="d-flex flex-row justify-content-between">
-                <h2>Administrar permisos</h2>
+                <h2>Administrar usuarios</h2>
                 <button 
                     type="button"
                     className="btn btn-success"
