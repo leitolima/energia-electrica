@@ -99,7 +99,6 @@ CREATE TABLE suministro (
     nombre varchar(100) NOT NULL,
     pais varchar(75) NOT NULL,
     id_nuclear_fk int(11) NOT NULL,
-    cant_plutonio float NOT NULL,
     id_transportista_fk int(11) NOT NULL,
     fecha date,
     borrado tinyint NOT NULL DEFAULT 0
