@@ -133,7 +133,7 @@ const Sidebar = () => {
                 <li className="nav-item d-flex flex-column">
                     <div className="sec-nav d-flex flex-row" data-collapse="energialist">
                         <div className="icon-box">
-                            <i className="fab fa-bug"></i>
+                            <i className="fas fa-bug"></i>
                         </div>
                         <h5>Informes</h5>
                         <div className="icon-box ml-auto flecha">
