@@ -55,6 +55,7 @@ const Home = () => {
                 pie: {
                     allowPointSelect: true,
                     cursor: 'pointer',
+                    size: 250,
                     showInLegend: true,
                     dataLabels: {
                         enabled: true,
@@ -123,6 +124,7 @@ const Home = () => {
                 pie: {
                     allowPointSelect: true,
                     cursor: 'pointer',
+                    size: 250,
                     showInLegend: true,
                     dataLabels: {
                         enabled: true,
