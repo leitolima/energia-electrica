@@ -135,6 +135,7 @@ const Compras = () => {
                                             <th>Central</th>
                                             <th>Suministro</th>
                                             <th>Volumen de plutonio</th>
+                                            <th>Fecha</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -169,12 +170,13 @@ const Compras = () => {
                                                             <td>{r.central}</td>
                                                             <td>{r.suministro}</td>
                                                             <td>{r.cant_plutonio}</td>
+                                                            <td>{r.fecha}</td>
                                                         </tr>
                                                     )
                                                 })
                                             ) : (
                                                 <tr>
-                                                    <td colSpan="7">No hay compras registrados</td>
+                                                    <td colSpan="6">No hay compras registrados</td>
                                                 </tr>
                                             )
                                         }

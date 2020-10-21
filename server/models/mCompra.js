@@ -20,8 +20,8 @@ exports.getById = id => {
 
 exports.registrarNuevaCompra = obj => {
     return db(`
-        INSERT INTO compra (central, id_suministro_fk, cant_plutonio)
-        VALUES (?, ?, ?)
+        INSERT INTO compra (central, id_suministro_fk, cant_plutonio,fecha)
+        VALUES (?, ?, ?, Now())
     `, [obj.central,obj.suministro,obj.cant_plutonio]);
 }
 

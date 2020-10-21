@@ -99,7 +99,6 @@ CREATE TABLE suministro (
     nombre varchar(100) NOT NULL,
     pais varchar(75) NOT NULL,
     id_nuclear_fk int(11) NOT NULL,
-    cant_plutonio float NOT NULL,
     id_transportista_fk int(11) NOT NULL,
     fecha date,
     borrado tinyint NOT NULL DEFAULT 0
@@ -201,11 +200,11 @@ CREATE TABLE consumidores (
 DROP TABLE IF EXISTS compra;
 CREATE TABLE compra (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
-    nombre varchar(100) NOT NULL,
     central int(11) NOT NULL,
     id_suministro_fk int(11) NOT NULL,
     pais varchar(50) NOT NULL,
     cant_plutonio float NOT NULL,
+    fecha date,
     borrado tinyint NOT NULL DEFAULT 0
 );
 

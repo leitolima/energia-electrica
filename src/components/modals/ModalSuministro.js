@@ -87,18 +87,6 @@ const ModalSuministro = ({show, suministro, handleClose, handleChange, handleSub
                                 />
                             </div>
                         </div>
-                        <div className="col-md-6 col-lg-6 col-xl-6">
-                            <div className="form-group">
-                                <label htmlFor="cant_plutonio">Volumen de plutonio: </label>
-                                <input 
-                                    type="text" 
-                                    className="form-control" 
-                                    id="cant_plutonio"
-                                    onChange={handleChange}
-                                    value={suministro.cant_plutonio}
-                                />
-                            </div>
-                        </div>
                         <div className="form-group col-md-6 col-lg-6 col-xl-6">
                                 <label htmlFor="central">Central: </label>
                                 <select 
@@ -117,7 +105,7 @@ const ModalSuministro = ({show, suministro, handleClose, handleChange, handleSub
                                     }
                                 </select>
                         </div>
-                        <div className="form-group col-md-6 col-lg-6 col-xl-6">
+                        <div className="form-group col-md-12 col-lg-12 col-xl-12">
                                 <label htmlFor="transportista">Transportista: </label>
                                 <select 
                                     className="form-control" 

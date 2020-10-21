@@ -407,6 +407,6 @@ INSERT INTO transportista (nombre, matricula) VALUES ('Horacio','421421SB');
 INSERT INTO transportista (nombre, matricula) VALUES ('Juan','DS832SD3');
 
 -- SUMINISTROS -- 
-INSERT INTO suministro (nombre, pais, id_nuclear_fk, cant_plutonio, id_transportista_fk,fecha) VALUES ('PlutonFriend','Reino Unido',2,300,3,'2020-5-4');
-INSERT INTO suministro (nombre, pais, id_nuclear_fk, cant_plutonio, id_transportista_fk,fecha) VALUES ('Chernobyl','Ucrania',3,200,2,'2020-6-4');
-INSERT INTO suministro (nombre, pais, id_nuclear_fk, cant_plutonio, id_transportista_fk,fecha) VALUES ('NuclearProvider','Alemania',7,500,4,'2019-10-4');
+INSERT INTO suministro (nombre, pais, id_nuclear_fk, id_transportista_fk,fecha) VALUES ('PlutonFriend','Reino Unido',2,3,'2020-5-4');
+INSERT INTO suministro (nombre, pais, id_nuclear_fk, id_transportista_fk,fecha) VALUES ('Chernobyl','Ucrania',3,2,'2020-6-4');
+INSERT INTO suministro (nombre, pais, id_nuclear_fk, id_transportista_fk,fecha) VALUES ('NuclearProvider','Alemania',7,4,'2019-10-4');

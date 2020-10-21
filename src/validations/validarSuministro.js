@@ -17,10 +17,5 @@ export default function validarSuministro(valores){
     if(!valores.transportista){
         errores.push('El transportista es obligatorio');
     }
-    if(!valores.cant_plutonio){
-        errores.push('El volumen del plutonio es obligatorio');
-    }else if(valores.cant_plutonio.length > 11){
-        errores.push('El volumen del plutonio es demasiado largo');
-    }
     return errores;
 }

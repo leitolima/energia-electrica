@@ -152,7 +152,6 @@ const Suministro = () => {
                                             <th>País</th>
                                             <th>Central</th>
                                             <th>Transportista</th>
-                                            <th>Cantidad de plutonio</th>
                                             <th>Fecha</th>
                                         </tr>
                                     </thead>
@@ -189,7 +188,6 @@ const Suministro = () => {
                                                             <td>{r.pais}</td>
                                                             <td>{r.central}</td>
                                                             <td>{r.transportista}</td>
-                                                            <td>{r.cant_plutonio}</td>
                                                             <td>{r.fecha}</td>
                                                         </tr>
                                                     )
