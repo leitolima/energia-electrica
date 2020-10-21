@@ -429,3 +429,14 @@ INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (16, 'ARBAG1');
 INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (16, 'ARBAG2');
 INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (17, 'ARBAH1');
 INSERT INTO transformadores (id_estacion_fk, codigo) VALUES (18, 'ARBAH2');
+
+-- TRANSPORTISTAS --
+INSERT INTO transportista (nombre, matricula) VALUES ('Oscar','2SD3498O');
+INSERT INTO transportista (nombre, matricula) VALUES ('Raul','11234ADS');
+INSERT INTO transportista (nombre, matricula) VALUES ('Horacio','421421SB');
+INSERT INTO transportista (nombre, matricula) VALUES ('Juan','DS832SD3');
+
+-- SUMINISTROS -- 
+INSERT INTO suministro (nombre, pais, id_nuclear_fk, cant_plutonio, id_transportista_fk,fecha) VALUES ('PlutonFriend','Reino Unido',2,300,3,'2020-5-4');
+INSERT INTO suministro (nombre, pais, id_nuclear_fk, cant_plutonio, id_transportista_fk,fecha) VALUES ('Chernobyl','Ucrania',3,200,2,'2020-6-4');
+INSERT INTO suministro (nombre, pais, id_nuclear_fk, cant_plutonio, id_transportista_fk,fecha) VALUES ('NuclearProvider','Alemania',7,500,4,'2019-10-4');

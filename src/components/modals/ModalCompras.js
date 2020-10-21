@@ -8,7 +8,8 @@ import clientAxios from '../../config/clientAxios';
 const ModalCompras = ({show, compra, handleClose, handleChange, handleSubmit}) => {
 
     const[nuclear, setNuclear] = useState([]);
-
+    const[suministro, setSuministro] = useState([]);
+    
     useEffect(() =>{
         if(show){
             const token = localStorage.getItem('token');
@@ -31,6 +32,28 @@ const ModalCompras = ({show, compra, handleClose, handleChange, handleSubmit}) =
         // eslint-disable-next-line
     },[show])
 
+    useEffect(() =>{
+        if(show){
+            const token = localStorage.getItem('token');
+            clientAxios.post('/suministro/get/all', {}, {headers: {access:token}})
+            .then(res => {
+                if(res.data.type === 'notfound'){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Hubo un error',
+                        text: 'No hay estaciones disponibles',
+                        showCancelButton: false,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Cerrar'
+                    }).then((result) => handleClose());
+                }else {
+                    setSuministro(res.data);
+                }
+            })
+        }
+        // eslint-disable-next-line
+    },[show])
+
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -39,40 +62,15 @@ const ModalCompras = ({show, compra, handleClose, handleChange, handleSubmit}) =
             <Modal.Body>
                 <form>
                     <div className="row">
-                        <div className="col-md-12 col-lg-12 col-xl-12">
-                            <div className="form-group">
-                                <label htmlFor="nombre">Nombre de la empresa: </label>
-                                <input
-                                    type="text" 
-                                    className="form-control" 
-                                    id="nombre"
-                                    onChange={handleChange}
-                                    value={compra.nombre}
-                                />
-                            </div>
-                        </div>
                         <div className="col-md-6 col-lg-6 col-xl-6">
                             <div className="form-group">
-                                <label htmlFor="volumen">Volumen de plutonio: </label>
+                                <label htmlFor="cant_plutonio">Volumen de plutonio: </label>
                                 <input 
                                     type="number" 
                                     className="form-control" 
-                                    id="volumen"
+                                    id="cant_plutonio"
                                     onChange={handleChange}
-                                    value={compra.volumen}
-                                />
-                            </div>
-                        </div>
-
-                        <div className="col-md-6 col-lg-6 col-xl-6">
-                            <div className="form-group">
-                                <label htmlFor="volumen">País: </label>
-                                <input 
-                                    type="text" 
-                                    className="form-control" 
-                                    id="volumen"
-                                    onChange={handleChange}
-                                    value={compra.pais}
+                                    value={compra.cant_plutonio}
                                 />
                             </div>
                         </div>
@@ -94,8 +92,25 @@ const ModalCompras = ({show, compra, handleClose, handleChange, handleSubmit}) =
                                             })
                                     }
                                 </select>
-                            </div>
-                        
+                        </div>
+                        <div className="form-group col-md-12 col-lg-12 col-xl-12">
+                                <label htmlFor="suministro">Suministro: </label>
+                                <select 
+                                    className="form-control" 
+                                    id="suministro"
+                                    onChange={handleChange}
+                                    value={compra.suministro}
+                                >
+                                    <option value="0">Seleccionar</option>
+                                    {
+                                            suministro.map((e, key) => {
+                                                return(
+                                                    <option key={key} value={e.id}>{e.nombre}</option>
+                                                )
+                                            })
+                                    }
+                                </select>
+                        </div>
                     </div>
                 </form>
             </Modal.Body>

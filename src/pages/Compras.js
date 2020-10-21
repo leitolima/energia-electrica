@@ -5,7 +5,7 @@ import {toast} from 'react-toastify';
 
 import {useUsuario} from '../context';
 
-import validarEmpresa from '../validations/validarEmpresa';
+import validarCompra from '../validations/validarCompra';
 
 import ModalCompras from '../components/modals/ModalCompras';
 
@@ -24,7 +24,9 @@ import useValidar from '../hooks/useValidar';
 import useData from '../hooks/useData';
 
 const INITIAL_STATE = {
-    nombre: ''
+    central: '',
+    suministro: '',
+    cant_plutonio: 0
 }
 
 const Compras = () => {
@@ -32,8 +34,8 @@ const Compras = () => {
     const[show, setShow] = useState(false);
     const[editar, setEditar] = useState(false);
 
-    const {valores, errores, handleChange, handleSubmit, handleEditar} = useValidar(INITIAL_STATE, validarEmpresa, registrarNueva);
-    const {rows, error, handleLoading} = useData('/nucleares/get/all');
+    const {valores, errores, handleChange, handleSubmit, handleEditar} = useValidar(INITIAL_STATE, validarCompra, registrarNueva);
+    const {rows, error, handleLoading} = useData('/compras/get/all');
 
     const permiso = useUsuario();
 
@@ -54,9 +56,9 @@ const Compras = () => {
     async function registrarNueva(){
         let result = {};
         if(editar){
-            result = await agregarNuevoEditar('/compra/editar', valores);
+            result = await agregarNuevoEditar('/compras/editar', valores);
         } else {
-            result = await agregarNuevoEditar('/compra/nuevo', valores);
+            result = await agregarNuevoEditar('/compras/nueva', valores);
         }
         if(result.type === 'success'){
             setShow(false);
@@ -67,7 +69,7 @@ const Compras = () => {
     }
 
     const editarCompra = async id => {
-        const result = await buscarRegistroById('/compra/get', id);
+        const result = await buscarRegistroById('/compras/get', id);
         setEditar(true);
         handleEditar(result);
         setShow(true);
@@ -84,7 +86,7 @@ const Compras = () => {
             confirmButtonText: '¡Si, eliminar!'
         }).then(async res => {
             if(res.value) {
-                const result = await eliminarRegistro('/compra/eliminar', id);
+                const result = await eliminarRegistro('/compras/eliminar', id);
                 if(result.type === 'success'){
                     handleLoading();
                 } else {
@@ -130,19 +132,51 @@ const Compras = () => {
                                         <tr>
                                             <th className="options">Opciones</th>
                                             <th>Id</th>
-                                            <th>Nombre de la empresa</th>
                                             <th>Central</th>
-                                            <th>País</th>
+                                            <th>Suministro</th>
                                             <th>Volumen de plutonio</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     {
-
+                                            rows.length > 0 ?(
+                                                rows.map((r,key) => {
+                                                    return (
+                                                        <tr key={key}>
+                                                            <td>
+                                                            <button 
+                                                                    className="btn btn-warning btn-icon" 
+                                                                    title="Editar"
+                                                                    disabled={
+                                                                        permiso.usuario == null ? null : (
+                                                                            permiso.usuario[10].m ? false : true
+                                                                        )
+                                                                    }
+                                                                    onClick={() => editarCompra(r.id)}
+                                                                ><i className="fas fa-pen"></i></button>
+                                                                <button 
+                                                                    className="btn btn-danger btn-icon" 
+                                                                    title="Eliminar"
+                                                                    disabled={
+                                                                        permiso.usuario == null ? null : (
+                                                                            permiso.usuario[10].b ? false : true
+                                                                        )
+                                                                    }
+                                                                    onClick={() => eliminarCompra(r.id)}
+                                                                ><i className="fas fa-trash-alt"></i></button>   
+                                                            </td>
+                                                            <td>{r.id}</td>
+                                                            <td>{r.central}</td>
+                                                            <td>{r.suministro}</td>
+                                                            <td>{r.cant_plutonio}</td>
+                                                        </tr>
+                                                    )
+                                                })
+                                            ) : (
                                                 <tr>
-                                                    <td colSpan="9">No hay suministros registrados</td>
+                                                    <td colSpan="7">No hay compras registrados</td>
                                                 </tr>
-                                            
+                                            )
                                         }
                                     </tbody>
                                 </table>

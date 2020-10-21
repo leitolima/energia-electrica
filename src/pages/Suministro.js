@@ -6,8 +6,8 @@ import {useHistory} from 'react-router';
 import {useUsuario} from '../context';
 
 
-import ModalSuministro from '../components/modals/ModalSuministro'
-import validarEmpresa from '../validations/validarEmpresa';
+import ModalSuministro from '../components/modals/ModalSuministro';
+import validarSuministro from '../validations/validarSuministro';
 
 
 //Functions 
@@ -28,8 +28,9 @@ const INITIAL_STATE = {
     nombre:'',
     pais: '',
     central: '',
-    fecha: '',
-    cant_plutonio: 0
+    transportista: '',
+    cant_plutonio: 0,
+    fecha: ''
 }
 
 const Suministro = () => {
@@ -37,7 +38,7 @@ const Suministro = () => {
     const[show, setShow] = useState(false);
     const[editar, setEditar] = useState(false);
 
-    const {valores, errores, handleChange, handleSubmit, handleEditar} = useValidar(INITIAL_STATE, validarEmpresa, registrarNueva);
+    const {valores, errores, handleChange, handleSubmit, handleEditar} = useValidar(INITIAL_STATE, validarSuministro, registrarNueva);
     const {rows, error, handleLoading} = useData('/suministro/get/all');
 
     const permiso = useUsuario();
@@ -150,6 +151,7 @@ const Suministro = () => {
                                             <th>Nombre</th>
                                             <th>País</th>
                                             <th>Central</th>
+                                            <th>Transportista</th>
                                             <th>Cantidad de plutonio</th>
                                             <th>Fecha</th>
                                         </tr>
@@ -186,6 +188,7 @@ const Suministro = () => {
                                                             <td>{r.nombre}</td>
                                                             <td>{r.pais}</td>
                                                             <td>{r.central}</td>
+                                                            <td>{r.transportista}</td>
                                                             <td>{r.cant_plutonio}</td>
                                                             <td>{r.fecha}</td>
                                                         </tr>

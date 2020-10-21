@@ -4,6 +4,7 @@ exports.getAll = () => {
     return db(`
         SELECT *
         FROM transportista
+        WHERE borrado = 0
     `, [])
 }
 

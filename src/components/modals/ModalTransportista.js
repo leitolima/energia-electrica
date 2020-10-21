@@ -34,8 +34,7 @@ const ModalTransportista = ({show, transportista, handleClose, handleChange, han
                                     value={transportista.matricula}
                                 />
                             </div>
-                        </div>
-                        
+                        </div>                      
                     </div>
                 </form>
             </Modal.Body>

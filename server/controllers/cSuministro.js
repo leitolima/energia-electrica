@@ -36,7 +36,7 @@ exports.agregarNueva = async (req, res) => {
 exports.editarSuministro = async (req, res) => {
     const result = await mSuministro.editarSuministro(req.body);
     if(result.affectedRows){
-        return returnExito(res, 'Suministro actualizada correctamente');
+        return returnExito(res, 'Suministro actualizado correctamente');
     } return returnError(res);
 } 
 

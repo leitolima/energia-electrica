@@ -1,4 +1,4 @@
-const mCompras = require('../models/mCompras');
+const mCompras = require('../models/mCompra');
 const mBorro = require('../models/mBorro');
 
 const returnError = res => {

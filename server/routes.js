@@ -19,6 +19,7 @@ const cCompania = require('./controllers/cCompania');
 const cRedes = require('./controllers/cRedes');
 const cLineas = require('./controllers/cLineas');
 const cSuministro = require('./controllers/cSuministro');
+const cCompras = require('./controllers/cCompras');
 const cTransportista = require('./controllers/cTransportista');
 const auth = require('./middleware').auth;
 
@@ -141,11 +142,11 @@ router.post('/lineas/editar', auth, cLineas.editarLinea);
 router.get('/lineas/eliminar/:id', auth, cLineas.eliminarLinea);
 
 //Compras
-/*router.post('/compras/get/all', auth, cCompras.getAll);
+router.post('/compras/get/all', auth, cCompras.getAll);
 router.get('/compras/get/:id', auth, cCompras.getById);
 router.post('/compras/nueva', auth, cCompras.agregarNueva);
 router.post('/compras/editar', auth, cCompras.editarCompra);
-router.get('/compras/eliminar/:id', auth, cCompras.eliminarCompra);*/
+router.get('/compras/eliminar/:id', auth, cCompras.eliminarCompra);
 
 //Suministro
 router.post('/suministro/get/all', auth, cSuministro.getAll);
