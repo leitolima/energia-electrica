@@ -19,8 +19,8 @@ exports.getById = id => {
 
 exports.registrarNuevoSuministro = obj => {
     return db(`
-        INSERT INTO suministro (nombre, pais,id_nuclear_fk,id_transportista_fk,cant_plutonio)
-        VALUE(?, ?, ?, ?, ?)
+        INSERT INTO suministro (nombre, pais,id_nuclear_fk,id_transportista_fk,cant_plutonio,fecha)
+        VALUE(?, ?, ?, ?, ?, Now())
     `, [obj.nombre, obj.pais, obj.central, obj.transportista, obj.cant_plutonio]);
 }
 
