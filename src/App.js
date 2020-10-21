@@ -34,6 +34,10 @@ import Suministro from './pages/Suministro';
 import Compras from './pages/Compras';
 import Transportista from './pages/Transportista';
 
+import Carga from './pages/informes/Carga';
+import Producida from './pages/informes/Producida';
+import Consumida from './pages/informes/Consumida';
+
 import Provincias from './pages/provincias/Provincias';
 import Zonas from './pages/provincias/Zonas';
 
@@ -72,6 +76,10 @@ const App = () => {
                         <Route exact path="/compras/:id" component={withAuth(Compras)}/>
                         <Route exact path="/suministradores" component={withAuth(Suministro)}/>
                         <Route exact path="/transportista" component={withAuth(Transportista)}/>
+
+                        <Route exact path="/carga/datos" component={withAuth(Carga)}/>
+                        <Route exact path="/informe/energia/producida" component={withAuth(Producida)}/>
+                        <Route exact path="/informe/energia/consumida" component={withAuth(Consumida)}/>
 
                         <Route exact path="/provincias" component={withAuth(Provincias)}/>
                         <Route exact path="/zonaservicio" component={withAuth(Zonas)}/>

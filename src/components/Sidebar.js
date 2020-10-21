@@ -130,6 +130,30 @@ const Sidebar = () => {
                     </h5>
                 </li>
                 <div className="divisor rainbow my-2"></div>
+                <li className="nav-item d-flex flex-column">
+                    <div className="sec-nav d-flex flex-row" data-collapse="energialist">
+                        <div className="icon-box">
+                            <i className="fab fa-bug"></i>
+                        </div>
+                        <h5>Informes</h5>
+                        <div className="icon-box ml-auto flecha">
+                            <i className="fas fa-caret-down"></i>
+                            <i className="fas fa-caret-up d-none"></i>
+                        </div>
+                    </div>
+                    <ul className="d-none" id="energialist">
+                        <li>
+                            <Link to="/carga/datos">Carga de datos</Link>
+                        </li>
+                        <li>
+                            <Link to="/informe/energia/producida">Energía producida</Link>
+                        </li>
+                        <li>
+                            <Link to="/informe/energia/consumida">Energía consumida</Link>
+                        </li>
+                    </ul>
+                </li>
+                <div className="divisor rainbow my-2"></div>
                 <li className="nav-item d-flex flex-row">
                     <div className="icon-box">
                         <i className="fas fa-flag"></i>

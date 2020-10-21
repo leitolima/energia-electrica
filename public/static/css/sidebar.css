@@ -29,6 +29,10 @@ ul.nav .nav-item{margin-left: 1.5rem;}
     box-sizing: border-box;
     border-right: 1px solid #24282c;
     overflow-y: scroll;
+    -moz-user-select: none; 
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none; 
 }
 
 .sec-nav:hover i.fa-caret-down,
