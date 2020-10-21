@@ -24,7 +24,7 @@ const Accesos = () => {
                     setLoad(false);
                 })
                 .catch(err => {
-
+                    
                 });
         }
     }, [load]);

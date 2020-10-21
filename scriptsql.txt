@@ -90,7 +90,7 @@ DROP TABLE IF EXISTS transportista;
 CREATE TABLE transportista (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     nombre varchar(100) NOT NULL,
-    matricula int(15) NOT NULL,
+    matricula varchar(8) NOT NULL,
     borrado tinyint NOT NULL DEFAULT 0
 );
 DROP TABLE IF EXISTS suministro;
@@ -203,6 +203,7 @@ CREATE TABLE compra (
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     nombre varchar(100) NOT NULL,
     central int(11) NOT NULL,
+    id_suministro_fk int(11) NOT NULL,
     pais varchar(50) NOT NULL,
     cant_plutonio float NOT NULL,
     borrado tinyint NOT NULL DEFAULT 0

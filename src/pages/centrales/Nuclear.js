@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Redirect} from 'react-router-dom';
 import Swal from 'sweetalert2';
 import {toast} from 'react-toastify';
+import {useHistory} from 'react-router';
 
 import {useUsuario} from '../../context';
 import ModalNuclear from '../../components/modals/ModalNuclear';
@@ -39,6 +40,7 @@ const Nuclear = () => {
     const {rows, error, handleLoading} = useData('/nucleares/get/all');
 
     const permiso = useUsuario();
+    const history = useHistory();
 
     useEffect(() => {
         if(error){
@@ -165,7 +167,19 @@ const Nuclear = () => {
                                                             )
                                                         }
                                                         onClick={() => eliminarCentral(r.id)}
+
                                                     ><i className="fas fa-trash-alt"></i></button>
+                                                    <button 
+                                                        className="btn btn-info btn-icon" 
+                                                        title="Compras"
+                                                        disabled={
+                                                            permiso.usuario == null ? null : (
+                                                                permiso.usuario[5].b ? false : true
+                                                            )
+                                                        }
+                                                        onClick={() => history.push(`/compras/${r.id}`)}
+                                                    ><i class="fas fa-truck"></i></button>
+
                                                 </td>
                                                 <td>{r.nombre}</td>
                                                 <td>{r.nombreprov}</td>

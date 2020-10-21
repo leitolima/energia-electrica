@@ -121,6 +121,14 @@ const Sidebar = () => {
                         <Link to="/companias">Compañias</Link>
                     </h5>
                 </li>
+                <li className="nav-item d-flex flex-row">
+                    <div className="icon-box">
+                        <i class="fas fa-dolly-flatbed"></i>
+                    </div>
+                    <h5>
+                        <Link to="/suministradores">Suministro</Link>
+                    </h5>
+                </li>
                 <div className="divisor rainbow my-2"></div>
                 <li className="nav-item d-flex flex-row">
                     <div className="icon-box">

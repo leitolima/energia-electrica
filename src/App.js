@@ -30,6 +30,9 @@ import Propietarios from './pages/redes/Propietarios';
 import Lineas from './pages/Lineas';
 import Transformadores from './pages/Transformadores';
 import Companias from './pages/Companias';
+import Suministro from './pages/Suministro';
+import Compras from './pages/Compras';
+import Transportista from './pages/Transportista';
 
 import Provincias from './pages/provincias/Provincias';
 import Zonas from './pages/provincias/Zonas';
@@ -66,6 +69,9 @@ const App = () => {
                         <Route exact path="/lineas" component={withAuth(Lineas)}/>
                         <Route exact path="/transformadores" component={withAuth(Transformadores)}/>
                         <Route exact path="/companias" component={withAuth(Companias)}/>
+                        <Route exact path="/compras/:id" component={withAuth(Compras)}/>
+                        <Route exact path="/suministradores" component={withAuth(Suministro)}/>
+                        <Route exact path="/transportista" component={withAuth(Transportista)}/>
 
                         <Route exact path="/provincias" component={withAuth(Provincias)}/>
                         <Route exact path="/zonaservicio" component={withAuth(Zonas)}/>
