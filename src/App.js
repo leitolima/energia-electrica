@@ -40,6 +40,7 @@ import Consumida from './pages/informes/Consumida';
 
 import Provincias from './pages/provincias/Provincias';
 import Zonas from './pages/provincias/Zonas';
+import Consumidores from './pages/provincias/Consumidores';
 
 import Borro from './pages/Borro';
 
@@ -83,6 +84,7 @@ const App = () => {
 
                         <Route exact path="/provincias" component={withAuth(Provincias)}/>
                         <Route exact path="/zonaservicio" component={withAuth(Zonas)}/>
+                        <Route exact path="/consumidores" component={withAuth(Consumidores)}/>
                         <Route exact path="/historial/borrado" component={withAuth(Borro)}/>
                     </Route>
                 </Switch>

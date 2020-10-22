@@ -21,6 +21,7 @@ const cLineas = require('./controllers/cLineas');
 const cSuministro = require('./controllers/cSuministro');
 const cCompras = require('./controllers/cCompras');
 const cTransportista = require('./controllers/cTransportista');
+const cConsumidores = require('./controllers/cConsumidores');
 const auth = require('./middleware').auth;
 
 router.get('/api/checktoken', auth, (req, res) => {
@@ -161,5 +162,10 @@ router.get('/transportista/get/:id', auth, cTransportista.getById);
 router.post('/transportista/nuevo', auth, cTransportista.agregarNuevo);
 router.post('/transportista/editar', auth, cTransportista.editarTransportista);
 router.get('/transportista/eliminar/:id', auth, cTransportista.eliminarTransportista);
+
+//Consumidores
+router.post('/consumidores/get/all', auth, cConsumidores.getAll);
+router.get('/consumidores/get/:id', auth, cConsumidores.getById);
+router.post('/consumidores/update', auth, cConsumidores.updateConsumidores);
 
 module.exports = router;

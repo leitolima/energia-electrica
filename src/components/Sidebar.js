@@ -123,7 +123,7 @@ const Sidebar = () => {
                 </li>
                 <li className="nav-item d-flex flex-row">
                     <div className="icon-box">
-                        <i class="fas fa-dolly-flatbed"></i>
+                        <i className="fas fa-dolly-flatbed"></i>
                     </div>
                     <h5>
                         <Link to="/suministradores">Suministro</Link>
@@ -168,6 +168,14 @@ const Sidebar = () => {
                     </div>
                     <h5>
                         <Link to="/zonaservicio">Zonas de servicio</Link>
+                    </h5>
+                </li>
+                <li className="nav-item d-flex flex-row">
+                    <div className="icon-box">
+                        <i className="fas fa-city"></i>
+                    </div>
+                    <h5>
+                        <Link to="/consumidores">Consumidores</Link>
                     </h5>
                 </li>
                 <div className="divisor rainbow my-2"></div>
