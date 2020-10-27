@@ -33,3 +33,9 @@ exports.updateConsumidores = async (req, res) => {
         return returnExito(res, 'Actualizado correctamente');
     } return returnError(res);
 }
+
+exports.getByZona = async (req, res) => {
+    const {id} = req.body;
+    const result = await mConsumidores.getByZona(id);
+    res.send(result);
+}

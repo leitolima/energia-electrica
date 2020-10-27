@@ -168,5 +168,6 @@ router.get('/transportista/eliminar/:id', auth, cTransportista.eliminarTransport
 router.post('/consumidores/get/all', auth, cConsumidores.getAll);
 router.get('/consumidores/get/:id', auth, cConsumidores.getById);
 router.post('/consumidores/update', auth, cConsumidores.updateConsumidores);
+router.post('/consumidores/zona', auth, cConsumidores.getByZona);
 
 module.exports = router;

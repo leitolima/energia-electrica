@@ -11,6 +11,7 @@ const Carga = () => {
     const [provincias,setProvincias] = useState([]);
     const [zonas,setZonas] = useState([]);
     const [load,setLoad] = useState(false);
+    const [consumidores, setConsumidores] = useState([]);
 
     useEffect(() => {
         if(!load){
@@ -21,7 +22,17 @@ const Carga = () => {
         // eslint-disable-next-line
     }, [load])
 
-    
+    useEffect(() => {
+        if(consumidores.length > 0){
+            const particulares = document.getElementById('con_particulares');
+            const empresas = document.getElementById('con_empresas');
+            const instituciones = document.getElementById('con_instituciones');
+            particulares.value = consumidores[0].particulares;
+            empresas.value = consumidores[0].empresas;
+            instituciones.value = consumidores[0].instituciones;
+        }
+        // eslint-disable-next-line
+    }, [consumidores]);
 
 
     const changeRadio = (e) => {
@@ -34,15 +45,29 @@ const Carga = () => {
     }
 
     const traerZonas = (e) => {
-
         const provincia = e.target.value;
         if(provincia == 0){
             setZonas([]);
         }else{
             buscarTodosLosRegistros('/zonas/provincia', setZonas, {id:provincia});
         }
-
     }
+
+    const traerConsumidores = e => {
+        const zona = e.target.value;
+        const particulares = document.getElementById('con_particulares');
+        const empresas = document.getElementById('con_empresas');
+        const instituciones = document.getElementById('con_instituciones');
+        if(zona == 0){
+            setConsumidores([]);
+            particulares.value = 0;
+            empresas.value = 0;
+            instituciones.value = 0;
+        } else {
+            buscarTodosLosRegistros('/consumidores/zona', setConsumidores, {id: zona});
+        }
+    }
+
     return (
         <div className="container-fluid mt-2">
             <div className="row">
@@ -160,6 +185,7 @@ const Carga = () => {
                         <select 
                             className="form-control" 
                             id="con_zona"
+                            onChange={traerConsumidores}
                         >
                             <option value="0">Seleccione la zona</option>
                             {
@@ -190,9 +216,10 @@ const Carga = () => {
                         <label htmlFor="con_particulares">Particulares: </label>
                         <input 
                             type="number"
-                            className="form-control" 
+                            className="form-control text-end" 
                             id="con_particulares"
                             disabled
+                            value="0"
                         />
                     </div>
                 </div>
@@ -201,9 +228,10 @@ const Carga = () => {
                         <label htmlFor="con_empresas">Empresas: </label>
                         <input 
                             type="number"
-                            className="form-control" 
+                            className="form-control text-end" 
                             id="con_empresas"
                             disabled
+                            value="0"
                         />
                     </div>
                 </div>
@@ -212,9 +240,10 @@ const Carga = () => {
                         <label htmlFor="con_instituciones">Instituciones: </label>
                         <input 
                             type="number"
-                            className="form-control" 
+                            className="form-control text-end" 
                             id="con_instituciones"
                             disabled
+                            value="0"
                         />
                     </div>
                 </div>

@@ -45,3 +45,10 @@ exports.modificarConsumidores = obj => {
         WHERE id = ?
     `, [obj.particulares,obj.empresas,obj.instituciones,obj.id]);
 }
+
+exports.getByZona = id => {
+    return db(`
+        SELECT * FROM consumidores
+        WHERE id_zona_fk = ? AND activa = 1
+    `, [id])
+}

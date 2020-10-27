@@ -10,6 +10,7 @@
 .w-90{width: 90%;}
 .w-100{width: 100%;}
 .h-100{height: 100%;}
+.text-end{text-align: end;}
 .container-fluid{width: 90% !important;}
 .width-160{width: 160px; max-width: 160px;}
 h1, h2, h3, h4, h5, h6{margin: 0px !important;}
