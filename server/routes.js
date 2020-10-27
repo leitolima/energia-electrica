@@ -116,6 +116,7 @@ router.get('/zona/get/:id', auth, cZona.getById);
 router.post('/zona/nueva', auth, cZona.agregarNueva)
 router.post('/zona/editar', auth, cZona.editarZona);
 router.get('/zona/eliminar/:id', auth, cZona.eliminarZona);
+router.post('/zonas/provincia', auth, cZona.getByProvincia);
 
 //Companias
 router.post('/compania/get/all',auth, cCompania.getAll);

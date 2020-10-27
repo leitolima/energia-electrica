@@ -79,3 +79,9 @@ exports.eliminarZona = async (req, res) => {
         return returnExisto(res, 'Zona de servicio eliminada correctamente');
     } return returnError(res);
 }
+
+exports.getByProvincia = async (req, res) => {
+    const {id} = req.body;
+    const result = await mZona.getByProvincia(id);
+    res.send(result);
+}

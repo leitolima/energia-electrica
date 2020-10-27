@@ -40,3 +40,11 @@ exports.eliminarZona = id => {
         UPDATE zonas_servicio SET borrado = 1 WHERE id = ?;
     `, [id]);
 }
+
+exports.getByProvincia = id => {
+    return db(`
+        SELECT nombre, id
+        FROM zonas_servicio
+        WHERE id_provincia_fk = ? AND borrado = 0
+    `, [id]);
+}
