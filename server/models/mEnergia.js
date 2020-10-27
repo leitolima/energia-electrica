@@ -2,8 +2,9 @@ const db = require('../db').db().query;
 
 exports.cargarProducida = obj => {
     return db(`
-
-    `, [])
+        INSERT INTO energiaxd (id_usuario_fk, tipo_carga, id_central_fk, vol_energia, fecha_consumo)
+        VALUES (1, 1, ?, ?, ?)
+    `, [obj.pro_central, obj.pro_vol_energia, obj.pro_fecha_consumo])
 }
 
 exports.cargaConsumida = obj => {

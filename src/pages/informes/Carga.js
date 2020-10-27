@@ -27,6 +27,9 @@ const Carga = () => {
     });
     const[producida, setProducida] = useState({
         tipo_carga: 1,
+        pro_fecha_consumo:'',
+        pro_central: '',
+        pro_vol_energia: 0
     })
 
     const setFechas = () => {
@@ -37,7 +40,6 @@ const Carga = () => {
         if (mes < 10) mes = "0" + mes;
         let anio = date.getFullYear();
         let fecha = anio + '-' + mes + '-' + dia;
-        console.log(fecha);
         document.getElementById('con_fecha_carga').value = fecha;
         document.getElementById('pro_fecha_carga').value = fecha;
     }
@@ -123,7 +125,7 @@ const Carga = () => {
 
     const registrarCarga = () => {
         if(tipocarga === 1){
-            console.log(producida);
+            cargaDeDatos(producida);
         } else {
             cargaDeDatos(consumida);
         }
@@ -164,6 +166,7 @@ const Carga = () => {
                             type="date" 
                             className="form-control" 
                             id="pro_fecha_consumo"
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
@@ -172,6 +175,7 @@ const Carga = () => {
                     <select 
                         className="form-control" 
                         id="pro_central"
+                        onChange={handleChange}
                     >
                         <option value="0">Seleccione central</option>
                         {
@@ -190,11 +194,12 @@ const Carga = () => {
                             type="text"
                             className="form-control" 
                             id="pro_vol_energia"
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
                 <div className="col-md-12 col-lg-12 col-xl-12 my-3 d-flex flex-row justify-content-end">
-                    <button className="btn btn-success">Registrar</button>
+                    <button className="btn btn-success" onClick={registrarCarga}>Registrar</button>
                 </div>
             </div>
 
