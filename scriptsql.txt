@@ -213,10 +213,11 @@ CREATE TABLE energiaxd(
     id int(11) AUTO_INCREMENT PRIMARY KEY,
     id_usuario_fk int(11) NOT NULL,
     tipo_carga tinyint COMMENT '1: producida - 2: consumida',
-    id_central_fk int(11) NOT NULL,
+    id_central_fk int(11) DEFAULT NULL,
     vol_energia float NOT NULL,
     fecha_carga date,
     fecha_consumo date,
-    id_zona_fk int(11) NOT NULL,
-    id_consumidores_fk int(11) NOT NULL
+    fecha_produccion date,
+    id_zona_fk int(11) DEFAULT NULL,
+    id_consumidores_fk int(11) DEFAULT NULL
 );

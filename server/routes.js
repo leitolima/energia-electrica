@@ -22,6 +22,7 @@ const cSuministro = require('./controllers/cSuministro');
 const cCompras = require('./controllers/cCompras');
 const cTransportista = require('./controllers/cTransportista');
 const cConsumidores = require('./controllers/cConsumidores');
+const cEnergia = require('./controllers/cEnergia');
 const auth = require('./middleware').auth;
 
 router.get('/api/checktoken', auth, (req, res) => {
@@ -169,5 +170,8 @@ router.post('/consumidores/get/all', auth, cConsumidores.getAll);
 router.get('/consumidores/get/:id', auth, cConsumidores.getById);
 router.post('/consumidores/update', auth, cConsumidores.updateConsumidores);
 router.post('/consumidores/zona', auth, cConsumidores.getByZona);
+
+//Carga de energia
+router.post('/energia/carga', auth, cEnergia.cargarDatos);
 
 module.exports = router;

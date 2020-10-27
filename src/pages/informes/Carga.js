@@ -1,7 +1,8 @@
 import React, {useState,useEffect} from 'react';
 
 import {
-    buscarTodosLosRegistros
+    buscarTodosLosRegistros,
+    cargaDeDatos
 } from '../../functions';
 
 
@@ -13,8 +14,37 @@ const Carga = () => {
     const [load,setLoad] = useState(false);
     const [consumidores, setConsumidores] = useState([]);
 
+    //tipo de carga
+    const [tipocarga, setTipocarga] = useState(1);
+    //States de consumo/produccion
+    const[consumida, setConsumida] = useState({
+        tipo_carga: 2,
+        con_fecha_consumo: '',
+        con_provincia: 0,
+        con_zona: 0,
+        con_vol_energia: 0,
+        id_consumidores_fk: 0
+    });
+    const[producida, setProducida] = useState({
+        tipo_carga: 1,
+    })
+
+    const setFechas = () => {
+        const date = new Date();
+        let dia = date.getDate();
+        if (dia < 10) dia = "0" + dia;
+        let mes = date.getMonth() + 1;
+        if (mes < 10) mes = "0" + mes;
+        let anio = date.getFullYear();
+        let fecha = anio + '-' + mes + '-' + dia;
+        console.log(fecha);
+        document.getElementById('con_fecha_carga').value = fecha;
+        document.getElementById('pro_fecha_carga').value = fecha;
+    }
+
     useEffect(() => {
         if(!load){
+            setFechas();
             buscarTodosLosRegistros('/centrales/get/all', setCentrales);
             buscarTodosLosRegistros('/provincias/get/all', setProvincias);
             setLoad(true);
@@ -30,6 +60,10 @@ const Carga = () => {
             particulares.value = consumidores[0].particulares;
             empresas.value = consumidores[0].empresas;
             instituciones.value = consumidores[0].instituciones;
+            setConsumida({
+                ...consumida,
+                id_consumidores_fk: consumidores[0].id
+            })
         }
         // eslint-disable-next-line
     }, [consumidores]);
@@ -37,6 +71,11 @@ const Carga = () => {
 
     const changeRadio = (e) => {
         const radio = e.target.dataset.form;
+        if(radio === 'producida'){
+            setTipocarga(1);
+        } else {
+            setTipocarga(2);
+        }
         const opuesto = e.target.dataset.op;
         const formulario = document.getElementById(radio);
         const formulario2 = document.getElementById(opuesto);
@@ -46,7 +85,7 @@ const Carga = () => {
 
     const traerZonas = (e) => {
         const provincia = e.target.value;
-        if(provincia == 0){
+        if(provincia === 0){
             setZonas([]);
         }else{
             buscarTodosLosRegistros('/zonas/provincia', setZonas, {id:provincia});
@@ -58,13 +97,35 @@ const Carga = () => {
         const particulares = document.getElementById('con_particulares');
         const empresas = document.getElementById('con_empresas');
         const instituciones = document.getElementById('con_instituciones');
-        if(zona == 0){
+        if(zona === 0){
             setConsumidores([]);
             particulares.value = 0;
             empresas.value = 0;
             instituciones.value = 0;
         } else {
             buscarTodosLosRegistros('/consumidores/zona', setConsumidores, {id: zona});
+        }
+    }
+
+    const handleChange = e => {
+        if(tipocarga === 1){
+            setProducida({
+                ...producida,
+                [e.target.id]: e.target.value
+            })
+        } else {
+            setConsumida({
+                ...consumida,
+                [e.target.id]: e.target.value
+            })
+        }
+    }
+
+    const registrarCarga = () => {
+        if(tipocarga === 1){
+            console.log(producida);
+        } else {
+            cargaDeDatos(consumida);
         }
     }
 
@@ -157,6 +218,7 @@ const Carga = () => {
                             type="date" 
                             className="form-control" 
                             id="con_fecha_consumo"
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
@@ -166,7 +228,10 @@ const Carga = () => {
                         <select 
                             className="form-control" 
                             id="con_provincia"
-                            onChange={traerZonas}
+                            onChange={e => {
+                                traerZonas(e);
+                                handleChange(e);
+                            }}
                         >
                             <option value="0">Seleccione la provincia</option>
                             {
@@ -185,7 +250,10 @@ const Carga = () => {
                         <select 
                             className="form-control" 
                             id="con_zona"
-                            onChange={traerConsumidores}
+                            onChange={e => {
+                                traerConsumidores(e);
+                                handleChange(e);
+                            }}
                         >
                             <option value="0">Seleccione la zona</option>
                             {
@@ -205,6 +273,7 @@ const Carga = () => {
                             type="text"
                             className="form-control" 
                             id="con_vol_energia"
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
@@ -219,7 +288,7 @@ const Carga = () => {
                             className="form-control text-end" 
                             id="con_particulares"
                             disabled
-                            value="0"
+                            defaultValue="0"
                         />
                     </div>
                 </div>
@@ -231,7 +300,7 @@ const Carga = () => {
                             className="form-control text-end" 
                             id="con_empresas"
                             disabled
-                            value="0"
+                            defaultValue="0"
                         />
                     </div>
                 </div>
@@ -243,12 +312,12 @@ const Carga = () => {
                             className="form-control text-end" 
                             id="con_instituciones"
                             disabled
-                            value="0"
+                            defaultValue="0"
                         />
                     </div>
                 </div>
                 <div className="col-md-12 col-lg-12 col-xl-12 my-3 d-flex flex-row justify-content-end">
-                    <button className="btn btn-success">Registrar</button>
+                    <button className="btn btn-success" onClick={registrarCarga}>Registrar</button>
                 </div>
             </div>
         </div>

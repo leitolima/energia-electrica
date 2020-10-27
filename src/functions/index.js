@@ -59,3 +59,14 @@ export async function buscarTodosLosRegistros(url, fn, data = {}){
     fn(result.data);
     return 
 }
+
+export async function cargaDeDatos(data){
+    const token = localStorage.getItem('token');
+    const result = await clientAxios.post('/energia/carga', data, {headers: {access:token}});
+    Swal.fire({
+        icon: result.data.type,
+        title: result.data.title,
+        text: result.data.text,
+        timer: 1500
+    });
+}
