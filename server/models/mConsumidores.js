@@ -35,3 +35,13 @@ exports.getConsumidores = id => {
         WHERE c.activa = 1
     `, [id])
 }
+
+exports.modificarConsumidores = obj => {
+    return db(`
+        UPDATE consumidores SET
+        particulares = ?,
+        empresas = ?,
+        instituciones = ?
+        WHERE id = ?
+    `, [obj.particulares,obj.empresas,obj.instituciones,obj.id]);
+}
