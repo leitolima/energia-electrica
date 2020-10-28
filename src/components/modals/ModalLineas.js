@@ -2,6 +2,12 @@ import React, {useState, useEffect} from 'react';
 import {Modal} from 'react-bootstrap';
 import Swal from 'sweetalert2';
 
+import {
+    buscarTodosLosRegistros,
+
+} from '../../functions';
+
+
 import clientAxios from '../../config/clientAxios';
 
 const ModalLineas = ({show, linea, handleClose, handleChange, handleSubmit}) => {
@@ -9,22 +15,7 @@ const ModalLineas = ({show, linea, handleClose, handleChange, handleSubmit}) => 
 
     useEffect(() =>{
         if(show){
-            const token = localStorage.getItem('token');
-            clientAxios.get('/redes/get/all', {headers: {access:token}})
-            .then(res => {
-                if(res.data.type === 'notfound'){
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Hubo un error',
-                        text: 'No hay provincias disponibles',
-                        showCancelButton: false,
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Cerrar'
-                    }).then((result) => handleClose());
-                }else {
-                    setRedes(res.data);
-                }
-            })
+            buscarTodosLosRegistros('/redes/get/all', setRedes)
         }
         // eslint-disable-next-line
     },[show]);
