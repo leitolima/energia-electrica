@@ -170,8 +170,10 @@ router.post('/consumidores/get/all', auth, cConsumidores.getAll);
 router.get('/consumidores/get/:id', auth, cConsumidores.getById);
 router.post('/consumidores/update', auth, cConsumidores.updateConsumidores);
 router.post('/consumidores/zona', auth, cConsumidores.getByZona);
+router.post('/consumidores/sumartodos', auth, cConsumidores.sumarTodos);
 
 //Carga de energia
 router.post('/energia/carga', auth, cEnergia.cargarDatos);
+router.post('/energia/reporte/consumida', auth, cEnergia.informeEnergiaConsumida);
 
 module.exports = router;

@@ -14,3 +14,18 @@ exports.cargaConsumida = obj => {
         VALUES (1, 2, ?, NOW(), ?, ?, ?);
     `, [obj.con_vol_energia, obj.con_fecha_consumo, obj.con_zona, obj.id_consumidores_fk]);
 }
+
+exports.getInformeProducida = () => {
+    return db(`
+    
+    `, []);
+}
+
+exports.getInformeConsumida = () => {
+    return db(`
+        SELECT *, AVG(vol_energia) AS promedio
+        FROM energiaxd WHERE tipo_carga = 2
+        GROUP BY id_zona_fk
+        ORDER BY id_zona_fk
+    `, [])
+}

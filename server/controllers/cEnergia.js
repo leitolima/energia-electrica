@@ -2,9 +2,6 @@ const mEnergia = require('../models/mEnergia');
 
 exports.cargarDatos = async (req, res) => {
     const {tipo_carga} = req.body;
-    console.log('------------------');
-    console.log(tipo_carga);
-    console.log('------------------');
     if(tipo_carga == 1){
         //Producida
         const result = await mEnergia.cargarProducida(req.body);
@@ -36,4 +33,9 @@ exports.cargarDatos = async (req, res) => {
             text: "Hubo un error al procesar la solicitud"
         });
     }
+}
+
+exports.informeEnergiaConsumida = async (req, res) => {
+    const reporte = await mEnergia.getInformeConsumida();
+    res.send(reporte);
 }

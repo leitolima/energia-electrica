@@ -39,3 +39,8 @@ exports.getByZona = async (req, res) => {
     const result = await mConsumidores.getByZona(id);
     res.send(result);
 }
+
+exports.sumarTodos = async (req, res) => {
+    const consumidores = await mConsumidores.sumarTodos();
+    res.send(consumidores[0]);
+}

@@ -52,3 +52,14 @@ exports.getByZona = id => {
         WHERE id_zona_fk = ? AND activa = 1
     `, [id])
 }
+
+exports.sumarTodos = () => {
+    return db(`
+        SELECT SUM(c.particulares) AS conparticulares,
+        SUM(c.empresas) AS conempresas,
+        SUM(c.instituciones) AS coninstituciones
+        FROM consumidores c
+        LEFT JOIN zonas_servicio z ON z.id = c.id_zona_fk
+        WHERE z.borrado = 0;
+    `, []);
+}
