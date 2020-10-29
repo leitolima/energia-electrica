@@ -83,55 +83,6 @@ const Producida = () => {
         });
     }
 
-    /*const dibujarGrafica2 = () => {
-        const {conparticulares, conempresas, coninstituciones} = consum;
-        const total = conparticulares + conempresas + coninstituciones;
-        const prom1 = (conparticulares*100) / total;
-        const prom2 = (conempresas*100) / total;
-        const prom3 = (coninstituciones*100) / total;
-        const arrayData = [{
-            name: 'Particulares',
-            y: prom1
-        }, {
-            name: 'Empresas',
-            y: prom2
-        }, {
-            name: 'Instituciones',
-            y: prom3
-        }];
-        Highcharts.chart('containerConsumidores', {
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie'
-            },
-            colors: ['#0d6efd', '#fd7e14', '#dc3545'],
-            title: {
-                text: 'Tipos de consumidores'
-            },
-            accessibility: {
-                point: {
-                    valueSuffix: '%'
-                }
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-                    }
-                }
-            },
-            series: [{
-                name: 'Consumidores',
-                colorByPoint: true,
-                data: arrayData
-            }]
-        });        
-    }*/
 
     return (
         <div className="container-fluid mt-2">
@@ -142,9 +93,7 @@ const Producida = () => {
                 <div className="d-flex align-content-center col-md-6 col-lg-6 col-xl-6">
                     <div id="containerPorductoresCentrales" className="w-100 mx-auto"></div>
                 </div>
-                <div className="d-flex align-content-center col-md-6 col-lg-6 col-xl-6">
-                    <div id="containerConsumidores" className="w-100 mx-auto"></div>
-                </div>
+                
             </div>
         </div>
     )
