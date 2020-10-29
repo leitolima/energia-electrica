@@ -175,5 +175,6 @@ router.post('/consumidores/sumartodos', auth, cConsumidores.sumarTodos);
 //Carga de energia
 router.post('/energia/carga', auth, cEnergia.cargarDatos);
 router.post('/energia/reporte/consumida', auth, cEnergia.informeEnergiaConsumida);
+router.post('/energia/reporte/producida', auth, cEnergia.informeEnergiaProducida);
 
 module.exports = router;

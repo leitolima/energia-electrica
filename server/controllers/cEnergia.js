@@ -39,3 +39,7 @@ exports.informeEnergiaConsumida = async (req, res) => {
     const reporte = await mEnergia.getInformeConsumida();
     res.send(reporte);
 }
+exports.informeEnergiaProducida = async (req, res) => {
+    const reporte = await mEnergia.getInformeProducida();
+    res.send(reporte);
+}

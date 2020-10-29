@@ -17,7 +17,10 @@ exports.cargaConsumida = obj => {
 
 exports.getInformeProducida = () => {
     return db(`
-    
+        SELECT *, AVG(vol_energia) AS promedio
+        FROM energiaxd WHERE tipo_carga = 1
+        GROUP BY id_central_fk
+        ORDER BY id_central_fk
     `, []);
 }
 

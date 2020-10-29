@@ -63,3 +63,12 @@ exports.sumarTodos = () => {
         WHERE z.borrado = 0;
     `, []);
 }
+
+exports.sumarCentrales = () => {
+    return db(`
+    SELECT 
+    FROM consumidores c
+    LEFT JOIN zonas_servicio z ON z.id = c.id_zona_fk
+    WHERE z.borrado = 0;
+`,[]);
+}
